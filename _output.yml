@@ -1,0 +1,39 @@
+bookdown::gitbook:
+  css: style.css # This is how bookdown knows to look at style.css for formatting
+  pandoc_args:
+    - "--lua-filter=callouts.lua"
+  includes:
+    in_header:
+      - fa-header.html
+      - _bioschemas.html
+  config:
+    sharing:
+      facebook: no
+      twitter: no
+    toc: # Table of Contents
+      collapse: subsection
+      before: |
+        <a href="https://bioinformaticsdotca.github.io/">
+         <img src="img/bioinformatics_logo.png" width="90%" alt="bioinformatics.ca logo" style="display:block; margin-left:auto; margin-right:auto; margin-top:15px;">
+         </a>
+        <li><center><strong><a href="./"><br>Reproducible Research: Essentials for Managing Your Data<br><br></a></strong></center></li>
+        <a href="./">
+         <img src="img/missingimg.png" width="70%" alt="Reproducible Research: Essentials for Managing Your Data logo" style="display:block; margin-left:auto; margin-right:auto; ">
+         </a>
+        <br>
+
+      after: |
+        <h1 id="sponsors">Sponsors</h1>
+        <center>
+        <a href="https://www.cihr-irsc.gc.ca"><img src="img/sponsors/cihr.png" width=90% style="padding-bottom: 20px" alt="Canadian Institutes of Health Research logo."></a>
+
+        <a href="https://genomecanada.ca/"><img src="img/sponsors/genomecanada.png" height="55" style="display:inline-block;"  style="padding-bottom: 20px" alt="Genome Canada logo.">
+        <a href="https://www.ontariogenomics.ca/"><img src="img/sponsors/ontariogenomics.png" height="55" style="display:inline-block;" style="padding-bottom: 20px;" alt="Ontario Genomics logo.">
+        <br><br>
+        <a href="https://oicr.on.ca/"><img src="img/sponsors/oicr.png" width=35% style="display:inline-block;" style="padding-bottom: 20px" alt="Ontario Institute for Cancer Research logo.">
+
+
+    edit: https://github.com/bioinformaticsdotca/RDM_To-2605/blob/main/%s
+
+    download: ["pdf", "epub"]
+  number_sections: false

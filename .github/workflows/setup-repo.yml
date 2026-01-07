@@ -1,0 +1,68 @@
+name: Setup Workshop from Config
+
+on:
+  push:
+    paths:
+      - 'workshop_config.json'
+
+jobs:
+  replace-variables:
+    if: github.repository != 'cbw-dev/bookdown-template'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # --- CHANGE: This step now checks the config and sets an output ---
+      - name: Load Variables and Check Config
+        id: config
+        run: |
+          # Load all variables into the environment for later steps
+          echo "WORKSHOP_CODE=$(jq -r .workshop_code workshop_config.json)" >> $GITHUB_ENV
+          echo "WORKSHOP_NAME=$(jq -r .workshop_name workshop_config.json)" >> $GITHUB_ENV
+          echo "YEAR=$(jq -r .year workshop_config.json)" >> $GITHUB_ENV
+          echo "URL=$(jq -r .url workshop_config.json)" >> $GITHUB_ENV
+          echo "DATES=$(jq -r .dates workshop_config.json)" >> $GITHUB_ENV
+          echo "FACULTY=$(jq -r .faculty workshop_config.json)" >> $GITHUB_ENV
+
+          # Check the key variable and set a true/false output for the next steps
+          if [[ "$(jq -r .workshop_code workshop_config.json)" == "Workshop Code (e.g. INR_Mon-2510)" ]]; then
+            echo "is_configured=false" >> $GITHUB_OUTPUT
+            echo "Configuration not complete. Halting."
+          else
+            echo "is_configured=true" >> $GITHUB_OUTPUT
+            echo "Configuration complete. Proceeding with setup."
+          fi
+
+      # --- CHANGE: All subsequent steps now check the output of the 'config' step ---
+      - name: Rename .Rproj file
+        if: steps.config.outputs.is_configured == 'true'
+        run: mv template.Rproj "${{ env.WORKSHOP_CODE }}.Rproj"
+
+      - name: Replace All Placeholders
+        if: steps.config.outputs.is_configured == 'true'
+        run: |
+          find . -type f -not -path './.git/*' -not -path './.github/*' -exec sed -i \
+            -e "s|{{WORKSHOP_CODE}}|${WORKSHOP_CODE}|g" \
+            -e "s|{{WORKSHOP_NAME}}|${WORKSHOP_NAME}|g" \
+            -e "s|{{YEAR}}|${YEAR}|g" \
+            -e "s|{{URL}}|${URL}|g" \
+            -e "s|{{DATES}}|${DATES}|g" \
+            -e "s|{{FACULTY}}|${FACULTY}|g" \
+            {} +
+
+      - name: Clean up config file
+        if: steps.config.outputs.is_configured == 'true'
+        run: rm workshop_config.json
+
+      - name: Commit and Push Changes
+        if: steps.config.outputs.is_configured == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit --amend -m "feat: setup workshop with custom variables"
+          git push --force
