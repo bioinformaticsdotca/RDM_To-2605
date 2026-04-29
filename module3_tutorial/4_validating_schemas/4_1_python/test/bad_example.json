@@ -1,0 +1,7 @@
+{
+  "$schema" : "/Users/esu/Desktop/work/RDM_workshop/json_tutorial/schema.json",
+  "firstName": "John",
+  "lastName": 1,
+  "age": 21
+}
+

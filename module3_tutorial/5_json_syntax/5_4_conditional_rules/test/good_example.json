@@ -1,0 +1,9 @@
+{
+    "$schema":"./schema.json",
+    "firstName" : "Joe",
+    "lastName": "Foster-Smith",
+    "age": 18,
+    "honorific":"Mx",
+    "diagnosis" : ["cold"],
+    "country" : "Canada"
+}
