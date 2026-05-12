@@ -1,6 +1,705 @@
-# Module 2
+# Module 2: Version Control with Git
+**CBHC 2026 Workshop | Research Data Management | Instructors: Mitchell Shiell and Linda Xiang**
 
-## Lecture
+**Total Time: 60 min | Lecture: 20 min | Lab: 40 min**
 
 
-## Lab
+---
+
+
+## Contents
+- [Learning Objectives](#learning-objectives)
+- [Learning Outcomes](#learning-outcomes)
+- [Success Criteria](#success-criteria)
+  - [Self-assessment](#self-assessment)
+  - [Formal assessment](#formal-assessment)
+- [Agenda](#agenda)
+- [Lecture (20 min)](#lecture-20-min)
+- [Lab (40 min)](#lab-40-min)
+  - [Lab Agenda](#lab-agenda)
+  - [Prerequisite](#prerequisite)
+  - [Lab Tracks](#lab-tracks)
+    - [Track A — Core](#track-a-core-everyone-10-min)
+    - [Track B — Intermediate](#track-b-intermediate-20-min-total-includes-track-a)
+    - [Track C — Advanced](#track-c-advanced-30-min-total-includes-track-a-and-b-requires-a-partner)
+  - [Wrap-up and Key Takeaways](#wrap-up-and-key-takeaways)
+- [Reference](#reference)
+
+---
+
+## Learning Objectives
+
+By the end of this module, instructors will have taught participants to:
+
+0. **Confirm prerequisite readiness** — verify Git is installed and accessible from the command line, an active GitHub account with two-factor authentication is configured, and a working command-line interface (Terminal on macOS/Linux, or Git Bash on Windows) before beginning hands-on activities.
+1. **Explain the purpose of version control** — articulate why tracking changes matters for reproducibility and collaboration in research.
+2. **Navigate the Git mental model** — distinguish between the working directory, staging area, and repository, and describe how commits create a traceable history.
+3. **Execute a basic Git workflow** — initialise a repository, stage files, commit changes, and push to a remote on GitHub.
+4. **Interpret the project history** — use `git log`, `git diff`, and `git status` to interrogate what has changed and why.
+5. **Apply selective tracking practices** — configure `.gitignore` to exclude large data files, credentials, and generated outputs from version control.
+6. **Use branches for parallel work** — create and merge feature branches, and resolve simple merge conflicts.
+7. **(Optional) Collaborate on a protected repository** — configure branch protection rules, resolve a merge conflict via rebase, clean up commit history with interactive rebase, trigger a GitHub Actions CI check, and complete a structured code-review workflow with CODEOWNERS.
+
+---
+
+## Learning Outcomes
+
+By the end of this module, participants will be able to:
+
+0. Confirm that Git is installed by running `git --version` in the terminal, verify that their GitHub account is active with 2FA enabled, and successfully open a command-line interface appropriate for their operating system (Terminal on macOS/Linux, or Git Bash on Windows).
+1. Open a terminal (or Git Bash on Windows) and confirm that Git is installed and configured with their name and email.
+2. Create a new Git repository for a research project and make their first commit with a meaningful commit message.
+3. Stage and commit incremental changes, producing a commit history that reflects the evolution of a project.
+4. Push a local repository to GitHub and pull updates from a remote.
+5. Read `git log` output and use `git diff` to compare versions of a file.
+6. Write a `.gitignore` file that excludes raw data files and environment-specific files from the repository.
+7. Create a feature branch, commit changes on it, and merge it back into `main`.
+8. (**Optional**) Configure branch protection rules, resolve a rebase-based merge conflict, squash commits with interactive rebase, add a GitHub Actions CI workflow, and complete a pull request that passes automated checks and a structured code review.
+
+---
+
+## Success Criteria
+
+### Self-assessment
+
+| Question | Timing | Answer | 
+|:---|:---|:---|
+| Have I verified that Git is installed (`git --version` works),  my GitHub account is active with 2FA enabled, and I can open a working  <br> command-line interface (Terminal, VS Code, or RStudio)? |  Before Track A begins  |[ ] Confirmed <br> [ ] Partially <br> [ ] Not yet |
+| Can I initialise a repository, make commits with meaningful messages, and push to GitHub? | End of Track A |[ ] Confident <br> [ ] Getting there <br> [ ] Not yet |
+| Can I use `git log` and `git diff` to explain what changed, why, and when? | End of Track B | [ ] Confident <br> [ ] Getting there <br> [ ] Not yet |
+| Can I create a branch, open a pull request, address review comments, and merge without losing work? |  End of Track B | [ ] Confident <br> [ ] Getting there <br> [ ] Not yet |
+| Can I resolve a merge conflict, rebase onto `main`, squash my commits, and ensure CI passes before a PR is approved? |  End of Track C | [ ] Confident <br> [ ] Getting there <br> [ ] Not yet |
+
+> **How to use:** Work through each question and tick the box when you can do it confidently. If you answer "Not yet" to any row, revisit the corresponding checkpoint in the detailed table below.
+
+### Formal assessment
+
+| Observable indicator | Timing | Answer |
+|:---|:---|:---|
+| Participant can open a terminal, run `git --version` successfully, log into GitHub (2FA confirmed), access their preferred interface (Terminal / VS Code / RStudio) | Before Track A begins | [ ] Yes <br> [ ] With help <br> [ ] Not yet |
+| Participant's GitHub repository shows ≥ 3 commits with descriptive messages, a rendered `README.md`, a `.gitignore` suppressing at least one file type | End of Track A | [ ] Yes <br> [ ] With help <br> [ ] Not yet |
+| `git log --oneline --graph` output shows a feature branch, a merge (or rebase) commit, no conflict markers (`<<<<<<<`) remaining in any tracked file, a closed PR appears in the GitHub UI | End of Track B | [ ] Yes <br> [ ] With help <br> [ ] Not yet |
+| PR on GitHub is closed with a green CI status check, a squash-merge commit, a recorded approval review, a branch protection rules visible in *Settings → Branches* | End of Track C | [ ] Yes <br> [ ] With help <br> [ ] Not yet |
+| Participant can narrate *why* each step matters for their own research data workflow, name one concrete example from their work | Wrap-up / debrief | [ ] Yes <br> [ ] With help <br> [ ] Not yet |
+
+---
+
+## Agenda
+- Lecture (20 mins): Version Control with Git
+  - Intro to Version Control
+  - The Core Git Workflow
+  - Collaboration using Git & Github
+- Lab (40 mins): Practicing version control in Git through command line, VSCode or RStudio
+  - Setup and Orientation
+  - Lab Track A: Beginners
+  - Lab Track B: Intermediate
+  - Lab Track C: Advanced
+  - Wrap Up
+
+---
+
+## Lecture (20 min)
+
+### Lecture Agenda
+- Intro to Version Control
+  - Common Concerns
+  - Good Version Control
+  - Of all the version control tools, we will use Git
+- The Core Git Workflow
+  - Setting up a git repository
+  - git add, commit, push
+  - git checkout, branch, merge
+- Collaboration using Git & Github
+  - Git is the tool. Github is the platform
+  - Running the loop
+  - Remote repos + branches enable parallel work
+  - Pull requests
+
+### Lecture Slides
+The lecture slide deck can be [found here](https://docs.google.com/presentation/d/14uIRZa8Ye4iJsJQ0Fbd2Wgdi7CBV8Hqf/edit?usp=drive_link&ouid=113327781667376325096&rtpof=true&sd=true)
+
+---
+
+## Lab (40 min)
+
+### Lab Agenda
+- [Setup and Orientation (5 mins)](#prerequisite)
+  - Introduce the three interface options: all do the same thing, pick your comfort level
+  - Participants self-select the three lab tracks 
+  - Pair experienced participants with beginners if possible
+
+- [Lab Track A: Beginners (10 mins)](#track-a-core-everyone-10-min)
+  - Config git identity
+  - Create a local repository
+  - Create a README and make the first commit
+  - Connect to GitHub and push
+  - Make a change and commit
+
+- [Lab Track B: Intermediate (10 mins)](#track-b-intermediate-20-min-total-includes-track-a)
+  - Create .gitignore
+  - Branch and merge locally
+  - Explore history
+  - Simulate and resolve a merge conflict
+  - Push a branch and open a Pull Request on GitHub
+
+- [Lab Track C: Advanced (10 mins)](#track-c-advanced-30-min-total-includes-track-a-and-b-requires-a-partner)
+  - Fork, clone, and configure branch protection
+  - Trigger and resolve a deliberate merge conflict 
+  - Clean up history with interactive rebase
+  - Add a GitHub Actions CI workflow 
+  - CODEOWNERS, code review, and merge
+
+- [Wrap-up and Key Takeaways (5 mins)](#wrap-up-and-key-takeaways)
+
+---
+
+### Prerequisite
+
+- Git installed: [Installation Guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- GitHub account created (with 2FA configured): [Creating a GitHub Account](https://swcarpentry.github.io/git-novice/#creating-a-github-account)
+- Preferred interface ready: 
+  - Command Line (Terminal/Git Bash)
+  - VS Code: [Source Control Panel](https://code.visualstudio.com/docs/sourcecontrol/overview)
+  - RStudio: [Git Pane](https://happygitwithr.com/)
+
+### Lab Tracks
+
+Participants self-select based on experience. All tracks use the same repository and produce the same outcome — only the interface and depth differ.
+::: {.callout type="blue" title="Note"}
+**Shared scenario:** *You are beginning a new analysis project. Your task is to create a version-controlled repository for your research code, make and document a change, and (in the extended track) collaborate with a partner.*
+:::
+
+---
+
+#### Track A  Core (Everyone, 10 min)
+::: {.callout type="green" title="Tip"}
+*Appropriate for: first-time Git users or those who want to practice the basics*
+:::
+
+**Exercises:**
+
+1. **Configure Git identity** (first time only)
+   ```bash
+   git config --global user.name "Your Name"          # sets your display name in commit history
+   git config --global user.email "you@institution.edu"  # links commits to your email address
+   ```
+
+2. **Create a local repository**
+   ```bash
+   mkdir my-rdm-project   # create a new project folder
+   cd my-rdm-project      # move into it
+   git init               # initialise an empty Git repository (.git/ folder is created here)
+   ```
+   - In VS Code: open folder → Source Control panel → "Initialize Repository"
+   - In RStudio: File → New Project → New Directory → check "Create a git repository"
+
+3. **Create a README and make the first commit**
+   - Create a file `README.md` and describe your project in 2–3 sentences. E.g,
+   ```bash
+   touch README.md   # create an empty README.md file
+   ```
+   - Once you have finished writing your `README.md` run the following git commands
+
+   ```bash
+   git add README.md      # stage README.md — move it to the staging area, ready to be committed
+   git commit -m "Add project README with initial description"  # save a labelled snapshot of staged changes
+   ```
+
+4. **Connect to GitHub and push**
+   - Create a new repository on GitHub.com (no README, no .gitignore — blank)
+   - Copy the remote URL and add it:
+   ```bash
+   git remote add origin https://github.com/yourname/my-rdm-project.git  # link your local repo to GitHub
+   git push -u origin main   # upload commits to GitHub; '-u' sets origin/main as the default tracking branch
+   ```
+   - Verify: refresh GitHub — your README should appear
+
+::: {.callout type="yellow" title="Important"}
+**GitHub authentication with GitHub CLI:** The easiest way to authenticate is using the GitHub CLI (`gh`). It handles credentials securely without requiring you to generate or store tokens manually, and it automatically configures your Git credential helper.
+
+**Step 1 — Install the GitHub CLI** (do this once):
+- macOS: `brew install gh`
+- Windows: `winget install --id GitHub.cli` (or download the installer from [cli.github.com](https://cli.github.com))
+- Linux: see the [installation guide](https://github.com/cli/cli/blob/trunk/docs/install_linux.md) for your distribution
+
+**Step 2 — Authenticate:**
+```bash
+gh auth login
+```
+Follow the interactive prompts:
+1. **Where do you use GitHub?** → `GitHub.com`
+2. **What is your preferred protocol for Git operations?** → `HTTPS`
+3. **How would you like to authenticate GitHub CLI?** → `Login with a web browser`
+4. Copy the one-time code displayed in the terminal, press **Enter** — your browser opens to `github.com/login/device`
+
+**Step 3 - Paste the one-time code**
+- Paste the code, click **Authorize GitHub CLI**, and complete any 2FA prompt
+- `gh` automatically configures your Git credential helper. You will not be prompted for a username or password when you run `git push`.
+
+**Step 4 - Verify it worked:**
+```bash
+gh auth status
+```
+You should see `✓ Logged in to github.com` with your account name.
+:::
+
+5. **Make a change and commit**
+   - Add a line to `README.md` (e.g., list your data sources or research question)
+   - Stage, commit with a descriptive message, push
+   - Inspect `git log --oneline` — you should see two commits
+
+**Checkpoint:** 
+
+- You create a repo on GitHub
+- Your repo on GitHub has at least 2 commits with meaningful messages.
+- Use `git log` and `git diff` to explain what changed, why, and when?
+
+---
+
+#### Track B Intermediate (20 min total, includes Track A)
+::: {.callout type="green" title="Tip"}
+*Appropriate for: comfortable with the command line, have used Git before but not regularly*
+:::
+
+**After completing Track A, continue:**
+
+6. **Create a `.gitignore`**
+   - Create a file named `.gitignore` and add entries for files that should not be tracked:
+   ```
+   *.csv
+   *.xlsx
+   data/raw/
+   .DS_Store
+   .Rhistory
+   ```
+   - Commit the `.gitignore` and push
+   - **Discuss**: why would you exclude raw data files from version control in a health research context?
+
+::: {.callout type="green" title="Tip"}
+*Git/GitHub has file size limits; raw data may contain PHI or identifiable information; reproducibility comes from scripts and workflows, not data copies; data sharing agreements may restrict where data is stored; dedicated data repositories are better suited for data archiving*
+:::
+
+7. **Branch and merge locally**
+   ```bash
+   git checkout -b feature/add-methods-section   # create a new branch and switch to it in one step
+   ```
+
+   - Create a new file `methods.md` with a brief description of your analysis approach. E.g,
+   ```bash
+   touch methods.md   # create an empty methods.md file
+   ```
+   - Add and commit on this branch
+   - Switch back to `main` and merge:
+   ```bash
+   git checkout main                     # switch back to the main branch
+   git merge feature/add-methods-section   # bring the feature branch commits into main
+   git push                              # upload the updated main to GitHub
+   ```
+
+::: {.callout type="green" title="Tip"}
+`-b` is shorthand — it is equivalent to running two separate commands:
+```bash
+git branch feature/add-methods-section   # create the branch
+git checkout feature/add-methods-section  # switch to it
+```
+Or, using the modern alternative: `git switch -c feature/add-methods-section` (`-c` = create)
+:::
+
+8. **Explore history**
+   ```bash
+   git log --oneline --graph   # condensed, visual history of commits and branch structure
+   git diff HEAD~1 HEAD        # compare the latest commit (HEAD) with the one before it (HEAD~1)
+   ```
+   - Identify what changed between your last two commits
+
+9. **Simulate and resolve a merge conflict**
+   - Create a second branch, open README.md and add a line at the bottom: `Status: in progress`. 
+   - Git add and commit it from the second branch.
+
+   ```bash
+   git checkout -b feature/update-status
+   # edit README.md — add the Status line: in progress
+   git add README.md && git commit -m "update status to in progress"
+   ```
+   - Go back to `main`, open README.md,and edit the same line to: `Status: draft`. 
+   - Git add and commit it from the `main` branch
+   - Merge the second branch back into `main`:
+   ```bash
+   git checkout main
+   # edit README.md — add the Status line: draft
+   git add README.md && git commit -m "update status to draft"
+   git merge feature/update-status
+   ```
+   - Git will report a conflict. Open `README.md` and look for the conflict markers. Here is what they mean:
+     ```
+     <<<<<<< HEAD
+     Status: draft
+     =======
+     Status: in progress
+     >>>>>>> feature/update-status
+     ```
+     - `<<<<<<< HEAD` — marks the start of **your current branch's version** (the branch you are merging *into*, i.e. `main`)
+     - `=======` — the dividing line between the two conflicting versions
+     - `>>>>>>> feature/update-status` — marks the end of the **incoming branch's version** (the branch being merged *in*)
+     
+   - Delete the markers and all lines you don't want, leaving only the text you choose (or a combination of both). Then:
+   ```bash
+   git add README.md
+   git commit -m "resolve merge conflict in README"
+   git push
+   ```
+   - **Discuss**: what practices reduce the chance of conflicts in a shared research repository?
+
+::: {.callout type="green" title="Tip"}
+*Small, focused commits on a single topic; clear branch naming (e.g. `feature/`, `fix/`); pull from `main` frequently before starting new work; one person per file or section at a time; agree on a shared project structure upfront; communicate early when two people need to edit the same file*
+:::
+
+10. **Push a branch and open a Pull Request on GitHub**
+    - Create a new branch and add a brief `CONTRIBUTING.md` file (one or two sentences is fine):
+    ```bash
+    git checkout -b feature/contributing-guide
+    # create CONTRIBUTING.md
+    git add CONTRIBUTING.md && git commit -m "add contributing guide"
+    git push -u origin feature/contributing-guide
+    ```
+    - On GitHub, open a Pull Request from `feature/contributing-guide` → `main`
+    - Write a short PR description explaining what the file adds and why
+    - Merge the PR on GitHub, then update your local `main`:
+    ```bash
+    git checkout main
+    git pull
+    ```
+
+    - **Discuss**: why are pull requests important, and what role do branch protection rules play?
+
+::: {.callout type="green" title="Tip"}
+*A PR creates a formal checkpoint before code reaches `main` — it is visible, reviewable, and auditable. Without branch protection, anyone with write access can push directly to `main`, bypassing review entirely. Branch protection rules enforce the PR workflow: they block direct pushes, require a minimum number of approvals, and can mandate passing CI checks. Together these ensure that `main` only ever contains reviewed, tested code — which is especially important in health research where a bad commit could corrupt a shared analysis or leak sensitive data. PRs also serve as a record of what changed, why, and who approved it.*
+:::
+
+**Checkpoint:** 
+
+- At least three branches created at your local
+- One resolved merge conflict in its history 
+- At least one Pull Request merged via GitHub. 
+- All are visible in git log --oneline --graph.
+
+---
+
+#### Track C Advanced (30 min total, includes Track A and B, requires a partner)
+::: {.callout type="green" title="Tip"}
+*Appropriate for: experienced Git users comfortable with branches, remotes, and pull requests*
+:::
+
+::: {.callout type="yellow" title="Important"}
+**Roles**
+
+* 🏠 **Owner** — hosts the repository and holds merge rights. 
+* 🔧 **Contributor** — forks and submits work via pull requests. 
+* 🤝 **Both** — steps both partners perform together.
+:::
+
+11. **Fork, clone, and configure branch protection (5 min)**
+    - 🏠 **Owner**: on GitHub, go to **Settings → Branches → Add branch ruleset** (or "Add rule") for `main`:
+      - **Ruleset name**: give it any name (e.g. `pr-merging`)
+      - **Enforcement status**: set it as `Active`
+      - **Bypass list**: leave this empty — do not add yourself or any role. The point of this exercise is that the rule applies to everyone, including the Owner; bypasses defeat the purpose
+      - **Target branches**: click *Add target → Include by pattern* and type `main` — this scopes the rule to the `main` branch only; without a target the ruleset has no effect
+      - **Branch rules**: enable *Require a pull request before merging* (minimum 1 approval)
+      - **Save changes**: direct pushes to `main` are now blocked for everyone, including the Owner
+
+    - 🏠 **Owner**: add the Contributor as a collaborator so they can approve pull requests:
+      - Go to **Settings → Collaborators** (you may be prompted to confirm your password)
+      - Click **"Add people"**, search for the Contributor's GitHub username, and click **"Add [username] to this repository"**
+      - The Contributor receives an invitation email (and a notification on GitHub) — they must **accept the invitation** before they can approve PRs
+
+    - 🔧 **Contributor**: fork the Owner's repository on GitHub:
+      - Navigate to the Owner's repository page on GitHub.com
+      - Click the **Fork** button (top-right of the page)
+      - On the "Create a new fork" page, leave the defaults and click **Create fork** — GitHub creates a copy under your own account
+
+      Then from your terminal, clone your fork and add the Owner's repo as an `upstream` remote:
+      ```bash
+      git clone https://github.com/YOUR-USERNAME/repo-name.git
+      cd repo-name
+      git remote add upstream https://github.com/OWNER-USERNAME/repo-name.git  # track the original repo alongside your fork
+      git fetch upstream   # download updates from the original repo without merging
+      ```
+    - **Discuss**: what is the difference between `git fetch` and `git pull`, and when would you use each?
+
+::: {.callout type="green" title="Tip"}
+*`git fetch` downloads remote changes but does not touch your working files — you inspect them first with `git log` or `git diff origin/main`; `git pull` is `git fetch` + `git merge` in one step, which is convenient but can create unexpected merge commits; in a shared or protected repo workflow, `git fetch` then rebase is preferred over `git pull` because it keeps history linear and avoids accidental merges into your working branch*
+:::
+
+::: {.callout type="blue" title="Note"}
+**GitHub may prompt for your passkey or password** before saving security-sensitive settings. This is a normal GitHub verification step; authenticate when prompted and continue.
+:::
+
+12. **Trigger and resolve a deliberate merge conflict (5 min)**
+    - 🤝 **Both** (independently): create a branch off `main` and edit the **same line** of `README.md` in different ways:
+      - 🏠 Owner: `git switch -c owner-edit` 
+      - 🔧 Contributor: `git switch -c contributor-edit`
+
+    - 🏠 **Owner**: git add, commit and push the change, open a PR on Github → `main`
+    - 🏠 **Owner**: merge the PR immediately after the Contributor's approval
+    - 🔧 **Contributor**: git add, commit and push `contributor-edit` to their fork and open a PR on Github against Owner's `main` — GitHub now reports a merge conflict
+
+    - 🔧 **Contributor**: resolve the conflict locally using **rebase** (preferred over merge for a clean linear history):
+
+    ```bash
+    git fetch upstream                               # get the latest changes from the original repo
+    git rebase upstream/main                         # replay your commits on top of the updated main
+    # Open README.md, locate and resolve the conflict markers (<<<<<<<, =======, >>>>>>>), 
+    # Save and close the editor (in vim: `Esc` → `:wq`; in nano: `Ctrl+X → Y → Enter`), then:
+    git add README.md          # mark the conflict as resolved — do NOT run git commit here
+    git rebase --continue      # rebase resumes and re-applies the commit automatically
+    git push --force-with-lease origin contributor-edit  # force-push safely: fails if the remote moved unexpectedly
+    ```
+
+    - 🤝 **Both**: confirm the PR on GitHub now shows "No conflicts with the base branch"
+
+    - **Discuss**: when should you use `git rebase` to resolve a conflict instead of `git merge`?
+
+::: {.callout type="green" title="Tip"}
+**What is `git rebase`, and when to use it?** Instead of creating a merge commit, rebase *replays* your commits on top of the target branch, producing a linear history with no extra merge commit, which is easier to read and review. A common convention: rebase your feature branch onto `main` before opening a PR; use merge (or squash-merge) when closing the PR on GitHub. **Never rebase a branch others are actively working on** — it rewrites commit SHAs and causes conflicts for everyone else.
+:::
+
+::: {.callout type="yellow" title="Important"}
+**Self-approval is blocked for everyone.** Because the bypass list is empty (set in step 11), branch protection applies equally to the Owner and the Contributor 
+
+* The 🔧 **Contributor** must approve the Owner's PR
+* The 🏠 **Owner** must approve the Contributor's PR. 
+* Click **"Add your review" → "Approve" → "Submit review"** on the PR page.
+:::
+
+::: {.callout type="red" title="Caution"}
+**Two rebase-specific rules to follow:**
+
+* **Do not run `git commit`** after `git add`. `git rebase --continue` handles the commit automatically. Running `git commit` here creates a duplicate or empty commit.
+* **Use `--force-with-lease`, not `--force`** — after a rebase, commits get new SHAs so a plain `git push` is rejected. `--force-with-lease` lets the push through but fails safely if the remote branch moved since your last `git fetch`, protecting against overwriting someone else's work.
+:::
+
+
+13. **Clean up history with interactive rebase (5 min, optional)**
+    - Suppose `contributor-edit` contains several messy WIP commits. Squash them into one clean commit before requesting review.
+
+      **Step 1 — Check what you have:**
+      ```bash
+      git log --oneline upstream/main..HEAD
+      ```
+      Example output (three commits you want to collapse into one):
+      ```
+      a3f1c2e fix typo in README
+      9d0b4a1 wip: more edits
+      7e2d3f8 add draft analysis section
+      ```
+
+      **Step 2 — Start the interactive rebase:**
+      ```bash
+      git rebase -i upstream/main
+      ```
+      Git opens a text editor listing your commits **oldest first**, with commands on the left:
+      ```
+      pick 7e2d3f8 add draft analysis section
+      pick 9d0b4a1 wip: more edits
+      pick a3f1c2e fix typo in README
+
+      # Commands:
+      # p, pick   = use commit as-is
+      # s, squash = fold this commit into the one above it
+      # r, reword = use commit, but edit the message
+      # d, drop   = discard the commit entirely
+      ```
+
+      **Step 3 — Mark commits to squash:**
+      Keep the first commit as `pick`; change the rest to `squash` (or just `s`):
+      ```
+      pick 7e2d3f8 add draft analysis section
+      squash 9d0b4a1 wip: more edits
+      squash a3f1c2e fix typo in README
+      ```
+      Save and close the editor (in vim: `Esc` → `:wq`; in nano: `Ctrl+X → Y → Enter`).
+
+      **Step 4 — Write the combined commit message:**
+      After you save and close the pick/squash editor, Git automatically opens a second editor showing all three original messages. Delete the WIP lines and write one clear, descriptive message:
+      ```
+      Add draft analysis section to README
+
+      Describes the planned analysis approach and data sources.
+      References the methods.md file added in Track B.
+      ```
+      Save and close — the three commits are now one.
+
+    - **Step 5 — Force-push the cleaned branch:**
+      ```bash
+      git push --force-with-lease origin contributor-edit
+      ```
+    - **Discuss**: why is a squashed, readable history valuable before merging into `main`?
+
+::: {.callout type="green" title="Tip"}
+*A single clean commit is much easier to review than a chain of WIP saves; `git log` stays readable for future contributors; reverting an entire feature is simpler when it is one commit; signals professionalism; serves as lasting documentation of intent*
+:::
+
+14. **Add a GitHub Actions CI workflow (5 min, optional)**
+
+    - 🔧 **Contributor**: create a dedicated branch for the CI file and create `.github/workflows/ci.yml` there:
+      ```bash
+      git switch main && git pull upstream main
+      git switch -c add-ci
+      mkdir -p .github/workflows
+      ```
+      Create `.github/workflows/ci.yml` with:
+      ```yaml
+      name: CI
+      on:
+        pull_request:
+          branches: [main]
+      jobs:
+        validate:
+          runs-on: ubuntu-latest
+          steps:
+            - uses: actions/checkout@v4
+            - name: Check for TODO comments
+              run: "! grep -rn 'TODO' --include='*.md' ."
+      ```
+      ```bash
+      git add .github/workflows/ci.yml
+      git commit -m "add CI workflow to check for TODO comments"
+      git push -u origin add-ci
+      ```
+    - 🔧 **Contributor**: open a PR from `add-ci` → Owner's `main` with the description: *"Adds a CI workflow that fails if any .md file contains a TODO comment"*
+
+    - 🏠 **Owner**: approve and **merge** this PR 
+
+    - 🤝 **Both**: open a **new test PR** — Contributor pushes any small change on a new branch and opens a PR against Owner's `main`
+      - This is the first PR where `ci.yml` exists on `main`; GitHub will trigger the `CI` workflow automatically
+      - Watch the **Actions** tab on the Owner's repository — the run appears within seconds of the PR being opened
+
+    - 🏠 **Owner**: once that run completes, go to **Settings → Branches**, edit the ruleset, enable *Require status checks to pass*, and search for `validate` — it will now appear in the autocomplete list
+
+    - 🤝 **Both**: on the open test PR, deliberately add `TODO` to a `.md` file and push — watch the check fail; remove it and re-push to see it go green
+    - **Discuss**: how does automated CI enforce quality standards for collaborative research code?
+
+::: {.callout type="green" title="Tip"}
+*Catches errors automatically before any human reviews the PR; enforces the same standards for every contributor; reduces reviewer burden to logic and design rather than style; creates an auditable record of every check; gives the team confidence that merging won't break the project*
+:::
+
+::: {.callout type="yellow" title="Important"}
+**Additional scope required for workflow files:** Pushing files under `.github/workflows/` requires the `workflow` scope, which `gh auth login` does not request by default. If you get a `refusing to allow a OAuth App to create or update workflow` error when pushing, run:
+```bash
+gh auth refresh -s workflow
+```
+This opens a browser prompt to re-authorise the GitHub CLI with the additional scope. Once complete, retry your `git push`.
+:::
+
+
+15. **CODEOWNERS, code review, and merge (5 min, optional)**
+    - 🏠 **Owner**: on a new branch (e.g. `add-codeowners`), create `.github/CODEOWNERS` and open a PR to merge `add-codeowners` → `main` on GitHub:
+
+      ```bash
+      git switch -c add-codeowners
+      mkdir -p .github              # create the .github folder if it does not exist
+      touch .github/CODEOWNERS     # create .github/CODEOWNERS with the below content
+      ```
+
+      ::: {.callout type="yellow" title="Important"}
+      Replace `@owner-username` and `@contributor-username` below with real GitHub usernames before committing. Leaving the placeholder values as-is will prevent GitHub from assigning reviewers correctly.
+      :::
+
+      ```
+      # Automatically request reviews from designated owners when these paths change
+      /analysis/   @owner-username
+      /docs/       @contributor-username
+      ```
+      ```
+      git add .github/CODEOWNERS
+      git commit -m "add CODEOWNERS to assign reviewers by path"
+      git push -u origin add-codeowners
+      ```
+
+    - 🔧 **Contributor**: review the Owner's PR using GitHub's inline suggestion feature:
+      1. On the PR page, click the **"Files changed"** tab
+      2. Hover over the line you want to suggest a change on — a blue **"+"** icon appears on the left margin; click it
+      3. A comment box opens. Click the **"Add a suggestion"** button (the icon that looks like a document with a `±` symbol, in the comment toolbar) — this copies the current line into a fenced code block pre-filled with the original text:
+         ````
+         ```suggestion
+         /analysis/   @owner-username
+         ```
+         ````
+      4. Edit the text inside the suggestion block to what you propose, for example adding a wildcard or a second path:
+         ````
+         ```suggestion
+         /analysis/   @owner-username
+         *.R          @owner-username
+         ```
+         ````
+      5. Add a short comment above the suggestion explaining why (e.g. *"Suggest also covering R scripts directly under the root"*)
+      6. Click **"Start a review"** (not "Add single comment") — this queues the suggestion as part of a formal review rather than posting it immediately
+      7. When done adding suggestions and comments, click the green **"Submit review"** button (top-right of the Files changed tab) — a panel appears with three options:
+         - **Comment** — post feedback without a verdict (use when you have questions but aren't ready to approve or block)
+         - **Approve** — signal the PR is ready to merge (required here to satisfy the branch protection rule)
+         - **Request changes** — block the merge until the author addresses your comments
+         
+         Select **"Request changes"**, optionally add a summary comment, then click **"Submit review"**
+
+    - 🏠 **Owner**: on the PR page, click **"Commit suggestion"** to accept the Contributor's change directly from the GitHub UI — no local checkout needed; then re-request a review from the Contributor:
+      - Go to the **"Reviewers"** section in the right sidebar of the PR
+      - Click the **↺ re-request review** icon (circular arrow) next to the Contributor's name — this notifies the Contributor that the suggestion has been committed and their fresh approval is needed
+
+    - 🔧 **Contributor**: check the PR's **"Files changed"** tab to confirm the committed suggestion looks correct, then submit the formal approval: **"Finish your review" → "Approve" → "Submit review"**
+
+    - 🏠 **Owner**: once CI passes and the Contributor's approval is recorded, merge using **"Squash and merge"** to land a single clean commit on `main`
+
+    - 🏠 **Owner**: sync local repo:
+      ```bash
+      git switch main
+      git pull
+      ```
+    - 🔧 **Contributor**: sync from the Owner's repo:
+      ```bash
+      git switch main
+      git pull upstream main
+      ```
+
+    - 🤝 **Both**: verify that CODEOWNERS is working — open a new PR that changes a file under `/analysis/` or `/docs/` (or create one of those folders with a placeholder file) and observe that GitHub **automatically requests a review** from the designated owner in the Reviewers sidebar; no one has to remember to add the reviewer manually
+
+::: {.callout type="yellow" title="Important"}
+**Branch protection and re-requesting review:** The Owner cannot approve their own PR — the Contributor's approval is required to activate the merge button. After the Owner commits the Contributor's inline suggestion, GitHub dismisses the previous "Request changes" review state. The Owner must click the **↺ re-request review** icon next to the Contributor's name to notify them to re-examine and approve the updated code.
+:::
+
+::: {.callout type="blue" title="Note"}
+**How CODEOWNERS works:** Once `.github/CODEOWNERS` is on `main`, GitHub automatically adds the listed reviewers whenever a PR touches a matching path — no manual tagging needed. By default this is a suggestion only; to make it mandatory, go to **Settings → Branches → edit the ruleset → expand "Require a pull request before merging" → tick "Require review from Code Owners"**.
+:::
+
+**Checkpoint:** 
+
+- The repository has a branch-protected main
+- A passing CI check on the merged PR
+- A single squashed commit from the contributor
+- A CODEOWNERS file in .github/
+
+---
+
+### Wrap-up and Key Takeaways
+1. **Version control is part of good research practice**, not just a developer tool. It addresses reproducibility, attribution, and recovery.
+2. **The core workflow is simple:** `add → commit → push`. Everything else builds on this.
+3. **Commit messages are documentation.** Write them for your future self and your collaborators.
+4. **Never commit sensitive data.** PHI, credentials, and large raw data files do not belong in a Git repository.
+5. **Start now, even imperfectly.** A repository with messy commit messages is infinitely better than a folder of `_v**_FINAL_v**` files.
+6. **Quick reflection prompt:** name one project you're working on right now where you could start using version control this week.
+
+---
+
+## Reference
+
+| Resource | Highlight |
+|---|---|
+| [Software Carpentry: Version Control with Git](https://swcarpentry.github.io/git-novice/) | Complete self-paced course; covers everything in this module in depth |
+| [GitHub Docs: Hello World](https://docs.github.com/en/get-started/start-your-journey/hello-world) | GitHub-specific workflows, 10-minute guide |
+| [GitHub Skills](https://skills.github.com/) | Interactive, browser-based practice for PRs, branches, GitHub Actions |
+| [Oh Shit, Git!](https://ohshitgit.com/) | Plain-language fixes for common Git mistakes |
+| [The Turing Way: Version Control](https://book.the-turing-way.org/reproducible-research/vcs) | Research-focused perspective on version control best practices |
+| [Zenodo + GitHub integration](https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content) | How to get a citable DOI for your code/data repository |
+| [VS Code Git documentation](https://code.visualstudio.com/docs/sourcecontrol/overview) | GUI-based Git in VS Code |
+| [RStudio Version Control guide](https://happygitwithr.com/) | "Happy Git with R" — the definitive R/RStudio + Git resource |
+
+---
