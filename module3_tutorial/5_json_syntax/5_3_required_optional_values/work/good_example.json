@@ -1,8 +1,1 @@
-{
-    "$schema":"./schema.json",
-    "firstName" : "Joe",
-    "lastName": "Foster-Smith",
-    "age": 18,
-    "honorific":"Mx",
-    "diagnosis" : ["cold"]
-}
+../../5_2_patterns_regex/work/good_example.json

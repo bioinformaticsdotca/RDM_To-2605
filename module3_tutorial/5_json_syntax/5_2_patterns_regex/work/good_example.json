@@ -1,7 +1,1 @@
-{
-    "$schema":"./schema.json",
-    "firstName" : "Joe",
-    "age": 18,
-    "honorific":"Mx",
-    "diagnosis" : ["cold"]
-}
+../../5_1_controlled_lists_and_arrays/work/good_example.json

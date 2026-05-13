@@ -1,7 +1,1 @@
-{
-    "$schema":"./schema.json",
-    "firstName" : 1,
-    "age":"JoeExample",
-    "honorific":"Lord Paramount",
-    "diagnosis" : []
-}
+../../5_1_controlled_lists_and_arrays/work/bad_example.json
