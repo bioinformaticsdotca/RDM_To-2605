@@ -20,6 +20,7 @@ Due to time constraints not all sections of the tutorial will be showcased. Part
 ### Sections covered:
 - 3. Introducing Json
 - 4. Validating Schemas
+  - 4.2. Bash
   - 4.3. VScode
 - 5. JSON Syntax
 - 7. External Ontology validation
@@ -28,7 +29,7 @@ Due to time constraints not all sections of the tutorial will be showcased. Part
 
 ### 1. Organization
 
-Content will be organized into each sections or subsections, containing their own folders (when applicable):
+Content will be organized into each sections or subsections, containing the following folders (when applicable):
 |Folder|Significance|
 |--|--|
 |`work`|This directory will serve as the work directory for participants to freely write their code in|
@@ -48,12 +49,12 @@ The following items are needed to fully benefit from the tutorial.
   - [ ] [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
   - [ ] [JSON](https://marketplace.visualstudio.com/items?itemName=Meezilla.json)
 - [ ] Git (covered in previous tutorials)
-
-#### Optional :
 - [ ] jq
     - `sudo apt-get install jq`
 - [ ] check-jsonschema
     - `pipx install check-jsonschema`
+
+#### Optional :
 - [ ] Python 3
     - https://www.python.org/downloads/
 - [ ] `jsonschema` for python
@@ -103,7 +104,7 @@ We'll quickly investigate two uses of JSON. 1) For schema and 2) for a record/in
 
 Work directory : `module3_tutorial/3_json/work`
 
-Let's investigate what a basic schema looks like. First we open the file `3_json/test/schema.json`
+Let's investigate what a basic schema looks like. First we open the file `3_json/work/schema.json`
 
 We add the contents as follows:
 ```
@@ -125,7 +126,7 @@ We add the contents as follows:
         "minimum": 0
       }
     }
-  }
+}
 ```
 
 ##### 3.1.1. Code Breakdown
@@ -288,20 +289,18 @@ Note the error produced `jsonschema.exceptions.ValidationError: 1 is not of type
 
 #### 4.2. Bash
 
-**For time purposes this section will not be covered live and will be optional**
+Work directory : `module3_tutorial/4_validating_schemas/4_2_bash`
 
 Similar to python, we can perform validation in terminal through bash.
 
 `check-jsonschema` is a powerful tool that validates several types of files including JSON. To validate, see below code example:
 
 ```
-cd ../4_2_bash
+cd module3_tutorial/4_validating_schemas/4_2_bash
 check-jsonschema --schemafile test/schema.json test/good_example.json
 ```
 
 #### 4.2.2. Code breakdown
-
-Work directory : `module3_tutorial/4_validating_schemas/4_2_bash/work`
 
 `check-jsonschema` invokes the tool. Specifying the `--schemafile` identifies what the schema file should be.
  
@@ -1085,6 +1084,16 @@ jq -r '.icd10' A.json \
 -  `&& touch icd10_validation/A.SUCCESS` if true generate `.SUCCESS` file
 - `touch icd10_validation/A.FAILURE` otherwise `.FAILURE`
 
+To combine all our results and summarize : 
+```
+[ -f schema_validation/A.SUCCESS ] && [ -f icd10_validation/A.SUCCESS ] && touch validation_result/A.SUCCESS || touch validation_result/A.FAILURE
+```
+- ` -f schema_validation/A.SUCCESS` checks for the existence of the file `schema_validation/A.SUCCESS`
+- `[ -f schema_validation/A.SUCCESS ] && [ -f icd10_validation/A.SUCCESS ]` combine the two means both `SUCCESS` files must exist
+- `&& touch validation_result/A.SUCCESS` if they do summarize into `validation_result/A.SUCCESS`
+- `|| touch validation_result/A.FAILURE` otherwise report as a failure
+
+
 #### 7.3. Incorporating external ontology validation for all examples
 
 **For time purposes this section will not be covered live and will be optional**
@@ -1125,14 +1134,6 @@ jq -r '.icd10' C.json \
   && touch icd10_validation/C.SUCCESS || touch icd10_validation/C.FAILURE
 ```
 Now let's combine our results:
-
-```
-[ -f schema_validation/A.SUCCESS ] && [ -f icd10_validation/A.SUCCESS ] && touch validation_result/A.SUCCESS || touch validation_result/A.FAILURE
-```
-- ` -f schema_validation/A.SUCCESS` checks for the existence of the file `schema_validation/A.SUCCESS`
-- `[ -f schema_validation/A.SUCCESS ] && [ -f icd10_validation/A.SUCCESS ]` combine the two means both `SUCCESS` files must exist
-- `&& touch validation_result/A.SUCCESS` if they do summarize into `validation_result/A.SUCCESS`
-- `|| touch validation_result/A.FAILURE` otherwise report as a failure
 
 Performing this action for all our objects
 ```
