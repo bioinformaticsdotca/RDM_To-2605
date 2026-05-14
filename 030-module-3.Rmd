@@ -65,7 +65,7 @@ The following items are needed to fully benefit from the tutorial.
 
 ### 3. Introducing JSON
 
-Work directory : `module3_tutorial/3_json`
+Working directory : `module3_tutorial/3_json`
 
 JSON stands for **JavaScript Object Notation**. It serves as a format to store and handle data.
 
@@ -102,7 +102,7 @@ We'll quickly investigate two uses of JSON. 1) For schema and 2) for a record/in
 
 #### 3.1. Basic Schema
 
-Work directory : `module3_tutorial/3_json/work`
+Working directory : `module3_tutorial/3_json/work`
 
 Let's investigate what a basic schema looks like. First we open the file `3_json/work/schema.json`
 
@@ -226,7 +226,7 @@ Three methods will be highlighted to demonstrate how to perform validation.
 
 **For time purposes this section will not be covered live and will be optional** 
 
-Work directory : `module3_tutorial/4_validating_schemas/4_1_python/work`
+Working directory : `module3_tutorial/4_validating_schemas/4_1_python/work`
 
 As a higher level programming language, Python is quick to mock up and useful for a variety of data parsing and data wrangling needs. 
 
@@ -289,7 +289,7 @@ Note the error produced `jsonschema.exceptions.ValidationError: 1 is not of type
 
 #### 4.2. Bash
 
-Work directory : `module3_tutorial/4_validating_schemas/4_2_bash`
+Working directory : `module3_tutorial/4_validating_schemas/4_2_bash`
 
 Similar to python, we can perform validation in terminal through bash.
 
@@ -334,7 +334,7 @@ This is especially useful to parse multiple files
 
 #### 4.3. VScode
 
-Work directory : `module3_tutorial/4_validating_schemas/4_3_vscode/work`
+Working directory : `module3_tutorial/4_validating_schemas/4_3_vscode/work`
 
 With the VScode plug-in, when we open `4_validating_schemas/4_3_vscode/test/bad_example.json`, it dynamically applies the schema for us and highlights errors
 ```
@@ -373,7 +373,7 @@ Now that we know how to validate our JSON objects, let's explore more syntax to 
 
 #### 5.1. Controlled List and arrays
 
-Work directory : `module3_tutorial/5_json_syntax/5_1_controlled_lists_and_arrays/work`
+Working directory : `module3_tutorial/5_json_syntax/5_1_controlled_lists_and_arrays/work`
 
 Starting off with our previous schema:
 ```
@@ -555,7 +555,7 @@ A fully valid example should look like:
 ```
 #### 5.2. Values by Pattern/Regex
 
-Work Directory : `module3_tutorial/5_json_syntax/5_2_patterns_regex/work`
+Working Directory : `module3_tutorial/5_json_syntax/5_2_patterns_regex/work`
 
 Another useful feature is applying a regex or pattern check on values. This is particularly useful to ensure strings follow a particular pattern. For example, currently the field `lastName` in the schema has the contents:
 ```
@@ -616,7 +616,7 @@ A happy path example:
 ```
 #### 5.3. Required vs optional values
 
-Working Directory `module3_tutorial/5_json_syntax/5_3_required_optional_values`
+Working Directory `module3_tutorial/5_json_syntax/5_3_required_optional_values/work`
 
 For the current schema, we can provide records with missing fields. This is not ideal as we curate/build datasets that require mandatory fields.
 Our current schema view is :
@@ -677,7 +677,7 @@ If we add a `firstName`
 
 #### 5.4. Conditional rules
 
-Working Directory : `module3_tutorial/5_json_syntax/5_4_conditional_rules`
+Working Directory : `module3_tutorial/5_json_syntax/5_4_conditional_rules/work`
 
 What if we want one field to influence another? We can introduce conditional rules.
 

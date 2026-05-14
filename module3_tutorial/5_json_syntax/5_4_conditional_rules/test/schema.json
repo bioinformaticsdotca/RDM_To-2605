@@ -6,8 +6,7 @@
   "additionalProperties": false,
   "required": [
     "firstName",
-    "lastName",
-    "icd10"
+    "lastName"
   ],
   "properties": {
     "firstName": {
@@ -22,11 +21,6 @@
     "age": {
       "description": "Age in years which must be equal to or greater than zero.",
       "type": "integer",
-      "minimum": 0
-    },
-    "icd10": {
-      "description": "Identification of a disease, condition, or injury based on signs, symptoms, medical history, and physical exams",
-      "type": "string",
       "minimum": 0
     },
     "honorific": {

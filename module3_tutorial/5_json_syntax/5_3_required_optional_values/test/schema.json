@@ -6,6 +6,10 @@
   "additionalProperties": false,
   "required": ["firstName","lastName"],
   "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema reference"
+    },
     "firstName": {
       "type": "string",
       "description": "The person's first name."
