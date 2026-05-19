@@ -22,7 +22,7 @@ Welcome to the 2026 Reproducible Research: Essentials for Managing Your Data Can
 
 ## Pre-work
 
-<!--[You can find your pre-work here.](LINK TO PREWORK)-->
+[You can find your pre-work here.](https://forms.gle/PAi62wQgs2UYizHY7)
 
 ## Class Photo
 

@@ -9,5 +9,3 @@
 
 <!--<iframe src="GOOGLE SLIDES LINK/preview" width="640" height="480" allow="autoplay"></iframe>  
 -->
-
-## Lab
