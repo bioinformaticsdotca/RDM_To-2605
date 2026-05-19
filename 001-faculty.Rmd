@@ -38,13 +38,19 @@ Linda is a Senior Data Scientist with over a decade of experience designing and 
 
 #### Hardeep Nahal-Bose
 
+<img src="./img/faculty/Hardeep_Nahal-Bose_headshot.png" width="200" alt="Photo of Hardeep Nahal-Bose">
+
 >Senior Bioinformatics Data Manager <br>
 Ontario Institute for Cancer Research <br>
 Toronto, Ontario, Canada
 >
 > --- hnahal@oicr.on.ca
 
+Hardeep is a Senior Bioinformatics Data Manager on the Genome Informatics team at the Ontario Institute for Cancer Research (OICR) with experience in large-scale biomedical data platforms, clinical data standardization, and metadata management. She has contributed to major initiatives such as ICGC25K, PCAWG, ICGC ARGO, OHCRN, Marathon of Hope Cancer Centres Network (MOHCCN) and PCGL, with work spanning interoperable clinical data standards, metadata architecture, data quality and integrity assurance, and user-centered submission platform development. She led the development of the ICGC ARGO clinical dictionary and has contributed to cross-institutional coordination across global research collaborations, working closely with international collaborators to advance interoperable standards in cancer research.
+
 #### Edmund Su
+
+<img src="./img/faculty/edsu.png" width="200" alt="Photo of Edmund Su">
 
 >Bioinformatician <br>
 Ontario Institute for Cancer Research <br>
@@ -56,6 +62,17 @@ Edmund is a bioinformatician interested in advancing patient outcomes and uncove
 
 #### David Bujold
 
+<img src="./img/faculty/David Bujold.jpg" width="200" alt="Photo of David Bujold">
+
+>Data Team Lead @ C3G / Platform Director @ Pan-Canadian Genome Library <br>
+McGill University <br>
+Montreal, QC, Canada
+>
+> --- david.bujold@mcgill.ca
+
+David Bujold is a bioinformatics software lead based in Montreal, at McGill University. He heads the Data Team at the Canadian Centre for Computational Genomics (C3G), building software solutions for organizing, visualizing, and exploring datasets from large-scale genomic projects. His team develops the Bento data sharing platform, which powers researcher-facing portals for several data sharing initiatives. These include the Pan-Canadian Genome Library (PCGL), a national long-term archive for Canadian genomics and health data supporting cohort submission, researcher access, and federated discovery.
+
+At GA4GH, he is a Discovery Work Stream Co-Lead, and actively contributes to various discovery products like the Experiments Metadata Checklist and the Beacon API, two standards being applied to PCGL's infrastructure.
 
 <!--#### NAME
 
