@@ -1,7 +1,10 @@
+------------------------------------------------------------------------
+
+editor_options: markdown: wrap: 72 ---
+
 # Module 3
 
 ## Lecture
-
 
 ## Lab
 
@@ -18,50 +21,60 @@ All code provided assumes you are working from a directory `module3_tutorial`
 Due to time constraints not all sections of the tutorial will be showcased. Participants are encouraged to explore and check out the sections on their own time.
 
 ### Sections covered:
-- 3. Introducing Json
-- 4. Validating Schemas
+
+- 
+
+  3.  Introducing Json
+
+- 
+
+  4.  Validating Schemas
+
   - 4.2. Bash
   - 4.3. VScode
-- 5. JSON Syntax
-- 7. External Ontology validation
+
+- 
+
+  5.  JSON Syntax
+
+- 
+
+  7.  External Ontology validation
+
   - 7.1 Exploration
   - 7.2 Incorporating external ontology validation
 
 ### 1. Organization
 
-Content will be organized into each sections or subsections, containing the following folders (when applicable):
-|Folder|Significance|
-|--|--|
-|`work`|This directory will serve as the work directory for participants to freely write their code in|
-|`test`|Any prepared files will be shared here.|
-|`happy_path`| When relevant, an example of the `happy_path` result will be provided to demonstrate full results of the lesson|
+Content will be organized into each sections or subsections, containing the following folders (when applicable): \|Folder\|Significance\| \|--\|--\| \|`work`\|This directory will serve as the work directory for participants to freely write their code in\| \|`test`\|Any prepared files will be shared here.\| \|`happy_path`\| When relevant, an example of the `happy_path` result will be provided to demonstrate full results of the lesson\|
 
 ### 2. Requirements
 
 The following items are needed to fully benefit from the tutorial.
 
 #### Required :
-- [ ] internet connection as some sections will use external resources 
+
+- [ ] internet connection as some sections will use external resources
 - [ ] A linux/bash environment
-- [ ] Knowledge in basic bash scripting 
+- [ ] Knowledge in basic bash scripting
 - [ ] VS code (covered in previous tutorials)
 - [ ] VS code extensions
   - [ ] [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
   - [ ] [JSON](https://marketplace.visualstudio.com/items?itemName=Meezilla.json)
 - [ ] Git (covered in previous tutorials)
 - [ ] jq
-    - `sudo apt-get install jq`
+  - `sudo apt-get install jq`
 - [ ] check-jsonschema
-    - `pipx install check-jsonschema`
+  - `pipx install check-jsonschema`
 
 #### Optional :
+
 - [ ] Python 3
-    - https://www.python.org/downloads/
+  - <https://www.python.org/downloads/>
 - [ ] `jsonschema` for python
-    - `pip install jsonschema`
+  - `pip install jsonschema`
 - [ ] VS code extensions
   - [ ] [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
-
 
 ### 3. Introducing JSON
 
@@ -76,13 +89,16 @@ A JSON file typically has the suffix `.json` e.g. `example.json`
 The contents of a JSON file are usually wrapped by curly braces `{...}`
 
 It can be as simple as:
-```
+
+```json         
 {
     "key":"value"
 }
 ```
+
 Or nested such as so:
-```
+
+```json         
 {
     "ParentA":{
         "propertyA_1":{...}
@@ -107,7 +123,8 @@ Working directory : `module3_tutorial/3_json/work`
 Let's investigate what a basic schema looks like. First we open the file `3_json/work/schema.json`
 
 We add the contents as follows:
-```
+
+```json         
 {
     "title": "Person",
     "type": "object",
@@ -131,7 +148,7 @@ We add the contents as follows:
 
 ##### 3.1.1. Code Breakdown
 
-```
+```json         
 "title": "Person"
 ```
 
@@ -139,11 +156,13 @@ We add the contents as follows:
 
 As an example comparison to dataframes, the `title` would be the name of the dataframe.
 
-```
+```json         
 "type":"object"
 ```
-This piece of code is declared multiple times throughout the schema. The values as per https://www.w3schools.com/js/js_json_datatypes.asp can be the following:
-```
+
+This piece of code is declared multiple times throughout the schema. The values as per <https://www.w3schools.com/js/js_json_datatypes.asp> can be the following:
+
+```json         
 string
 number
 object
@@ -152,10 +171,9 @@ boolean
 null
 ```
 
-We declare our `Person` schema as an `object` because that enables us to add other fields and properties to our schema. Said properties cannot be represented by other data types. 
-Additionally because the object schema follows the notation `{'key':'value'}`, it allows us to add `properties` and give the fields and properties informative names.
+We declare our `Person` schema as an `object` because that enables us to add other fields and properties to our schema. Said properties cannot be represented by other data types. Additionally because the object schema follows the notation `{'key':'value'}`, it allows us to add `properties` and give the fields and properties informative names.
 
-```
+```json         
 "properties": {
     "name": {...},
     "age": {...}
@@ -164,59 +182,63 @@ Additionally because the object schema follows the notation `{'key':'value'}`, i
 
 If `title` was the name of the dataframe, `properties` would be the column values of the dataframe. Within `properties` we can assign key value pairs corresponding to the data we like to collect/validate.
 
-```
+```json         
 "firstName": {
         "type": "string",
         "description": "The person's first name."
       },
 ```
+
 Our first example is `firstName`. We declare that the property `firstName` of a `person` must be `string`. We provide an optional and brief description to describe the field.
-```
+
+```json         
       "age": {
         "description": "Age in years which must be equal to or greater than zero.",
         "type": "integer",
         "minimum": 0
       }
 ```
-Conversely in our second property `age` we declare it as `integer` with a minimum value of `0`
-#### 3.2. Basic record/instance
-Let's construct a record to demonstrate the schema
+
+Conversely in our second property `age` we declare it as `integer` with a minimum value of `0` \#### 3.2. Basic record/instance Let's construct a record to demonstrate the schema
 
 Starting off with curly braces
-```
+
+```json         
 {
 }
 ```
 
 Based on the schema we add the first property by declaring it `firstName` and giving it a corresponding value:
-```
+
+```json         
 {
     "firstName" : "JoeExample"
 }
 ```
+
 Followed by our second property `age`
 
-```
+```json         
 {
     "firstName" : "JoeExample",
     "age": 1
 }
 ```
+
 Let's demonstrate how the schema works by flipping the values:
-```
+
+```json         
 {
     "firstName" : 1,
     "age":"JoeExample"
 }
 ```
+
 Let's step back and see how we can use our newly generated schema to validate our instance.
 
 ### 4. Validating Schemas
 
-A core function and purpose of utilizing JSON format and JSON schema is data validation.<Br>
-The JSON format provides a structured method of wrangling the data into a machine readable format.<Br>
-The JSON Schema validates said data.<Br>
-Both are customizable and can be authored to suit specific needs.
+A core function and purpose of utilizing JSON format and JSON schema is data validation.<Br> The JSON format provides a structured method of wrangling the data into a machine readable format.<Br> The JSON Schema validates said data.<Br> Both are customizable and can be authored to suit specific needs.
 
 This function serves to aid data harmonization and ensures it meets the requirements structurally and semantically.
 
@@ -224,19 +246,22 @@ Three methods will be highlighted to demonstrate how to perform validation.
 
 #### 4.1. Python
 
-**For time purposes this section will not be covered live and will be optional** 
+**For time purposes this section will not be covered live and will be optional**
 
 Working directory : `module3_tutorial/4_validating_schemas/4_1_python/work`
 
-As a higher level programming language, Python is quick to mock up and useful for a variety of data parsing and data wrangling needs. 
+As a higher level programming language, Python is quick to mock up and useful for a variety of data parsing and data wrangling needs.
 
 One can easily validate their schema through a few lines of code, as follows
-```
+
+```bash         
 cd /4_validating_schemas/4_1_python/
 python test/validate.py 
 ```
+
 or paste the following code into a python instance
-```
+
+```python         
 import json
 from jsonschema import validate
 
@@ -250,28 +275,33 @@ validate(instance=instance, schema=schema)
 ```
 
 ##### 4.1.1. Breaking down the code
-```
+
+```python         
 import json
 from jsonschema import validate
 ```
+
 Imports the libraries containing tools needed for python to wrangle JSON data. `Json` quickly ingests and converts our data into a dictionary and `validate` from `jsonschema` does the validation action.
 
-```
+```python         
 with open('test/schema.json', 'r') as f:
     schema = json.load(f)
 
 with open('test/bad_example.json', 'r') as f:
     instance = json.load(f)
 ```
+
 Next, the instance and schema are ingested by opening the file and parsing them as JSON. This is done per schema and instance.
 
-```
+```python         
 validate(instance=instance, schema=schema)
 ```
-This performs the validation. If the instance is properly structured according to the schema, it will silently pass.
-##### 4.1.2. Understanding the error
-Otherwise an error is reported. The following will produce this result:
-```
+
+This performs the validation. If the instance is properly structured according to the schema, it will silently pass. \
+
+##### 4.1.2. Understanding the error Otherwise an error is reported. The following will produce this result:
+
+```python         
 Traceback (most recent call last):
   File "RDM_workshop/validate.py", line 11, in <module>
     validate(instance=instance, schema=schema)
@@ -285,6 +315,7 @@ Failed validating 'type' in schema['properties']['lastName']:
 On instance['lastName']:
     1
 ```
+
 Note the error produced `jsonschema.exceptions.ValidationError: 1 is not of type 'string'` indicating one of our fields does not conform to the schema. Specifically `lastName` as per line `Failed validating 'type' in schema['properties']['lastName']`
 
 #### 4.2. Bash
@@ -295,7 +326,7 @@ Similar to python, we can perform validation in terminal through bash.
 
 `check-jsonschema` is a powerful tool that validates several types of files including JSON. To validate, see below code example:
 
-```
+```bash         
 cd module3_tutorial/4_validating_schemas/4_2_bash
 check-jsonschema --schemafile test/schema.json test/good_example.json
 ```
@@ -303,30 +334,41 @@ check-jsonschema --schemafile test/schema.json test/good_example.json
 #### 4.2.2. Code breakdown
 
 `check-jsonschema` invokes the tool. Specifying the `--schemafile` identifies what the schema file should be.
- 
+
 The following is the happy path result :
-```
+
+```bash          
 ok -- validation done
 ```
+
 #### 4.2.3. Understanding the error
+
 If we validated the bad example:
-```
+
+```bash       
 check-jsonschema --schemafile test/schema.json test/bad_example.json
 ```
+
 The following is the bad path result :
-```
+
+```bash        
 Schema validation errors were encountered.
   test/bad_example.json::$.lastName: 1 is not of type 'string'
 ```
+
 As noted in the error message the `.lastName` field value is `1` and does not match the type `string`
 
 #### 4.2.4. Validating multiple files
+
 We can also utilize the command to validate multiple files:
-```
+
+```bash         
 check-jsonschema --schemafile test/schema.json test/good_example.json test/bad_example.json
 ```
+
 and the result will indicate which of JSON files contains errors
-```
+
+```bash      
 test/bad_example.json::$.lastName: 1 is not of type 'string'
 ```
 
@@ -337,7 +379,8 @@ This is especially useful to parse multiple files
 Working directory : `module3_tutorial/4_validating_schemas/4_3_vscode/work`
 
 With the VScode plug-in, when we open `4_validating_schemas/4_3_vscode/test/bad_example.json`, it dynamically applies the schema for us and highlights errors
-```
+
+```json        
 {
   "$schema" : "./schema.json",
   "firstName": "John",
@@ -345,18 +388,22 @@ With the VScode plug-in, when we open `4_validating_schemas/4_3_vscode/test/bad_
   "age": 21
 }
 ```
+
 Removing line 2 aka the schema reference removes the flagged error:
-```
+
+```json        
 {
   "firstName": "John",
   "lastName": 1,
   "age": 21
 }
 ```
+
 As the interpreter no longer has the context that `lastName` must be a string.
 
 Alternatively, we fix the error:
-```
+
+```json         
 {
   "$schema" : "./schema.json",
   "firstName": "John",
@@ -376,7 +423,8 @@ Now that we know how to validate our JSON objects, let's explore more syntax to 
 Working directory : `module3_tutorial/5_json_syntax/5_1_controlled_lists_and_arrays/work`
 
 Starting off with our previous schema:
-```
+
+```json       
 {
     "$id": "https://example.com/person.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -399,8 +447,10 @@ Starting off with our previous schema:
     }
   }
 ```
+
 Our example of :
-```
+
+```json        
 {
     "$schema":"./schema.json",
     "firstName" : 1,
@@ -412,11 +462,14 @@ Our example of :
 `honorific` is unflagged.
 
 We can add the property :
-```
+
+```json       
 "additionalProperties": false
 ```
+
 to our schema such that it becomes:
-```
+
+```json        
 {
     "$id": "https://example.com/person.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -440,9 +493,10 @@ to our schema such that it becomes:
     }
   }
 ```
+
 This restricts data to only have properties defined by the schema.
 
-```
+```json         
 {
     "$schema":"./schema.json",
     "firstName" : 1, Incorrect type. Expected "string"
@@ -450,8 +504,10 @@ This restricts data to only have properties defined by the schema.
     "honorific":"Mr" Property honorific not allowed
 }
 ```
+
 But we want to add a schema property for `honorific`.
-```
+
+```json        
 {
     "$id": "https://example.com/person.schema.json",
     "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -479,8 +535,10 @@ But we want to add a schema property for `honorific`.
     }
   }
 ```
+
 Let's validate our example:
-```
+
+```json      
 {
     "$schema":"./schema.json",
     "firstName" : 1, Incorrect type. Expected "string"
@@ -488,20 +546,26 @@ Let's validate our example:
     "honorific":"Lord Paramount"
 }
 ```
+
 While correct, `Lord Paramount` is an uncommon title. Let's add a controlled list to restrict the types of honorifics.
-```
+
+```json      
       "honorific": {
         "enum": ["Mr","Miss","Mrs","Mx"]
       }
 ```
+
 We utilize the `enum` property and fill the array with properties that we want. This is useful in limiting the values we want to receive. It should be noted the contents are not limited to "string" data type and could include any data type e.g. mix of strings and numbers
 
 The result on our validated example:
-```
+
+```json        
     "honorific":"Lord Paramount" Value is not accepted. Valid values : "Mr","Miss","Mrs","Mx"
 ```
+
 Validating our previous example shows `Lord Paramount` is no longer valid. We should correct to address:
-```
+
+```json       
 {
     "$schema":"./schema.json",
     "firstName" : 1, Incorrect type. Expected "string"
@@ -509,19 +573,23 @@ Validating our previous example shows `Lord Paramount` is no longer valid. We sh
     "honorific":"Mx"
 }
 ```
+
 What if we want to provide multiple values for a field? Typically that's done through an array. Let's add a new field called diagnosis to our schema.
-```
+
+```json       
       "diagnosis": {
         "type": "array",
         "description": "Identification of a disease, condition, or injury based on signs, symptoms, medical history, and physical exams",
         "items" : {"type" : "string"}
       }
 ```
+
 - `"type": "array"` as other data types informs the record must provide the field as an `array`/`list`.
 - `"items" : {"type" : "string"}` indicates the items we want within the array to match a specific criteria, in this case they must be string items
 
 Let's test on an example:
-```
+
+```json        
 {
     "$schema":"./schema.json",
     "firstName" : 1, Incorrect type. Expected "string"
@@ -530,8 +598,10 @@ Let's test on an example:
     "diagnosis" : []
 }
 ```
+
 Our validation works but that's not informative if no diagnosis is given. Let's add a requirement that at least one diagnosis be provided.
-```
+
+```json       
     "diagnosis": {
       "type": "array",
       "description": "Identification of a disease, condition, or injury based on signs, symptoms, medical history, and physical exams",
@@ -539,12 +609,16 @@ Our validation works but that's not informative if no diagnosis is given. Let's 
       "minItems": 1
     }
 ```
+
 Validating our example again now shows the following error:
-```
+
+```json    
     "diagnosis" : [] Array has too few items. Expected 1 or more
 ```
+
 A fully valid example should look like:
-```
+
+```json       
 {
     "$schema":"./schema.json",
     "firstName" : "Joe",
@@ -553,19 +627,23 @@ A fully valid example should look like:
     "diagnosis" : ["cold"]
 }
 ```
+
 #### 5.2. Values by Pattern/Regex
 
 Working Directory : `module3_tutorial/5_json_syntax/5_2_patterns_regex/work`
 
 Another useful feature is applying a regex or pattern check on values. This is particularly useful to ensure strings follow a particular pattern. For example, currently the field `lastName` in the schema has the contents:
-```
+
+```json         
     "lastName": {
       "type": "string",
       "description": "The person's last name."
     }
 ```
+
 This means even an example with a string using numbers works:
-```
+
+```json       
 {
     "$schema":"./schema.json",
     "firstName" : "Joe",
@@ -575,25 +653,24 @@ This means even an example with a string using numbers works:
     "diagnosis" : ["cold"]
 }
 ```
+
 To ensure only letters are used in the `lastName`, we can amend the field
-```
+
+```json        
     "lastName": {
       "type": "string",
       "description": "The person's last name.",
       "pattern": "[A-Za-z- ]+"
     }
 ```
-We add the field `pattern` to enforce a pattern check. `Pattern` field utilizes regex aka regular expression (for more info see https://regex101.com/).
 
-We use the expression `[A-Za-z- ]+`, breaking down this regex:
-- `[...]+` ensures any contents within the brackets can have multiple instances
-- `A-Z` allows for capital letters
-- `a-z` allows for lower case letters
-- `-` allows for hyphens
-- ` ` allows for spaces
+We add the field `pattern` to enforce a pattern check. `Pattern` field utilizes regex aka regular expression (for more info see <https://regex101.com/>).
+
+We use the expression `[A-Za-z- ]+`, breaking down this regex:<Br> - `[...]+` ensures any contents within the brackets can have multiple instances<Br> - `A-Z` allows for capital letters<Br> - `a-z` allows for lower case letters<Br> - `-` allows for hyphens<Br> - ` ` allows for spaces
 
 If we recheck our last example against the schema:
-```
+
+```json        
 {
     "$schema":"./schema.json",
     "firstName" : "Joe",
@@ -603,8 +680,10 @@ If we recheck our last example against the schema:
     "diagnosis" : ["cold"]
 }
 ```
+
 A happy path example:
-```
+
+```json       
 {
     "$schema":"./schema.json",
     "firstName" : "Joe",
@@ -614,13 +693,14 @@ A happy path example:
     "diagnosis" : ["cold"]
 }
 ```
+
 #### 5.3. Required vs optional values
 
 Working Directory `module3_tutorial/5_json_syntax/5_3_required_optional_values/work`
 
-For the current schema, we can provide records with missing fields. This is not ideal as we curate/build datasets that require mandatory fields.
-Our current schema view is :
-```
+For the current schema, we can provide records with missing fields. This is not ideal as we curate/build datasets that require mandatory fields. Our current schema view is :
+
+```json         
 {
   "$id": "https://example.com/person.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -630,8 +710,10 @@ Our current schema view is :
   "properties": {...} // Collapsed/Abbreviated Code
 }
 ```
+
 To demonstrate this flaw:
-```
+
+```json       
 {
     "$schema":"./schema.json",
     "age": 18,
@@ -639,8 +721,10 @@ To demonstrate this flaw:
     "diagnosis" : ["cold"]
 }
 ```
+
 To ensure `firstName` and `lastName` are provided with all our persons, we add the field `required`
-```
+
+```json      
 {
   "$id": "https://example.com/person.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -651,10 +735,12 @@ To ensure `firstName` and `lastName` are provided with all our persons, we add t
   "properties": {...} // Collapsed/Abbreviated Code
 }
 ```
+
 Within `required` we list the fields that we want. In this case as an array.
 
 Let's confirm with an example:
-```
+
+```json    
 {
     Missing property "lastName"
     "$schema":"./schema.json",
@@ -663,8 +749,10 @@ Let's confirm with an example:
     "diagnosis" : ["cold"]
 }
 ```
+
 If we add a `firstName`
-```
+
+```json       
 {
     Missing property "lastName"
     "$schema":"./schema.json",
@@ -682,7 +770,8 @@ Working Directory : `module3_tutorial/5_json_syntax/5_4_conditional_rules/work`
 What if we want one field to influence another? We can introduce conditional rules.
 
 Let's add two new fields into our schema
-```
+
+```json        
     "country": {
       "enum": ["USA","Canada"]
     },
@@ -690,10 +779,12 @@ Let's add two new fields into our schema
       "enum": ["New York","British Columbia","Washington","Ontario"]
     }
 ```
+
 We set `country` to be an enum list of `USA` and `Canada`. Depending on `country`, we want `province/territory/state` to be a specific enum list.
 
 If we simply define `country` and `province/territory/state` with enum lists, a mismatch can occur such as:
-```
+
+```json      
 {
     Missing property "lastName"
     "$schema":"./schema.json",
@@ -705,8 +796,10 @@ If we simply define `country` and `province/territory/state` with enum lists, a 
     "province/territory/state" : "Ontario"
 }
 ```
+
 More logic is needed to ensure the `country` and `province/territory/state` match. We can add a layer of control via `if`,`else`,`then` as properties within the schema
-```
+
+```json        
 {
   "$id": "https://example.com/person.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -720,8 +813,10 @@ More logic is needed to ensure the `country` and `province/territory/state` matc
   "else":{...}
 }
 ```
+
 Filling out the details of the `if`,`else`,and `then` :
-```
+
+```json      
 {
   "$id": "https://example.com/person.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -739,8 +834,10 @@ Filling out the details of the `if`,`else`,and `then` :
   "else":{...}
 }
 ```
+
 Let's add
-```
+
+```json    
   "if": {
     "properties": {
         "country": { 
@@ -749,10 +846,12 @@ Let's add
     }
   }
 ```
+
 In our `if` we specify which properties we want the conditional logic to verify, in our example `country`. To validate the `property` `country`, we can do regex/values or numbers. In our example, we want the logic to occur if `country` is `USA`
 
 If `country` is `USA` the `then` code portion occurs
-```
+
+```json       
   "then": {
     "required": ["province/territory/state"],
     "properties": {
@@ -762,13 +861,14 @@ If `country` is `USA` the `then` code portion occurs
     }
   },
 ```
-Like with `if` we specify when conditions are met which `properties` are affected by the conditional logic. In our example it would be `province/territory/state`. 
 
-We specify that when `USA` is provided we want `province/territory/state` to be mandatory.
-We overwrite the logic previously provided for `province/territory/state`, such that when conditional logic is active, value must be from "enum" list.
+Like with `if` we specify when conditions are met which `properties` are affected by the conditional logic. In our example it would be `province/territory/state`.
+
+We specify that when `USA` is provided we want `province/territory/state` to be mandatory. We overwrite the logic previously provided for `province/territory/state`, such that when conditional logic is active, value must be from "enum" list.
 
 Let's use a bad example to see if validation works.
-```
+
+```json        
 {
     Missing property "province/territory/state"
     "$schema":"./schema.json",
@@ -779,8 +879,10 @@ Let's use a bad example to see if validation works.
 
 }
 ```
+
 The conditional required field works. What about the enum value?
-```
+
+```json         
 {
     "$schema":"./schema.json",
     "age": 18,
@@ -790,8 +892,10 @@ The conditional required field works. What about the enum value?
     "province/territory/state" : "Quebec" Value is not accepted. Valid values : "Wisconsin", "Virginia", "Dakota"
 }
 ```
+
 What if we switch `country` from `USA` to `Canada` and `Quebec` to `Dakota`. What would be the result?
-```
+
+```json  
 {
     "$schema":"./schema.json",
     "age": 18,
@@ -801,12 +905,14 @@ What if we switch `country` from `USA` to `Canada` and `Quebec` to `Dakota`. Wha
     "province/territory/state" : "Dakota"
 }
 ```
+
 Clearly the wrong pairing but schema is not flagging it so let's fix that.
 
 Our condition logic operates on the `if` and `then`. Now we need to do an `else`
 
 Like with the `then` we can format `else` similarly but swap out the values:
-```
+
+```json       
   "if": {
     "properties": {
         "country": { 
@@ -831,8 +937,10 @@ Like with the `then` we can format `else` similarly but swap out the values:
     }
   }
 ```
+
 Let's revalidate our previous example:
-```
+
+```json       
 {
     "$schema":"./schema.json",
     "age": 18,
@@ -842,6 +950,7 @@ Let's revalidate our previous example:
     "province/territory/state" : "Dakota" Value is not accepted. Valid values : "Quebec","Ontario","British Columbia"
 }
 ```
+
 ### 6. Mermaid
 
 **For time purposes this section will not be covered live and will be optional**
@@ -851,7 +960,8 @@ Data models can become complex and when written in code, they become hard to nav
 There are a variety of ways to do so, the following is one suggestion.
 
 Given our JSON
-```
+
+```json       
 {
     "$schema":"./schema.json",
     "firstName" : "Joe",
@@ -868,12 +978,11 @@ We can pass that into the following online converter. As mentioned there are mul
 
 We utilize mermaid, a Javascript based language for constructing charts and diagrams.
 
-We navigate to the site:
-https://toolshref.com/json-to-mermaid-generator/
+We navigate to the site: <https://toolshref.com/json-to-mermaid-generator/>
 
 Paste our JSON, set to ER diagram and receive the following output.
 
-```mermaid
+``` mermaid
 classDiagram
 class C0 {
   +_schema : ./schema.j
@@ -890,7 +999,8 @@ class C0 {
 We can see our instance has the following attributes.
 
 What if we tried a more complicated example?:
-```
+
+```json       
 {
         "person_identification":{
             "firstName" : "Joe",
@@ -923,8 +1033,10 @@ What if we tried a more complicated example?:
         "occupation" : "hooligan"
 }
 ```
+
 Copying the above yields the following:
-```mermaid
+
+``` mermaid
 erDiagram
 E1 {
   string firstName
@@ -947,6 +1059,7 @@ E0 {
   string occupation
 }
 ```
+
 - `E0` represents our person who has the properties `diagnosis` and `occupation`
 - additionally our person has the properties: `person_identification`,`treatment` and `residence` as `E1`,`E2`, and `E3` respectively.
 
@@ -958,60 +1071,58 @@ Ontologies are briefly explored with several examples examined for utility and p
 
 As such depending on said resource, it can be difficult to incorporate ontology validation in our working example of JSON schemas.
 
-While we enforce patterns, we cannot verify the existence of content. We will further explore how to implement custom code to do so. Note this will differ according to circumstance. 
+While we enforce patterns, we cannot verify the existence of content. We will further explore how to implement custom code to do so. Note this will differ according to circumstance.
 
 For the tutorial we'll be exploring ICD10 and some resources affiliated with the project.
 
-ICD10 stands for International Statistical Classification of Diseases and Related Health Problems 10th Revision and codes medical diagnoses, symptoms, and external causes of injury.
-- can be explored in https://icd.who.int/browse10/2019/en e.g. https://icd.who.int/browse10/2019/en#/C34 and https://icd.who.int/browse10/2019/en#/U10.9 
-- follow a pattern structure of `^[A-Z][0-9][A-Z0-9](\.[A-Z0-9]{1,4})?$` e.g. `C34` and `U10.9`
+ICD10 stands for International Statistical Classification of Diseases and Related Health Problems 10th Revision and codes medical diagnoses, symptoms, and external causes of injury.<Br> - can be explored in <https://icd.who.int/browse10/2019/en> e.g. <https://icd.who.int/browse10/2019/en#/C34> and <https://icd.who.int/browse10/2019/en#/U10.9><Br> - follow a pattern structure of `^[A-Z][0-9][A-Z0-9](\.[A-Z0-9]{1,4})?$` e.g. `C34` and `U10.9`
 
-We can verify codes utilizing the resource : [icd10api.com](https://icd10api.com/)
-- It provides a useful interface for searching up codes
-- The backend is powered by an API (application programming interface) that allows us to use a search function to verify ICD10.
-- Note APIs often have rate limits (queries allowed), so strategize and plan accordingly when utilizing public resources
+We can verify codes utilizing the resource : [icd10api.com](https://icd10api.com/)<Br> - It provides a useful interface for searching up codes<Br> - The backend is powered by an API (application programming interface) that allows us to use a search function to verify ICD10.<Br> - Note APIs often have rate limits (queries allowed), so strategize and plan accordingly when utilizing public resources
 
 Let's explore how to utilize the API.
 
-Going to https://icd10api.com/#:~:text=JSONP%20callback%20name.-,Examples,-Code%20Lookup we can perform a code look up.
+Going to <https://icd10api.com/#:\~:text=JSONP%20callback%20name.-,Examples,-Code%20Lookup> we can perform a code look up.
 
 If we provide `C34` we get the following response:
-```
-Request:
+
+```url
 http://icd10api.com/?code=C34&desc=short&r=json
 ```
-```
-Response:
+
+```json   
 {
-    "Name": "C34",
-    "Description": "Malignant neoplasm of bronchus and lung",
-    "Valid": "0",
-    "Inclusions": [],
-    "ExcludesOne": [
-        "Kaposi's sarcoma of lung (C46.5-)",
-        "malignant carcinoid tumor of the bronchus and lung (C7A.090)"
-    ],
-    "ExcludesTwo": [],
-    "Type": "ICD-10-CM",
-    "Response": "True"
+"Response":
+  {
+      "Name": "C34",
+      "Description": "Malignant neoplasm of bronchus and lung",
+      "Valid": "0",
+      "Inclusions": [],
+      "ExcludesOne": [
+          "Kaposi's sarcoma of lung (C46.5-)",
+          "malignant carcinoid tumor of the bronchus and lung (C7A.090)"
+      ],
+      "ExcludesTwo": [],
+      "Type": "ICD-10-CM",
+      "Response": "True"
+  }
 }
 ```
-The API generates a URL and response. The Request will be useful later as we automate the check. For now let's explore the response.
 
+The API generates a URL and response. The Request will be useful later as we automate the check. For now let's explore the response.
 
 The response is provided in JSON format and includes multiple fields.
 
-We can get a breakdown of the contents : https://icd10api.com/#:~:text=RESET-,Fields,-When%20validating%20codes
-- `name` returns the queried code
-- `description` describes the diagnosis and its classification
-- `Response` a binary status indicating if our code is in the database
+We can get a breakdown of the contents : <https://icd10api.com/#:\~:text=RESET-,Fields,-When%20validating%20codes><Br>- `name` returns the queried code<Br>- `description` describes the diagnosis and its classification<Br>- `Response` a binary status indicating if our code is in the database
 
 Let's explore an example of querying a nonexistent code - Paste the following into your browser:
-```
+
+```         
 https://icd10api.com/?code=A0001&desc=short&r=json
 ```
+
 We get the following response:
-```
+
+```json       
 {"Response":"False","Error":"Incorrect ICD Code"}
 ```
 
@@ -1026,17 +1137,22 @@ In this section we'll explore how to perform both schema and external ontology v
 Note the following section is not the only method for validating your data in bulk. It is conceptual, combining multiple validations to demonstrate a flow.
 
 Navigating to `module3_tutorial/7_external_ontology_validation/7_2_incorporating_external_ontology_validation/work`, we can view contents by performing:
-```
+
+```bash         
 ls
 ```
-We'll see we have three examples of objects/records to be validated 
-```
+
+We'll see we have three examples of objects/records to be validated
+
+```bash       
 A.json
 B.json
 C.json
 ```
+
 We also have the `schema.json`. If following the tutorial, the contents are recognizable aside from the addition
-```
+
+```json         
     "icd10": {
     "description": "Identification of a disease, condition, or injury based on signs, symptoms, medical history, and physical exams. Using ICD10 codes",
     "type": "string"
@@ -1044,36 +1160,46 @@ We also have the `schema.json`. If following the tutorial, the contents are reco
 ```
 
 Let's create a few folders to track our results
-```
+
+```bash         
 mkdir schema_validation
 mkdir icd10_validation
 mkdir validation_results
 ```
+
 Check all folders are empty:
-```
+
+```bash         
 ls schema_validation
 ls icd10_validation
 ls validation_results
 ```
+
 We know we can validate our schema, for example using:
-```
+
+```bash         
 check-jsonschema --schemafile schema.json A.json
 ```
+
 But let's capture the result
-```
+
+```bash         
 check-jsonschema --schemafile schema.json A.json && touch schema_validation/A.SUCCESS || touch schema_validation/A.FAILURE 
 ```
+
 - `check-jsonschema --schemafile schema.json A.json` run our command as previous.
-- ` && touch schema_validation/A.SUCCESS` AND if successful we generate a `schema_validation/A.SUCCESS` file
+- `&& touch schema_validation/A.SUCCESS` AND if successful we generate a `schema_validation/A.SUCCESS` file
 - `|| touch schema_validation/A.FAILURE` OR if not successful generate a `schema_validation/A.FAILURE` file
 
 Let's continue with external ontology validation:
-```
+
+```bash         
 jq -r '.icd10' A.json \
   | xargs -I{} curl -s "https://icd10api.com/?code={}&desc=short&r=json" \
   | jq -e '.Response == "True"' \
   && touch icd10_validation/A.SUCCESS || touch icd10_validation/A.FAILURE
 ```
+
 - `jq` is a useful unix tool for parsing JSONs
 - `jq -r '.icd10' A.json` reads `A.json` and returns the `icd10` field.
 - `xargs -I{}` our returned response is iterated over like a forloop
@@ -1081,18 +1207,19 @@ jq -r '.icd10' A.json \
 - `curl` is a useful tool to retrieve and return data
 - our result from retrieving data from the icd10api is then passed into another `jq` interpretation
 - `jq -e '.Response == "True"'`, the returned JSON is evaluated for whether the `Response` field is true or not.
--  `&& touch icd10_validation/A.SUCCESS` if true generate `.SUCCESS` file
+- `&& touch icd10_validation/A.SUCCESS` if true generate `.SUCCESS` file
 - `touch icd10_validation/A.FAILURE` otherwise `.FAILURE`
 
-To combine all our results and summarize : 
-```
+To combine all our results and summarize :
+
+```bash         
 [ -f schema_validation/A.SUCCESS ] && [ -f icd10_validation/A.SUCCESS ] && touch validation_result/A.SUCCESS || touch validation_result/A.FAILURE
 ```
-- ` -f schema_validation/A.SUCCESS` checks for the existence of the file `schema_validation/A.SUCCESS`
+
+- `-f schema_validation/A.SUCCESS` checks for the existence of the file `schema_validation/A.SUCCESS`
 - `[ -f schema_validation/A.SUCCESS ] && [ -f icd10_validation/A.SUCCESS ]` combine the two means both `SUCCESS` files must exist
 - `&& touch validation_result/A.SUCCESS` if they do summarize into `validation_result/A.SUCCESS`
 - `|| touch validation_result/A.FAILURE` otherwise report as a failure
-
 
 #### 7.3. Incorporating external ontology validation for all examples
 
@@ -1101,23 +1228,30 @@ To combine all our results and summarize :
 Working Directory : `7_external_ontology_validation/7_2_incorporating_external_ontology_validation/work`
 
 Doing schema validation for for all three
-```
+
+```bash         
 check-jsonschema --schemafile schema.json A.json && touch schema_validation/A.SUCCESS || touch schema_validation/A.FAILURE 
 check-jsonschema --schemafile schema.json B.json && touch schema_validation/B.SUCCESS || touch schema_validation/B.FAILURE 
 check-jsonschema --schemafile schema.json C.json && touch schema_validation/C.SUCCESS || touch schema_validation/C.FAILURE 
 ```
+
 Inspecting our results:
-```
+
+```bash         
 ls schema_validation
 ```
+
 shows:
-```
+
+```bash         
 A.SUCCESS  B.FAILURE  C.SUCCESS
 ```
+
 Success for `A` and `C` but schema validation failure on `B`
 
 Let's continue with external ontology validation for all our examples:
-```
+
+```bash         
 jq -r '.icd10' A.json \
   | xargs -I{} curl -s "https://icd10api.com/?code={}&desc=short&r=json" \
   | jq -e '.Response == "True"' \
@@ -1133,20 +1267,26 @@ jq -r '.icd10' C.json \
   | jq -e '.Response == "True"' \
   && touch icd10_validation/C.SUCCESS || touch icd10_validation/C.FAILURE
 ```
+
 Now let's combine our results:
 
 Performing this action for all our objects
-```
+
+```bash         
 [ -f schema_validation/A.SUCCESS ] && [ -f icd10_validation/A.SUCCESS ] && touch validation_result/A.SUCCESS || touch validation_result/A.FAILURE
 [ -f schema_validation/B.SUCCESS ] && [ -f icd10_validation/B.SUCCESS ] && touch validation_result/B.SUCCESS || touch validation_result/B.FAILURE
 [ -f schema_validation/C.SUCCESS ] && [ -f icd10_validation/C.SUCCESS ] && touch validation_result/C.SUCCESS || touch validation_result/C.FAILURE
 ```
+
 Let's review our progress:
-```
+
+```bash         
 ls *
 ```
+
 We can see the following:
-```
+
+```bash         
 icd10_validation:
 A.SUCCESS  B.SUCCESS  C.FAILURE
 
@@ -1156,10 +1296,10 @@ A.SUCCESS  B.FAILURE  C.SUCCESS
 validation_result:
 A.SUCCESS  B.FAILURE  C.FAILURE
 ```
+
 - `A` was the only record that passed both schema and external ICD10 check
 - `B` had a valid ICD10 code but failed the schema
 - `C` passed the schema check but failed the ICD10 validation.
-
 
 ### 8. Additional challenges
 
@@ -1169,17 +1309,17 @@ The following are additional scenarios for participants to test. While these are
 
 #### 8.1. Required object
 
-We've explored how to enforce required properties, but what if those fields were not `numbers` or `strings` but rather an `object`. Would that affect how we handled required properties?
-What would that look like?
-In `8_additional_challenges/8_1_required_object/work` you'll find an example `schema.json` missing the object `occupation`. Fill in `occupation` based on the example `example.json`. Make all `occupation`'s fields required. 
+We've explored how to enforce required properties, but what if those fields were not `numbers` or `strings` but rather an `object`.<Br><Br>
+Would that affect how we handled required properties? What would that look like?<Br><Br>
+In `8_additional_challenges/8_1_required_object/work` you'll find an example `schema.json` missing the object `occupation`.<Br>
+Fill in `occupation` based on the example `example.json`. Make all `occupation`'s fields required.
 
 #### 8.2. Nested IF ELSE
 
-Given our schema contains `if` `else` to catch two scenarios, what if we added a third? How would we account for that? This can be done by nesting another `if` `else` under the `else` of the original. What would that look like? The following are a few test cases and a starting place for the schema.
+Given our schema contains `if` `else` to catch two scenarios, what if we added a third?<Br><Br>
+How would we account for that? This can be done by nesting another `if` `else` under the `else` of the original.<Br><Br>
+What would that look like? The following are a few test cases and a starting place for the schema.
 
-Your goal is to produce a nested `if else` where the following occurs:
-- if `country` is `USA` then the states are `Wisconsin`,`Virginia`,`Dakota`
-- if `country` is `Canada` then the states are `Quebec`,`Ontario`,`Vancouver`
-- if `country` is `Mexico` then the states are  `Sonora`,`Puebla`,`Yucatán`
+Your goal is to produce a nested `if else` where the following occurs:<Br> - if `country` is `USA` then the states are `Wisconsin`,`Virginia`,`Dakota`<Br> - if `country` is `Canada` then the states are `Quebec`,`Ontario`,`Vancouver`<Br> - if `country` is `Mexico` then the states are `Sonora`,`Puebla`,`Yucatán`
 
 in `8_additional_challenges/8_2_nested_if_else/work` you'll find a starting `schema.json` and the example files `A.json`,`B.json` and `C.json` to test your schema on
