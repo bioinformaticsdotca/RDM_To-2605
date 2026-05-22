@@ -22,31 +22,29 @@ Due to time constraints not all sections of the tutorial will be showcased. Part
 
 ### Sections covered:
 
-- 
+- 3.  Introducing Json
 
-  3.  Introducing Json
-
-- 
-
-  4.  Validating Schemas
+- 4.  Validating Schemas
 
   - 4.2. Bash
   - 4.3. VScode
 
-- 
+- 5.  JSON Syntax
 
-  5.  JSON Syntax
-
-- 
-
-  7.  External Ontology validation
+- 7.  External Ontology validation
 
   - 7.1 Exploration
   - 7.2 Incorporating external ontology validation
 
 ### 1. Organization
 
-Content will be organized into each sections or subsections, containing the following folders (when applicable): \|Folder\|Significance\| \|--\|--\| \|`work`\|This directory will serve as the work directory for participants to freely write their code in\| \|`test`\|Any prepared files will be shared here.\| \|`happy_path`\| When relevant, an example of the `happy_path` result will be provided to demonstrate full results of the lesson\|
+Content will be organized into each sections or subsections, containing the following folders (when applicable): 
+
+|Folder|Significance| 
+|--|--| 
+|`work`|This directory will serve as the work directory for participants to freely write their code in| 
+|`test`|Any prepared files will be shared here.|
+|`happy_path`| When relevant, an example of the `happy_path` result will be provided to demonstrate full results of the lesson|
 
 ### 2. Requirements
 
@@ -54,7 +52,7 @@ The following items are needed to fully benefit from the tutorial.
 
 #### Required :
 
-- [ ] internet connection as some sections will use external resources
+- [ ] Internet connection as some sections will use external resources
 - [ ] A linux/bash environment
 - [ ] Knowledge in basic bash scripting
 - [ ] VS code (covered in previous tutorials)
@@ -66,11 +64,11 @@ The following items are needed to fully benefit from the tutorial.
   - `sudo apt-get install jq`
 - [ ] check-jsonschema
   - `pipx install check-jsonschema`
+- [ ] Python 3
+  - <https://www.python.org/downloads/>
 
 #### Optional :
 
-- [ ] Python 3
-  - <https://www.python.org/downloads/>
 - [ ] `jsonschema` for python
   - `pip install jsonschema`
 - [ ] VS code extensions
@@ -82,7 +80,11 @@ Working directory : `module3_tutorial/3_json`
 
 JSON stands for **JavaScript Object Notation**. It serves as a format to store and handle data.
 
-Important to note, the way you manage your data model and ETL (Extract, Transform, Load) pipelines will influence the tools you use and whether JSON is relevant. That being said, we'll be exploring how to validate JSON through schemas and many concepts will be cross applicable regardless of implementation. For the purposes of this tutorial we will go over JSON because we can quickly prototype data validation.
+Important to note, the way you manage your data model and ETL (Extract, Transform, Load) pipelines will influence the tools you use and whether JSON is relevant. 
+
+That being said, we'll be exploring how to validate JSON through schemas and many concepts will be cross applicable regardless of implementation. 
+
+For the purposes of this tutorial we will go over JSON because we can quickly prototype data validation.
 
 A JSON file typically has the suffix `.json` e.g. `example.json`
 
@@ -171,7 +173,9 @@ boolean
 null
 ```
 
-We declare our `Person` schema as an `object` because that enables us to add other fields and properties to our schema. Said properties cannot be represented by other data types. Additionally because the object schema follows the notation `{'key':'value'}`, it allows us to add `properties` and give the fields and properties informative names.
+We declare our `Person` schema as an `object` because that enables us to add other fields and properties to our schema. Said properties cannot be represented by other data types. 
+
+Additionally because the object schema follows the notation `{'key':'value'}`, it allows us to add `properties` and give the fields and properties informative names.
 
 ```json         
 "properties": {
@@ -199,7 +203,11 @@ Our first example is `firstName`. We declare that the property `firstName` of a 
       }
 ```
 
-Conversely in our second property `age` we declare it as `integer` with a minimum value of `0` \#### 3.2. Basic record/instance Let's construct a record to demonstrate the schema
+Conversely in our second property `age` we declare it as `integer` with a minimum value of `0`
+
+#### 3.2. Basic record/instance
+
+Let's construct a record to demonstrate the schema
 
 Starting off with curly braces
 
@@ -233,6 +241,8 @@ Let's demonstrate how the schema works by flipping the values:
     "age":"JoeExample"
 }
 ```
+
+Having the wrong values in our instance can be problematic.
 
 Let's step back and see how we can use our newly generated schema to validate our instance.
 
@@ -1075,9 +1085,13 @@ While we enforce patterns, we cannot verify the existence of content. We will fu
 
 For the tutorial we'll be exploring ICD10 and some resources affiliated with the project.
 
-ICD10 stands for International Statistical Classification of Diseases and Related Health Problems 10th Revision and codes medical diagnoses, symptoms, and external causes of injury.<Br> - can be explored in <https://icd.who.int/browse10/2019/en> e.g. <https://icd.who.int/browse10/2019/en#/C34> and <https://icd.who.int/browse10/2019/en#/U10.9><Br> - follow a pattern structure of `^[A-Z][0-9][A-Z0-9](\.[A-Z0-9]{1,4})?$` e.g. `C34` and `U10.9`
+ICD10 stands for International Statistical Classification of Diseases and Related Health Problems 10th Revision and codes medical diagnoses, symptoms, and external causes of injury.<Br> - can be explored in <https://icd.who.int/browse10/2019/en><Br>e.g. <https://icd.who.int/browse10/2019/en#/C34> and <https://icd.who.int/browse10/2019/en#/U10.9><Br> - follow a pattern structure of `^[A-Z][0-9][A-Z0-9](\.[A-Z0-9]{1,4})?$`<Br>e.g. `C34` and `U10.9`
 
-We can verify codes utilizing the resource : [icd10api.com](https://icd10api.com/)<Br> - It provides a useful interface for searching up codes<Br> - The backend is powered by an API (application programming interface) that allows us to use a search function to verify ICD10.<Br> - Note APIs often have rate limits (queries allowed), so strategize and plan accordingly when utilizing public resources
+We can verify codes utilizing the resource : [icd10api.com](https://icd10api.com/)
+
+- It provides a useful interface for searching up codes
+- The backend is powered by an API (application programming interface) that allows us to use a search function to verify ICD10.
+- Note APIs often have rate limits (queries allowed), so strategize and plan accordingly when utilizing public resources
 
 Let's explore how to utilize the API.
 
@@ -1112,7 +1126,11 @@ The API generates a URL and response. The Request will be useful later as we aut
 
 The response is provided in JSON format and includes multiple fields.
 
-We can get a breakdown of the contents : <https://icd10api.com/#:\~:text=RESET-,Fields,-When%20validating%20codes><Br>- `name` returns the queried code<Br>- `description` describes the diagnosis and its classification<Br>- `Response` a binary status indicating if our code is in the database
+We can get a breakdown of the contents : <https://icd10api.com/#:\~:text=RESET-,Fields,-When%20validating%20codes>
+
+- `name` returns the queried code
+- `description` describes the diagnosis and its classification
+- `Response` a binary status indicating if our code is in the database
 
 Let's explore an example of querying a nonexistent code - Paste the following into your browser:
 
@@ -1320,6 +1338,10 @@ Given our schema contains `if` `else` to catch two scenarios, what if we added a
 How would we account for that? This can be done by nesting another `if` `else` under the `else` of the original.<Br><Br>
 What would that look like? The following are a few test cases and a starting place for the schema.
 
-Your goal is to produce a nested `if else` where the following occurs:<Br> - if `country` is `USA` then the states are `Wisconsin`,`Virginia`,`Dakota`<Br> - if `country` is `Canada` then the states are `Quebec`,`Ontario`,`Vancouver`<Br> - if `country` is `Mexico` then the states are `Sonora`,`Puebla`,`Yucatán`
+Your goal is to produce a nested `if else` where the following occurs:
+
+- if `country` is `USA` then the states are `Wisconsin`,`Virginia`,`Dakota`
+- if `country` is `Canada` then the states are `Quebec`,`Ontario`,`Vancouver
+- if `country` is `Mexico` then the states are `Sonora`,`Puebla`,`Yucatán`
 
 in `8_additional_challenges/8_2_nested_if_else/work` you'll find a starting `schema.json` and the example files `A.json`,`B.json` and `C.json` to test your schema on
