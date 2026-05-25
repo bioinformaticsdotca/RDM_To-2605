@@ -1,6 +1,10 @@
-# Module 4
+# Module 4 Lab: Discovering Data with GA4GH Standards
+**CBHC 2026 Workshop | Research Data Management | Instructor: David Bujold**
+
+**Total Time: 60 min | Lecture: 20 min | Lab: 40 min**
 
 ## Lecture
 
 
 ## Lab
+[Module4_Lab.md](Module4_Lab.md)

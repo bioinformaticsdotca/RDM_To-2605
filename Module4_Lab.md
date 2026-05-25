@@ -1,0 +1,402 @@
+# Module 4 Lab: Discovering Data with GA4GH Standards
+
+## Learning objectives
+
+In this lab, we will:
+1. Run a federated discovery query across a **Beacon Network** of independent nodes through a web UI, and interpret why nodes return different results.
+2. Construct and modify **Beacon v2 API** queries against individual Beacons, and examine the responses.
+3. Recognize how **Phenopackets** and **Experiments Metadata** appear inside a real data management platform (Bento).
+
+## Before you start: checklist
+
+- [ ] Hoppscotch browser extension installed:
+  - Chrome: open the Chrome Web Store and search **"Hoppscotch Browser Extension"**, then click **Add to Chrome**
+  - Firefox: open Firefox Add-ons (addons.mozilla.org) and search **"Hoppscotch Browser Extension"**, then click **Add to Firefox**
+  - After installing, pin the extension and make sure it is **enabled**
+- [ ] Hoppscotch interceptor set to the browser extension:
+  1. Open https://hoppscotch.io
+  2. Click the **Settings** icon (bottom-left shield with a question mark inside)
+  3. Under **Interceptor**, select **Browser Extension** (not Proxy)
+- [ ] The Hoppscotch collection `module4_beacon_api_calls.json` imported
+  1. Download file from here: [module4_beacon_api_calls.json](module4_beacon_api_calls.json)
+  2. Use **Import/Export → Import from Hoppscotch**
+  3. Select the JSON file
+  4. Click **Import**
+
+---
+
+## Section A: Discover data through a Beacon Network UI
+
+A **Beacon Network** is not a single database. It is a set of independent Beacon nodes, each run by a different institution, available from one search box. When you search, the query is broadcast to every node; each node runs it locally against its own data and returns only **aggregate information** (e.g. counts); no individual-level data ever leaves the institution. This is the core principle of **federated discovery**: *the query travels, the data does not.*
+
+Open the Beacon Network UI: **https://gdi.bento.sd4h.ca/en/network**
+
+### A.1: Observe the federation
+
+Before searching anything, look at the **Network Search Results** area. It reports "Results from 4 beacons" and shows one card per node.
+
+**Observations:**
+- 4 member nodes: ____, ____, ____, ____
+- Total individuals across the whole network: ____
+- The node with the most biosamples: ____
+- Do all nodes declare the *same* assembly / data types? ____
+
+Notice the heterogeneity: the nodes cover different domains (rare disease, a COVID-19 biobank, pediatric brain tumours, a respiratory health network), differ in size, and **some hold genomic variants and some hold only clinical/biosample metadata**. Keep that in mind; it explains the next two steps.
+
+### A.2: A clinical query every node can answer
+
+In the **Metadata** panel, make sure the **"show all filters"** toggle is **OFF**. With it off, the only filter fields offered are **Age** and **Sex**.
+
+1. Click **Add Filter**, choose **Sex**, set the value to **FEMALE**.
+2. Click **Search Network**.
+
+**Observations:**
+- Did all 4 nodes return a count? ____
+
+These two filters (Age, Sex) are the *only* fields offered while the toggle is off, because they are the **intersection** of what every node supports, the common denominator of the whole federation.
+
+### A.3: Reveal the rest, and watch nodes drop out
+
+1. Turn the **"show all filters"** toggle **ON**. Many more fields appear (Diseases, Phenotypic Features, Experiment Types, plus node-specific fields like Smoking and ICU from BQC19). This larger set is the **union**: every filter supported by *at least one* node.
+2. **Clear Form**, then add a filter that only some nodes carry, e.g. **Experiment Types = WGS**, or **Diseases =** a term from the dropdown.
+3. **Search Network** again.
+
+**Observations:**
+- How did the per-node counts change versus A.2? ____
+- Did any node return nothing / drop out for this filter? ____
+
+A node that does not support a given field simply cannot match it, so it returns no result. That is why the answerable set shrinks as you move from the intersection (Age/Sex) toward the union.
+
+> **Tip:** When a node returns an **error** instead of a count, hover your mouse over that node's error message; a tooltip appears explaining *why* it failed. Most often the reason is that the filter you added simply does not exist on that node, which is exactly the heterogeneity point above: the node cannot match a field it does not support.
+
+
+### A.4: Add a genomic variant
+
+1. **Clear Form.** In the **Variants** panel enter a region over the **TP53** tumour-suppressor gene:
+   - Chromosome: **17**
+   - Variant start: **7661778**
+   - Variant end: **7687546**
+   - Assembly ID: **GRCH37**
+2. (Optionally also set **Experiment Types = WGS** in the Metadata panel.)
+3. **Search Network.**
+
+**Observations:**
+- Which nodes returned variant matches? ____
+- Which nodes returned nothing for the variant query, and why? ____
+
+Only the nodes that actually ingested genomic variants (and on this assembly) can answer; the others return nothing even though the query reached them. Same query was sent to all nodes, and each node answers only what it holds.
+
+### What just happened
+
+Your query was sent to every node at once. Each node ran it locally and returned only counts. **Federated discovery** means the query travels and the data does not. Results shrank as you added filters, as some nodes do not support certain fields (which is why only Age and Sex worked everywhere), and some nodes do not hold genomic variants at all. The Beacon API standard makes the same query work across different systems; they do not make every node store the same data.
+
+
+---
+
+## Section B: Running Beacon v2 API queries
+
+In Section A, the network user interface hid the API behind a search box. In this section, we look at the **Beacon v2 REST API** itself and talk to individual Beacons directly. You will use three nodes:
+
+- **ICHANGE** (`https://ichange.bento.sd4h.ca/api/beacon`): a Bento Beacon you saw inside the network in Section A.
+- **GDI Rare Disease** (`https://gdi.bento.sd4h.ca/api/beacon`): another network member.
+- **Progenetix** (`https://progenetix.org/beacon`): a large, public, non-Bento Beacon, included to show the standard generalizes beyond one platform.
+
+> **Note:** Many Beacons online still run v1, which only answers variant-level queries. Beacon **v2** adds queries over individuals, biosamples, and clinical data with ontology/metadata filters; that is what you use here. All requests below are pre-loaded in the imported Hoppscotch collection; the URLs are given so you can also run them by hand.
+
+### Using Hoppscotch
+
+The collection is organized into three folders in the right sidebar (**ICHANGE Beacon**, **Progenetix Beacon**, and **GDI Beacon**) matching the three nodes above. Click a folder to expand it, then click any request to open it in the main panel.
+
+To run a request:
+1. Click the request name in the sidebar. The URL and method (GET or POST) load automatically in the main panel.
+2. For **POST requests**, click the **Body** tab below the URL bar to inspect or edit the JSON payload before sending.
+3. Click the blue **Send** button.
+4. The response appears in the bottom half of the screen. Use the **JSON** tab for a formatted view. The status line (`200 OK`) and response size are shown just above the response body.
+
+For most steps below, you will only need to click a request and hit **Send**. The payloads are already filled in. When a step asks you to modify the body (e.g. swap coordinates or remove a filter), edit the JSON directly in the **Body** tab before sending.
+
+### B.1: Sanity check the endpoint
+
+1. In Hoppscotch, open the imported collection (`module4_beacon_api_calls.json`).
+2. Run **`GET /info`** against `https://ichange.bento.sd4h.ca/api/beacon/info`.
+3. Read the response: the Beacon `id`, `name`, the `organization` behind it, and the `apiVersion` it advertises.
+
+> **Tip:** The advertised API version tells you what the Beacon supports. A `v1.x` Beacon can only answer variant-level queries; a `v2.x` Beacon also handles individuals, biosamples, and clinical cohorts with filters.
+
+4. Find the `organization` block (name, `welcomeUrl`, `logoUrl`), which tells you who operates the Beacon and how to reach them.
+
+**Observations:**
+- Beacon name: ____
+- Description (what kind of data?): ____
+- API version: ____
+- Organization name: ____
+
+### B.2: List supported filters (and notice two different styles)
+
+1. Run **`GET /filtering_terms`** against **ICHANGE** (`https://ichange.bento.sd4h.ca/api/beacon/filtering_terms`). It returns a short list of **category-style** fields: `age`, `sex`, `disease`, `sampled_tissue`, `experiment_type`, `molecule`.
+2. Now run **`GET /filtering_terms`** against **Progenetix** (`https://progenetix.org/beacon/filtering_terms`). This list is long and **CURIE-style**: each entry is an ontology identifier (NCIT, PMID, EFO, …). In the response panel, switch to the **Raw** tab, click anywhere inside the raw text to give it focus, then use **Ctrl/Cmd-F** to search for **`NCIT:C3058`**.
+
+> **Tip (if Ctrl/Cmd-F still finds nothing):** The **JSON** tab virtualizes long responses, so the browser's find only sees what is currently rendered; that is why the **Raw** tab + focus-click trick above matters. A few alternatives, not covered in this workshop but handy to know:
+>
+> - **`curl` + `grep`** (terminal): `curl` fetches the URL, `grep` keeps only the lines that match your search string.
+>   ```bash
+>   curl -s https://progenetix.org/beacon/filtering_terms | grep "NCIT:C3058"
+>   ```
+> - **`curl` + `jq`** (terminal): `jq` is a small command-line tool for querying JSON; here it pulls out just the entry whose `id` matches.
+>   ```bash
+>   curl -s https://progenetix.org/beacon/filtering_terms | jq '.response.filteringTerms[] | select(.id == "NCIT:C3058")'
+>   ```
+> - **View Page Source** (browser, no terminal needed): open `https://progenetix.org/beacon/filtering_terms` in a new tab, then press **Ctrl+U** (or right-click → **View Page Source**). The raw JSON loads as plain text with no folding or virtualization, so Ctrl/Cmd-F finds every match.
+
+**Observations:**
+- ICHANGE: how many filtering terms, and are they categories or CURIEs? ____
+- Is `NCIT:C3058` present in the Progenetix list? ____
+- The label given to it: ____ *(it is a brain tumour type, Glioblastoma)*
+
+Both are valid Beacon v2. A Beacon advertises exactly which fields/CURIEs it understands; if a filter is not on this list, the server cannot answer a query that uses it. Keep that in mind for the next step.
+
+### B.3: A real, filtered query on Progenetix
+
+1. Run **`POST /individuals: Glioblastoma + CDKN2A deletion`** against `https://progenetix.org/beacon/individuals`.
+2. Inspect the JSON request body (left panel, **Body** tab). It combines a genomic region with a clinical CURIE filter:
+   ```json
+   {
+     "query": {
+       "requestParameters": {
+         "referenceName": "9",
+         "start": [ 21500000 ],
+         "end": [ 21975098 ],
+         "variantType": "DEL"
+       },
+       "filters": [
+         { "id": "NCIT:C3058" }
+       ]
+     },
+     "meta": { "apiVersion": "v2.0" }
+   }
+   ```
+3. The region on chromosome 9 (`chr9:21,500,000–21,975,098`, GRCh38) overlaps **CDKN2A**, a well-known tumour-suppressor gene that has been associated with glioblastoma in the cancer-genomics literature. Combining this region with the `DEL` (deletion) variant type and the clinical filter `NCIT:C3058` (the **Glioblastoma** CURIE you just confirmed in `/filtering_terms`) is an example of how a Beacon v2 query can mix genomic and clinical constraints in a single request. The clinical filter only resolves because the server advertised support for `NCIT:C3058` in its filtering terms.
+
+> **Where to look:** The match count is *not* in the long list of returned records. Scroll to the top of the response and find the **`responseSummary`** block; the number of individuals matching the query is the `numTotalResults` field there (some Beacons also echo it as `resultsCount`).
+
+**Observations:**
+- `resultsCount` / `numTotalResults`: ____
+- Did the query return `exists: true`? ____
+
+> **What `exists: true` means:** `exists` is the Beacon's yes/no discovery answer: `true` means *"at least one record in this Beacon matches your query"* (i.e. `numTotalResults` ≥ 1). It deliberately reveals only that matching data exists, not who or how many; at boolean granularity a Beacon can answer `exists: true` while withholding the exact count entirely. `exists: false` means nothing matched.
+
+
+### B.4: Same query shape, a different Beacon
+
+The Beacon v2 request shape is portable. Run **`POST /individuals: GDI TP53 + WGS + Congenital myopathy`** against `https://gdi.bento.sd4h.ca/api/beacon/individuals` with this body:
+
+```json
+{
+  "meta": { "apiVersion": "2.0.0" },
+  "query": {
+    "requestParameters": {
+      "g_variant": {
+        "referenceName": "chr17",
+        "start": [ 7661778 ],
+        "end": [ 7687546 ],
+        "assemblyId": "GRCH37"
+      }
+    },
+    "filters": [
+      { "id": "experiment_type", "operator": "=", "value": "WGS" },
+      { "id": "diseases", "operator": "=", "value": "Congenital myopathy" }
+    ]
+  }
+}
+```
+
+Notice this Beacon uses the **category-style** filters from B.2 (`experiment_type`, `diseases` with an `operator`/`value`), not CURIEs; a different filter style, same request envelope.
+
+**Observations:**
+- `exists`: ____
+- `numTotalResults`: ____
+
+### B.5: A convenience parameter: query by gene
+
+Beacon v2 lets you name a gene instead of typing coordinates. Run the **same** query but replace the `g_variant` block:
+
+```json
+"g_variant": {
+  "referenceName": "chr17",
+  "assemblyId": "GRCH37",
+  "geneId": "TP53"
+}
+```
+
+(keep the same `filters`).
+
+**Observations:**
+- `numTotalResults` with `geneId`: ____
+- Is it the same count as B.4? ____ (it should be: `geneId: "TP53"` resolves to the same region you typed by hand)
+
+### B.6: Same shape on ICHANGE: HIST1H3B + DIPG
+
+ICHANGE is the pediatric brain tumour Beacon from the Jabado lab (Montreal). The histone gene **HIST1H3B** has been linked in the literature to **diffuse intrinsic pontine glioma (DIPG)**, a pediatric brainstem tumour, so combining a HIST1H3B region with a DIPG disease filter is a thematically fitting test of whether this Beacon actually holds the kind of data its domain implies.
+
+Run **`POST /individuals: ICHANGE HIST1H3B + DIPG`** against `https://ichange.bento.sd4h.ca/api/beacon/individuals` with:
+
+```json
+{
+  "meta": { "apiVersion": "2.0.0" },
+  "query": {
+    "requestParameters": {
+      "g_variant": {
+        "referenceName": "6",
+        "start": [ 26031817 ],
+        "end": [ 26032288 ],
+        "assemblyId": "GRCH37"
+      }
+    },
+    "filters": [
+      { "id": "disease", "operator": "=", "value": "Diffuse intrinsic pontine glioma – dipg" }
+    ]
+  }
+}
+```
+
+To see the AND across the variant region and the disease filter, run the query three times: the full query, then each constraint alone, and compare the counts.
+
+**Observations:**
+- HIST1H3B region only (omit `filters`): ____
+- DIPG disease only (omit `requestParameters`): ____
+- Both (the full query): ____
+
+> **Heads-up on the disease value:** The string above contains an **en-dash (–)** between "glioma" and "dipg", not a regular hyphen. That is the literal label as ingested; replacing it with `-` silently returns 0. If you retype the value by hand, copy it from the `disease` term's `values` list in `GET /filtering_terms`. Same moral as the A.4 `GRCH37` aside: one wrong character and matching data disappears.
+
+This is the payoff: one request shape, three platforms (Progenetix, GDI, ICHANGE), two filter styles, all still Beacon v2. That portability is what GA4GH standards buy you.
+
+<details>
+<summary><strong>B.7 (Optional, do it by yourself): The same query from the command line</strong> &nbsp;<em>(click to expand)</em></summary>
+
+<div style="background:#fff8dc; border-left:4px solid #d4a017; padding:12px 16px; border-radius:4px; margin-top:8px;">
+
+> [!NOTE]
+> **Optional step.** Uses `curl` (and optionally `python3` / `jq`) from a terminal. You may not have these tools on your machine; if so, skip during the workshop and try it later on your own.
+
+The Beacon API is just HTTP, not tied to Hoppscotch. Open a terminal and run the B.4 query:
+
+```bash
+curl -s -X POST https://gdi.bento.sd4h.ca/api/beacon/individuals \
+  -H "Content-Type: application/json" \
+  -d '{"meta":{"apiVersion":"2.0.0"},"query":{"requestParameters":{"g_variant":{"referenceName":"chr17","start":[7661778],"end":[7687546],"assemblyId":"GRCH37"}},"filters":[{"id":"experiment_type","operator":"=","value":"WGS"},{"id":"diseases","operator":"=","value":"Congenital myopathy"}]}}' \
+  | python3 -m json.tool
+```
+
+If you have `jq`, pull just the summary:
+
+```bash
+curl -s -X POST https://gdi.bento.sd4h.ca/api/beacon/individuals \
+  -H "Content-Type: application/json" \
+  -d '{"meta":{"apiVersion":"2.0.0"},"query":{"requestParameters":{"g_variant":{"referenceName":"chr17","assemblyId":"GRCH37","geneId":"TP53"}},"filters":[{"id":"experiment_type","operator":"=","value":"WGS"},{"id":"diseases","operator":"=","value":"Congenital myopathy"}]}}' \
+  | jq '.responseSummary'
+```
+
+</div>
+
+</details>
+
+---
+
+## Section C: Bento as a discovery platform
+
+Bento is an open-source platform for organizing, discovering, and sharing genomics and clinical research data across projects. It is built from modular services that can be configured per project, supporting everything from controlled-access sensitive patient data to fully public datasets. Researchers use it to search cohorts of individuals, biosamples, and experiments before requesting direct access to raw data files.
+
+While Bento powers larger research portals, **any project can deploy its own independent instance**; you saw several such instances federated together in Section A. Each service runs as a container (as covered in the lecture), data is ingested using the **Phenopackets** standard, and a Beacon implementation is included out of the box for federated cross-node queries.
+
+Here you explore one such instance directly: **RENATA**: **https://renata.bento.sd4h.ca**
+
+RENATA is a **fully public dataset**: there is no controlled-access tier and no login. Because the data is open, the platform lets you go beyond aggregate counts and explore **row-level records** directly, browsing individuals, biosamples, and experiments, and exporting a full Phenopacket. (Contrast this with the Section A/B Beacons, where federated discovery deliberately returns only counts because the underlying data is sensitive.)
+
+
+### What to look for
+
+- **Data explorer**: filter individuals by phenotypic features. Many of the terms in the dropdown come from standard ontologies (e.g. **NCIT**).
+- **Experiments view**: each biosample is linked to one or more assays with structured metadata (GA4GH Experiments Metadata Standard in action).
+- **Beacon inside Bento**: the same Beacon v2 API you hit in Section B, embedded in the platform UI.
+- **Export a GA4GH Phenopacket**: pick one individual and export their record as JSON and recognize the structure from the lecture.
+
+### Mini-task
+
+1. Open the RENATA Bento instance and go to the **Search** tab. (not the Beacon option from the side bar)
+2. Open the **phenotypic feature** filter and **click the dropdown** to reveal its list of options. **Pick one term from the menu** that returns one or more individuals.
+3. Open one matching individual and **export their Phenopacket as JSON**.
+4. Scan the JSON. Identify at least one **NCIT** term, one **MONDO** (disease) term, and one **biosample id**.
+
+> **Tip:** RENATA is a small, real research dataset. Use whatever phenotype terms the dropdown actually offers rather than guessing a code; that is the point: the available terms *are* the ingested Phenopackets.
+
+**Observations:**
+- One NCIT CURIE you found in the exported Phenopacket: ____
+- One MONDO (or other disease) CURIE: ____
+- One biosample id: ____
+
+### Same dataset, Beacon lens
+
+The platform you just browsed *is also* a Beacon. The Bento stack ships an embedded Beacon v2 endpoint, so the same RENATA dataset is reachable from the same Hoppscotch collection you used in Section B, at a different base URL.
+
+1. Run **`GET /info`** against **`https://renata.bento.sd4h.ca/api/beacon/info`**.
+   - The `description` confirms this is a **breast cancer** Beacon, a fifth domain on top of the four you saw in Section A (rare disease, COVID-19, pediatric brain tumours, reproductive health).
+   - `apiVersion` matches what ICHANGE and GDI advertised: `v2.1.1`.
+
+Now try Section A.4's exact TP53 query against RENATA to see whether assembly differences are theoretical:
+
+2. Run **`POST /individuals`** against **`https://renata.bento.sd4h.ca/api/beacon/individuals`** with this body (the same chr17 TP53 region you typed into the network UI in A.4):
+
+   ```json
+   {
+     "meta": { "apiVersion": "2.0.0" },
+     "query": {
+       "requestParameters": {
+         "g_variant": {
+           "referenceName": "chr17",
+           "start": [ 7661778 ],
+           "end": [ 7687546 ],
+           "assemblyId": "GRCH37"
+         }
+       }
+     }
+   }
+   ```
+
+   You should get `exists: false`, `numTotalResults: 0`. RENATA has TP53 variants, but not at *those* coordinates; those coordinates are on the wrong assembly.
+
+3. Now run the same query with the TP53 region lifted over to **GRCh38** (`chr17:7,668,421–7,687,490`, `assemblyId: "GRCh38"`):
+
+   ```json
+   {
+     "meta": { "apiVersion": "2.0.0" },
+     "query": {
+       "requestParameters": {
+         "g_variant": {
+           "referenceName": "chr17",
+           "start": [ 7668421 ],
+           "end": [ 7687490 ],
+           "assemblyId": "GRCh38"
+         }
+       }
+     }
+   }
+   ```
+
+   This one returns matches.
+
+**Observations:**
+- `numTotalResults` with Section A.4's GRCH37 coordinates: ____
+- `numTotalResults` with GRCh38 coordinates: ____
+
+---
+
+## Wrap-up
+
+In this lab you:
+
+- Ran a **federated query** across a 4-node **Beacon Network** through a web UI, without any data leaving its home institution, and saw results shrink for two reasons: not every node supports the same filters (only Age and Sex work everywhere), and not every node holds genomic variants.
+- Queried the **Beacon v2 REST API** directly against three Beacons (ICHANGE, GDI, the non-Bento Progenetix); learning the request structure (`/info`, `/filtering_terms`, `/individuals`), two valid filter styles (CURIE vs. category), and the `geneId` convenience parameter.
+- Explored **Bento (RENATA)** as an end-to-end platform: phenotypic filtering powered by Phenopackets, structured experiment metadata, and an embedded Beacon, all backed by the same GA4GH standards.
+- Exported a **Phenopacket JSON** record and identified its core building blocks (NCIT term, disease/MONDO term, biosample id).
+
+**Key takeaway:** the same query shape works across any GA4GH-compliant Beacon regardless of the underlying database or institution, but a federation is only as coherent as its shared vocabularies. Standards are what make portability *and* federation possible.
