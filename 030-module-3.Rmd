@@ -309,7 +309,9 @@ validate(instance=instance, schema=schema)
 
 This performs the validation. If the instance is properly structured according to the schema, it will silently pass. \
 
-##### 4.1.2. Understanding the error Otherwise an error is reported. The following will produce this result:
+##### 4.1.2. Understanding the error 
+
+Otherwise an error is reported. The following will produce this result:
 
 ```python         
 Traceback (most recent call last):
