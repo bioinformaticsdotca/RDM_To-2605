@@ -6,6 +6,8 @@ editor_options: markdown: wrap: 72 ---
 
 ## Lecture
 
+<iframe src="https://docs.google.com/presentation/d/1LQkPNPvY0Xd3kM8A1Pic5T2ZQWv8R1cH2tAAh0SkcOo/preview" width="640" height="480" allow="autoplay"></iframe>
+
 ## Lab
 
 This markdown file will serve as the central guide throughout the tutorial. Participants can follow along as the guide will provide example code, references, example files as well as explanations of each step.
