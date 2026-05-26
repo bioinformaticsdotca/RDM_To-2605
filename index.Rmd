@@ -16,7 +16,7 @@ favicon: img/favicon.ico
 
 # (PART) Introduction {-}
 
-# Workshop Info TEST
+# Workshop Info
 
 Welcome to the 2026 Reproducible Research: Essentials for Managing Your Data Canadian Bioinformatics Workshop webpage!  
 
