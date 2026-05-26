@@ -1,0 +1,85 @@
+{
+    "$id": "https://example.com/person.schema.json",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Person",
+    "type": "object",
+    "required": [
+      "firstName",
+      "lastName",
+      "icd10"
+    ],
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "description": "The person's first name."
+      },
+      "lastName": {
+        "type": "string",
+        "description": "The person's last name.",
+        "pattern": "[A-Za-z- ]+"
+      },
+      "age": {
+        "description": "Age in years which must be equal to or greater than zero.",
+        "type": "integer",
+        "minimum": 0
+      },
+      "icd10": {
+        "description": "Identification of a disease, condition, or injury based on signs, symptoms, medical history, and physical exams. Using ICD10 codes",
+        "type": "string"
+      },
+      "honorific": {
+        "enum": [
+          "Mr",
+          "Miss",
+          "Mrs",
+          "Mx"
+        ]
+      },
+      "country": {
+        "enum": [
+          "USA",
+          "Canada"
+        ]
+      },
+      "province/territory/state": {
+        "type": "string"
+      }
+    },
+    "if": {
+      "properties": {
+        "country": {
+          "enum": [
+            "USA"
+          ]
+        }
+      }
+    },
+    "then": {
+      "required": [
+        "province/territory/state"
+      ],
+      "properties": {
+        "province/territory/state": {
+          "enum": [
+            "Wisconsin",
+            "Virginia",
+            "Dakota"
+          ]
+        }
+      }
+    },
+    "else": {
+      "required": [
+        "province/territory/state"
+      ],
+      "properties": {
+        "province/territory/state": {
+          "enum": [
+            "Quebec",
+            "Ontario",
+            "Vancouver"
+          ]
+        }
+      }
+    }
+  }
