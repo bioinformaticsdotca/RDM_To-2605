@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Module 2: Version Control with Git | Reproducible Research: Essentials for Managing Your Data 2026</title>
+  <meta name="description" content="Workshop website for the 2026 Reproducible Research: Essentials for Managing Your Data Canadian Bioinformatics Workshop" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Module 2: Version Control with Git | Reproducible Research: Essentials for Managing Your Data 2026" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://bioinformaticsdotca.github.io/RDM_To-2605/img/bioinformatics_logo.png" />
+  <meta property="og:description" content="Workshop website for the 2026 Reproducible Research: Essentials for Managing Your Data Canadian Bioinformatics Workshop" />
+  <meta name="github-repo" content="bioinformaticsdotca/RDM_To-2605" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Module 2: Version Control with Git | Reproducible Research: Essentials for Managing Your Data 2026" />
+  
+  <meta name="twitter:description" content="Workshop website for the 2026 Reproducible Research: Essentials for Managing Your Data Canadian Bioinformatics Workshop" />
+  <meta name="twitter:image" content="https://bioinformaticsdotca.github.io/RDM_To-2605/img/bioinformatics_logo.png" />
+
+<meta name="author" content="Faculty: Mélanie Courtot, Mitchell Shiell, Linda Xiang, Hardeep Nahal-Bose, Edmund Su, David Bujold" />
+
+
+<meta name="date" content="2026-05-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="module-1.html"/>
+<link rel="next" href="module-3.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LearningResource",
+  "name": "Reproducible Research: Essentials for Managing Your Data",
+  "description": "The complete set of tutorials, slides, and practical exercises for the Reproducible Research: Essentials for Managing Your Data 2026 Canadian Bioinformatics Workshop, hosted on GitHub Pages.",
+  "url": "https://bioinformaticsdotca.github.io/RDM_To-2605",
+  "learningResourceType": ["tutorial", "slides", "exercise"],
+  "inLanguage": "en",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Bioinformatics.ca",
+    "url": "https://bioinformatics.ca"
+  },
+  "keywords": "",
+  "isPartOf": {
+    "@type": "Course",
+    "@id": ""
+  }
+}
+</script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="https://bioinformaticsdotca.github.io/">
+ <img src="img/bioinformatics_logo.png" width="90%" alt="bioinformatics.ca logo" style="display:block; margin-left:auto; margin-right:auto; margin-top:15px;">
+ </a>
+<li><center><strong><a href="./"><br>Reproducible Research: Essentials for Managing Your Data<br><br></a></strong></center></li>
+<a href="./">
+ <img src="img/RDM_icon.png" width="70%" alt="Reproducible Research: Essentials for Managing Your Data logo" style="display:block; margin-left:auto; margin-right:auto; ">
+ </a>
+<br>
+
+<li class="divider"></li>
+<li class="part"><span><b>I Introduction</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Workshop Info</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#pre-work"><i class="fa fa-check"></i>Pre-work</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#class-photo"><i class="fa fa-check"></i>Class Photo</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule"><i class="fa fa-check"></i>Schedule</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="meet-your-faculty.html"><a href="meet-your-faculty.html"><i class="fa fa-check"></i>Meet Your Faculty</a></li>
+<li class="chapter" data-level="" data-path="data-and-compute-setup.html"><a href="data-and-compute-setup.html"><i class="fa fa-check"></i>Data and Compute Setup</a></li>
+<li class="part"><span><b>II Modules</b></span></li>
+<li class="chapter" data-level="" data-path="module-1.html"><a href="module-1.html"><i class="fa fa-check"></i>Module 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="module-1.html"><a href="module-1.html#lecture"><i class="fa fa-check"></i>Lecture</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html"><i class="fa fa-check"></i>Module 2: Version Control with Git</a>
+<ul>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#contents"><i class="fa fa-check"></i>Contents</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#learning-objectives"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#learning-outcomes"><i class="fa fa-check"></i>Learning Outcomes</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#success-criteria"><i class="fa fa-check"></i>Success Criteria</a>
+<ul>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#self-assessment"><i class="fa fa-check"></i>Self-assessment</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#formal-assessment"><i class="fa fa-check"></i>Formal assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#agenda"><i class="fa fa-check"></i>Agenda</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#lecture-20-min"><i class="fa fa-check"></i>Lecture (20 min)</a>
+<ul>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#lecture-agenda"><i class="fa fa-check"></i>Lecture Agenda</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#lecture-slides"><i class="fa fa-check"></i>Lecture Slides</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#lab-40-min"><i class="fa fa-check"></i>Lab (40 min)</a>
+<ul>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#lab-agenda"><i class="fa fa-check"></i>Lab Agenda</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#prerequisite"><i class="fa fa-check"></i>Prerequisite</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#lab-tracks"><i class="fa fa-check"></i>Lab Tracks</a></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#wrap-up-and-key-takeaways"><i class="fa fa-check"></i>Wrap-up and Key Takeaways</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="module-2-version-control-with-git.html"><a href="module-2-version-control-with-git.html#reference"><i class="fa fa-check"></i>Reference</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="module-3.html"><a href="module-3.html"><i class="fa fa-check"></i>Module 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="module-3.html"><a href="module-3.html#lecture-1"><i class="fa fa-check"></i>Lecture</a></li>
+<li class="chapter" data-level="" data-path="module-3.html"><a href="module-3.html#lab"><i class="fa fa-check"></i>Lab</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="module-4-lab-discovering-data-with-ga4gh-standards.html"><a href="module-4-lab-discovering-data-with-ga4gh-standards.html"><i class="fa fa-check"></i>Module 4 Lab: Discovering Data with GA4GH Standards</a>
+<ul>
+<li class="chapter" data-level="" data-path="module-4-lab-discovering-data-with-ga4gh-standards.html"><a href="module-4-lab-discovering-data-with-ga4gh-standards.html#lecture-2"><i class="fa fa-check"></i>Lecture</a></li>
+<li class="chapter" data-level="" data-path="module-4-lab-discovering-data-with-ga4gh-standards.html"><a href="module-4-lab-discovering-data-with-ga4gh-standards.html#lab-1"><i class="fa fa-check"></i>Lab</a></li>
+</ul></li>
+<li class="divider"></li>
+<h1 id="sponsors">Sponsors</h1>
+<center>
+<a href="https://www.cihr-irsc.gc.ca"><img src="img/sponsors/cihr.png" width=90% style="padding-bottom: 20px" alt="Canadian Institutes of Health Research logo."></a>
+
+<a href="https://genomecanada.ca/"><img src="img/sponsors/genomecanada.png" height="55" style="display:inline-block"" alt="Genome Canada logo.">
+<a href="https://www.ontariogenomics.ca/"><img src="img/sponsors/ontariogenomics.png" height="55" style="display:inline-block" alt="Ontario Genomics logo.">
+<br><br>
+<a href="https://genomelibrary.ca/"><img src="img/sponsors/pcgl-logo-v06_rev.png" width=80% style="padding-bottom: 20px" alt="PCGL logo. Left: Maple leaf in greyscale overlayed with dark grey, red, light grey and black bands. Right: Pan-Canadian Genome Library. Bibliothèque génomique pancanadienne."></a>
+<a href="https://oicr.on.ca/"><img src="img/sponsors/oicr.png" width=35% style="display:inline-block; padding-bottom: 20px; padding-right: 20px" alt="Ontario Institute for Cancer Research logo."></a>
+<a href="https://www.computeontario.ca/"><img src="img/sponsors/ComputeOntario_LOGO_300dpi_RGB.webp" width=28% style="display:inline-block; padding-bottom: 20px" alt="Compute Ontario logo."></a>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible Research: Essentials for Managing Your Data 2026</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="module-2-version-control-with-git" class="section level1 hasAnchor">
+<h1>Module 2: Version Control with Git<a href="module-2-version-control-with-git.html#module-2-version-control-with-git" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>CBHC 2026 Workshop | Research Data Management | Instructors: Mitchell Shiell and Linda Xiang</strong></p>
+<p><strong>Total Time: 60 min | Lecture: 20 min | Lab: 40 min</strong></p>
+<hr />
+<div id="contents" class="section level2 hasAnchor">
+<h2>Contents<a href="module-2-version-control-with-git.html#contents" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="module-2-version-control-with-git.html#learning-objectives">Learning Objectives</a></li>
+<li><a href="module-2-version-control-with-git.html#learning-outcomes">Learning Outcomes</a></li>
+<li><a href="module-2-version-control-with-git.html#success-criteria">Success Criteria</a>
+<ul>
+<li><a href="module-2-version-control-with-git.html#self-assessment">Self-assessment</a></li>
+<li><a href="module-2-version-control-with-git.html#formal-assessment">Formal assessment</a></li>
+</ul></li>
+<li><a href="module-2-version-control-with-git.html#agenda">Agenda</a></li>
+<li><a href="module-2-version-control-with-git.html#lecture-20-min">Lecture (20 min)</a></li>
+<li><a href="module-2-version-control-with-git.html#lab-40-min">Lab (40 min)</a>
+<ul>
+<li><a href="module-2-version-control-with-git.html#lab-agenda">Lab Agenda</a></li>
+<li><a href="module-2-version-control-with-git.html#prerequisite">Prerequisite</a></li>
+<li><a href="module-2-version-control-with-git.html#lab-tracks">Lab Tracks</a>
+<ul>
+<li><a href="module-2-version-control-with-git.html#track-a-core-everyone-10-min">Track A — Core</a></li>
+<li><a href="module-2-version-control-with-git.html#track-b-intermediate-20-min-total-includes-track-a">Track B — Intermediate</a></li>
+<li><a href="module-2-version-control-with-git.html#track-c-advanced-30-min-total-includes-track-a-and-b-requires-a-partner">Track C — Advanced</a></li>
+</ul></li>
+<li><a href="module-2-version-control-with-git.html#wrap-up-and-key-takeaways">Wrap-up and Key Takeaways</a></li>
+</ul></li>
+<li><a href="module-2-version-control-with-git.html#reference">Reference</a></li>
+</ul>
+<hr />
+</div>
+<div id="learning-objectives" class="section level2 hasAnchor">
+<h2>Learning Objectives<a href="module-2-version-control-with-git.html#learning-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this module, instructors will have taught participants to:</p>
+<ol start="0" style="list-style-type: decimal">
+<li><strong>Confirm prerequisite readiness</strong> — verify Git is installed and accessible from the command line, an active GitHub account with two-factor authentication is configured, and a working command-line interface (Terminal on macOS/Linux, or Git Bash on Windows) before beginning hands-on activities.</li>
+<li><strong>Explain the purpose of version control</strong> — articulate why tracking changes matters for reproducibility and collaboration in research.</li>
+<li><strong>Navigate the Git mental model</strong> — distinguish between the working directory, staging area, and repository, and describe how commits create a traceable history.</li>
+<li><strong>Execute a basic Git workflow</strong> — initialise a repository, stage files, commit changes, and push to a remote on GitHub.</li>
+<li><strong>Interpret the project history</strong> — use <code>git log</code>, <code>git diff</code>, and <code>git status</code> to interrogate what has changed and why.</li>
+<li><strong>Apply selective tracking practices</strong> — configure <code>.gitignore</code> to exclude large data files, credentials, and generated outputs from version control.</li>
+<li><strong>Use branches for parallel work</strong> — create and merge feature branches, and resolve simple merge conflicts.</li>
+<li><strong>(Optional) Collaborate on a protected repository</strong> — configure branch protection rules, resolve a merge conflict via rebase, clean up commit history with interactive rebase, trigger a GitHub Actions CI check, and complete a structured code-review workflow with CODEOWNERS.</li>
+</ol>
+<hr />
+</div>
+<div id="learning-outcomes" class="section level2 hasAnchor">
+<h2>Learning Outcomes<a href="module-2-version-control-with-git.html#learning-outcomes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the end of this module, participants will be able to:</p>
+<ol start="0" style="list-style-type: decimal">
+<li>Confirm that Git is installed by running <code>git --version</code> in the terminal, verify that their GitHub account is active with 2FA enabled, and successfully open a command-line interface appropriate for their operating system (Terminal on macOS/Linux, or Git Bash on Windows).</li>
+<li>Open a terminal (or Git Bash on Windows) and confirm that Git is installed and configured with their name and email.</li>
+<li>Create a new Git repository for a research project and make their first commit with a meaningful commit message.</li>
+<li>Stage and commit incremental changes, producing a commit history that reflects the evolution of a project.</li>
+<li>Push a local repository to GitHub and pull updates from a remote.</li>
+<li>Read <code>git log</code> output and use <code>git diff</code> to compare versions of a file.</li>
+<li>Write a <code>.gitignore</code> file that excludes raw data files and environment-specific files from the repository.</li>
+<li>Create a feature branch, commit changes on it, and merge it back into <code>main</code>.</li>
+<li>(<strong>Optional</strong>) Configure branch protection rules, resolve a rebase-based merge conflict, squash commits with interactive rebase, add a GitHub Actions CI workflow, and complete a pull request that passes automated checks and a structured code review.</li>
+</ol>
+<hr />
+</div>
+<div id="success-criteria" class="section level2 hasAnchor">
+<h2>Success Criteria<a href="module-2-version-control-with-git.html#success-criteria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="self-assessment" class="section level3 hasAnchor">
+<h3>Self-assessment<a href="module-2-version-control-with-git.html#self-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Question</th>
+<th align="left">Timing</th>
+<th align="left">Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Have I verified that Git is installed (<code>git --version</code> works), my GitHub account is active with 2FA enabled, and I can open a working <br> command-line interface (Terminal, VS Code, or RStudio)?</td>
+<td align="left">Before Track A begins</td>
+<td align="left">[ ] Confirmed <br> [ ] Partially <br> [ ] Not yet</td>
+</tr>
+<tr class="even">
+<td align="left">Can I initialise a repository, make commits with meaningful messages, and push to GitHub?</td>
+<td align="left">End of Track A</td>
+<td align="left">[ ] Confident <br> [ ] Getting there <br> [ ] Not yet</td>
+</tr>
+<tr class="odd">
+<td align="left">Can I use <code>git log</code> and <code>git diff</code> to explain what changed, why, and when?</td>
+<td align="left">End of Track B</td>
+<td align="left">[ ] Confident <br> [ ] Getting there <br> [ ] Not yet</td>
+</tr>
+<tr class="even">
+<td align="left">Can I create a branch, open a pull request, address review comments, and merge without losing work?</td>
+<td align="left">End of Track B</td>
+<td align="left">[ ] Confident <br> [ ] Getting there <br> [ ] Not yet</td>
+</tr>
+<tr class="odd">
+<td align="left">Can I resolve a merge conflict, rebase onto <code>main</code>, squash my commits, and ensure CI passes before a PR is approved?</td>
+<td align="left">End of Track C</td>
+<td align="left">[ ] Confident <br> [ ] Getting there <br> [ ] Not yet</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>How to use:</strong> Work through each question and tick the box when you can do it confidently. If you answer “Not yet” to any row, revisit the corresponding checkpoint in the detailed table below.</p>
+</blockquote>
+</div>
+<div id="formal-assessment" class="section level3 hasAnchor">
+<h3>Formal assessment<a href="module-2-version-control-with-git.html#formal-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Observable indicator</th>
+<th align="left">Timing</th>
+<th align="left">Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Participant can open a terminal, run <code>git --version</code> successfully, log into GitHub (2FA confirmed), access their preferred interface (Terminal / VS Code / RStudio)</td>
+<td align="left">Before Track A begins</td>
+<td align="left">[ ] Yes <br> [ ] With help <br> [ ] Not yet</td>
+</tr>
+<tr class="even">
+<td align="left">Participant’s GitHub repository shows ≥ 3 commits with descriptive messages, a rendered <code>README.md</code>, a <code>.gitignore</code> suppressing at least one file type</td>
+<td align="left">End of Track A</td>
+<td align="left">[ ] Yes <br> [ ] With help <br> [ ] Not yet</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>git log --oneline --graph</code> output shows a feature branch, a merge (or rebase) commit, no conflict markers (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>) remaining in any tracked file, a closed PR appears in the GitHub UI</td>
+<td align="left">End of Track B</td>
+<td align="left">[ ] Yes <br> [ ] With help <br> [ ] Not yet</td>
+</tr>
+<tr class="even">
+<td align="left">PR on GitHub is closed with a green CI status check, a squash-merge commit, a recorded approval review, a branch protection rules visible in <em>Settings → Branches</em></td>
+<td align="left">End of Track C</td>
+<td align="left">[ ] Yes <br> [ ] With help <br> [ ] Not yet</td>
+</tr>
+<tr class="odd">
+<td align="left">Participant can narrate <em>why</em> each step matters for their own research data workflow, name one concrete example from their work</td>
+<td align="left">Wrap-up / debrief</td>
+<td align="left">[ ] Yes <br> [ ] With help <br> [ ] Not yet</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+</div>
+<div id="agenda" class="section level2 hasAnchor">
+<h2>Agenda<a href="module-2-version-control-with-git.html#agenda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Lecture (20 mins): Version Control with Git
+<ul>
+<li>Intro to Version Control</li>
+<li>The Core Git Workflow</li>
+<li>Collaboration using Git &amp; Github</li>
+</ul></li>
+<li>Lab (40 mins): Practicing version control in Git through command line, VSCode or RStudio
+<ul>
+<li>Setup and Orientation</li>
+<li>Lab Track A: Beginners</li>
+<li>Lab Track B: Intermediate</li>
+<li>Lab Track C: Advanced</li>
+<li>Wrap Up</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="lecture-20-min" class="section level2 hasAnchor">
+<h2>Lecture (20 min)<a href="module-2-version-control-with-git.html#lecture-20-min" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lecture-agenda" class="section level3 hasAnchor">
+<h3>Lecture Agenda<a href="module-2-version-control-with-git.html#lecture-agenda" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Intro to Version Control
+<ul>
+<li>Common Concerns</li>
+<li>Good Version Control</li>
+<li>Of all the version control tools, we will use Git</li>
+</ul></li>
+<li>The Core Git Workflow
+<ul>
+<li>Setting up a git repository</li>
+<li>git add, commit, push</li>
+<li>git checkout, branch, merge</li>
+</ul></li>
+<li>Collaboration using Git &amp; Github
+<ul>
+<li>Git is the tool. Github is the platform</li>
+<li>Running the loop</li>
+<li>Remote repos + branches enable parallel work</li>
+<li>Pull requests</li>
+</ul></li>
+</ul>
+</div>
+<div id="lecture-slides" class="section level3 hasAnchor">
+<h3>Lecture Slides<a href="module-2-version-control-with-git.html#lecture-slides" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The lecture slide deck can be <a href="https://docs.google.com/presentation/d/14uIRZa8Ye4iJsJQ0Fbd2Wgdi7CBV8Hqf/edit?usp=drive_link&amp;ouid=113327781667376325096&amp;rtpof=true&amp;sd=true">found here</a></p>
+<hr />
+</div>
+</div>
+<div id="lab-40-min" class="section level2 hasAnchor">
+<h2>Lab (40 min)<a href="module-2-version-control-with-git.html#lab-40-min" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lab-agenda" class="section level3 hasAnchor">
+<h3>Lab Agenda<a href="module-2-version-control-with-git.html#lab-agenda" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><a href="module-2-version-control-with-git.html#prerequisite">Setup and Orientation (5 mins)</a>
+<ul>
+<li>Introduce the three interface options: all do the same thing, pick your comfort level</li>
+<li>Participants self-select the three lab tracks</li>
+<li>Pair experienced participants with beginners if possible</li>
+</ul></li>
+<li><a href="module-2-version-control-with-git.html#track-a-core-everyone-10-min">Lab Track A: Beginners (10 mins)</a>
+<ul>
+<li>Config git identity</li>
+<li>Create a local repository</li>
+<li>Create a README and make the first commit</li>
+<li>Connect to GitHub and push</li>
+<li>Make a change and commit</li>
+</ul></li>
+<li><a href="module-2-version-control-with-git.html#track-b-intermediate-20-min-total-includes-track-a">Lab Track B: Intermediate (10 mins)</a>
+<ul>
+<li>Create .gitignore</li>
+<li>Branch and merge locally</li>
+<li>Explore history</li>
+<li>Simulate and resolve a merge conflict</li>
+<li>Push a branch and open a Pull Request on GitHub</li>
+</ul></li>
+<li><a href="module-2-version-control-with-git.html#track-c-advanced-30-min-total-includes-track-a-and-b-requires-a-partner">Lab Track C: Advanced (10 mins)</a>
+<ul>
+<li>Fork, clone, and configure branch protection</li>
+<li>Trigger and resolve a deliberate merge conflict</li>
+<li>Clean up history with interactive rebase</li>
+<li>Add a GitHub Actions CI workflow</li>
+<li>CODEOWNERS, code review, and merge</li>
+</ul></li>
+<li><a href="module-2-version-control-with-git.html#wrap-up-and-key-takeaways">Wrap-up and Key Takeaways (5 mins)</a></li>
+</ul>
+<hr />
+</div>
+<div id="prerequisite" class="section level3 hasAnchor">
+<h3>Prerequisite<a href="module-2-version-control-with-git.html#prerequisite" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Git installed: <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Installation Guide</a></li>
+<li>GitHub account created (with 2FA configured): <a href="https://swcarpentry.github.io/git-novice/#creating-a-github-account">Creating a GitHub Account</a></li>
+<li>Preferred interface ready:
+<ul>
+<li>Command Line (Terminal/Git Bash)</li>
+<li>VS Code: <a href="https://code.visualstudio.com/docs/sourcecontrol/overview">Source Control Panel</a></li>
+<li>RStudio: <a href="https://happygitwithr.com/">Git Pane</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="lab-tracks" class="section level3 hasAnchor">
+<h3>Lab Tracks<a href="module-2-version-control-with-git.html#lab-tracks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Participants self-select based on experience. All tracks use the same repository and produce the same outcome — only the interface and depth differ.
+::: {.callout type=“blue” title=“Note”}
+<strong>Shared scenario:</strong> <em>You are beginning a new analysis project. Your task is to create a version-controlled repository for your research code, make and document a change, and (in the extended track) collaborate with a partner.</em>
+:::</p>
+<hr />
+<div id="track-a-core-everyone-10-min" class="section level4 hasAnchor">
+<h4>Track A Core (Everyone, 10 min)<a href="module-2-version-control-with-git.html#track-a-core-everyone-10-min" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em>Appropriate for: first-time Git users or those who want to practice the basics</em></p>
+</div>
+</div>
+<p><strong>Exercises:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Configure Git identity</strong> (first time only)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="module-2-version-control-with-git.html#cb1-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">&quot;Your Name&quot;</span>          <span class="co"># sets your display name in commit history</span></span>
+<span id="cb1-2"><a href="module-2-version-control-with-git.html#cb1-2" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">&quot;you@institution.edu&quot;</span>  <span class="co"># links commits to your email address</span></span></code></pre></div></li>
+<li><p><strong>Create a local repository</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="module-2-version-control-with-git.html#cb2-1" tabindex="-1"></a><span class="fu">mkdir</span> my-rdm-project   <span class="co"># create a new project folder</span></span>
+<span id="cb2-2"><a href="module-2-version-control-with-git.html#cb2-2" tabindex="-1"></a><span class="bu">cd</span> my-rdm-project      <span class="co"># move into it</span></span>
+<span id="cb2-3"><a href="module-2-version-control-with-git.html#cb2-3" tabindex="-1"></a><span class="fu">git</span> init               <span class="co"># initialise an empty Git repository (.git/ folder is created here)</span></span></code></pre></div>
+<ul>
+<li>In VS Code: open folder → Source Control panel → “Initialize Repository”</li>
+<li>In RStudio: File → New Project → New Directory → check “Create a git repository”</li>
+</ul></li>
+<li><p><strong>Create a README and make the first commit</strong></p>
+<ul>
+<li>Create a file <code>README.md</code> and describe your project in 2–3 sentences. E.g,</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="module-2-version-control-with-git.html#cb3-1" tabindex="-1"></a><span class="fu">touch</span> README.md   <span class="co"># create an empty README.md file</span></span></code></pre></div>
+<ul>
+<li>Once you have finished writing your <code>README.md</code> run the following git commands</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="module-2-version-control-with-git.html#cb4-1" tabindex="-1"></a><span class="fu">git</span> add README.md      <span class="co"># stage README.md — move it to the staging area, ready to be committed</span></span>
+<span id="cb4-2"><a href="module-2-version-control-with-git.html#cb4-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;Add project README with initial description&quot;</span>  <span class="co"># save a labelled snapshot of staged changes</span></span></code></pre></div></li>
+<li><p><strong>Connect to GitHub and push</strong></p>
+<ul>
+<li>Create a new repository on GitHub.com (no README, no .gitignore — blank)</li>
+<li>Copy the remote URL and add it:</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="module-2-version-control-with-git.html#cb5-1" tabindex="-1"></a><span class="fu">git</span> remote add origin https://github.com/yourname/my-rdm-project.git  <span class="co"># link your local repo to GitHub</span></span>
+<span id="cb5-2"><a href="module-2-version-control-with-git.html#cb5-2" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin main   <span class="co"># upload commits to GitHub; &#39;-u&#39; sets origin/main as the default tracking branch</span></span></code></pre></div>
+<ul>
+<li>Verify: refresh GitHub — your README should appear</li>
+</ul></li>
+</ol>
+<div class="callout-yellow">
+<span class="callout-icon"><i class="fas fa-bell" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Important</p>
+</div>
+<p><strong>GitHub authentication with GitHub CLI:</strong> The easiest way to authenticate is using the GitHub CLI (<code>gh</code>). It handles credentials securely without requiring you to generate or store tokens manually, and it automatically configures your Git credential helper.</p>
+<p><strong>Step 1 — Install the GitHub CLI</strong> (do this once):
+- macOS: <code>brew install gh</code>
+- Windows: <code>winget install --id GitHub.cli</code> (or download the installer from <a href="https://cli.github.com">cli.github.com</a>)
+- Linux: see the <a href="https://github.com/cli/cli/blob/trunk/docs/install_linux.md">installation guide</a> for your distribution</p>
+<p><strong>Step 2 — Authenticate:</strong></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="module-2-version-control-with-git.html#cb6-1" tabindex="-1"></a><span class="ex">gh</span> auth login</span></code></pre></div>
+<p>Follow the interactive prompts:
+1. <strong>Where do you use GitHub?</strong> → <code>GitHub.com</code>
+2. <strong>What is your preferred protocol for Git operations?</strong> → <code>HTTPS</code>
+3. <strong>How would you like to authenticate GitHub CLI?</strong> → <code>Login with a web browser</code>
+4. Copy the one-time code displayed in the terminal, press <strong>Enter</strong> — your browser opens to <code>github.com/login/device</code></p>
+<p><strong>Step 3 - Paste the one-time code</strong>
+- Paste the code, click <strong>Authorize GitHub CLI</strong>, and complete any 2FA prompt
+- <code>gh</code> automatically configures your Git credential helper. You will not be prompted for a username or password when you run <code>git push</code>.</p>
+<p><strong>Step 4 - Verify it worked:</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="module-2-version-control-with-git.html#cb7-1" tabindex="-1"></a><span class="ex">gh</span> auth status</span></code></pre></div>
+<p>You should see <code>✓ Logged in to github.com</code> with your account name.</p>
+</div>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Make a change and commit</strong>
+<ul>
+<li>Add a line to <code>README.md</code> (e.g., list your data sources or research question)</li>
+<li>Stage, commit with a descriptive message, push</li>
+<li>Inspect <code>git log --oneline</code> — you should see two commits</li>
+</ul></li>
+</ol>
+<p><strong>Checkpoint:</strong></p>
+<ul>
+<li>You create a repo on GitHub</li>
+<li>Your repo on GitHub has at least 2 commits with meaningful messages.</li>
+<li>Use <code>git log</code> and <code>git diff</code> to explain what changed, why, and when?</li>
+</ul>
+<hr />
+</div>
+<div id="track-b-intermediate-20-min-total-includes-track-a" class="section level4 hasAnchor">
+<h4>Track B Intermediate (20 min total, includes Track A)<a href="module-2-version-control-with-git.html#track-b-intermediate-20-min-total-includes-track-a" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em>Appropriate for: comfortable with the command line, have used Git before but not regularly</em></p>
+</div>
+</div>
+<p><strong>After completing Track A, continue:</strong></p>
+<ol start="6" style="list-style-type: decimal">
+<li><strong>Create a <code>.gitignore</code></strong>
+<ul>
+<li>Create a file named <code>.gitignore</code> and add entries for files that should not be tracked:</li>
+</ul>
+<pre><code>*.csv
+*.xlsx
+data/raw/
+.DS_Store
+.Rhistory</code></pre>
+<ul>
+<li>Commit the <code>.gitignore</code> and push</li>
+<li><strong>Discuss</strong>: why would you exclude raw data files from version control in a health research context?</li>
+</ul></li>
+</ol>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em>Git/GitHub has file size limits; raw data may contain PHI or identifiable information; reproducibility comes from scripts and workflows, not data copies; data sharing agreements may restrict where data is stored; dedicated data repositories are better suited for data archiving</em></p>
+</div>
+</div>
+<ol start="7" style="list-style-type: decimal">
+<li><p><strong>Branch and merge locally</strong></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="module-2-version-control-with-git.html#cb9-1" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/add-methods-section   <span class="co"># create a new branch and switch to it in one step</span></span></code></pre></div>
+<ul>
+<li>Create a new file <code>methods.md</code> with a brief description of your analysis approach. E.g,</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="module-2-version-control-with-git.html#cb10-1" tabindex="-1"></a><span class="fu">touch</span> methods.md   <span class="co"># create an empty methods.md file</span></span></code></pre></div>
+<ul>
+<li>Add and commit on this branch</li>
+<li>Switch back to <code>main</code> and merge:</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="module-2-version-control-with-git.html#cb11-1" tabindex="-1"></a><span class="fu">git</span> checkout main                     <span class="co"># switch back to the main branch</span></span>
+<span id="cb11-2"><a href="module-2-version-control-with-git.html#cb11-2" tabindex="-1"></a><span class="fu">git</span> merge feature/add-methods-section   <span class="co"># bring the feature branch commits into main</span></span>
+<span id="cb11-3"><a href="module-2-version-control-with-git.html#cb11-3" tabindex="-1"></a><span class="fu">git</span> push                              <span class="co"># upload the updated main to GitHub</span></span></code></pre></div></li>
+</ol>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><code>-b</code> is shorthand — it is equivalent to running two separate commands:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="module-2-version-control-with-git.html#cb12-1" tabindex="-1"></a><span class="fu">git</span> branch feature/add-methods-section   <span class="co"># create the branch</span></span>
+<span id="cb12-2"><a href="module-2-version-control-with-git.html#cb12-2" tabindex="-1"></a><span class="fu">git</span> checkout feature/add-methods-section  <span class="co"># switch to it</span></span></code></pre></div>
+<p>Or, using the modern alternative: <code>git switch -c feature/add-methods-section</code> (<code>-c</code> = create)</p>
+</div>
+</div>
+<ol start="8" style="list-style-type: decimal">
+<li><p><strong>Explore history</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="module-2-version-control-with-git.html#cb13-1" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span> <span class="at">--graph</span>   <span class="co"># condensed, visual history of commits and branch structure</span></span>
+<span id="cb13-2"><a href="module-2-version-control-with-git.html#cb13-2" tabindex="-1"></a><span class="fu">git</span> diff HEAD~1 HEAD        <span class="co"># compare the latest commit (HEAD) with the one before it (HEAD~1)</span></span></code></pre></div>
+<ul>
+<li>Identify what changed between your last two commits</li>
+</ul></li>
+<li><p><strong>Simulate and resolve a merge conflict</strong></p>
+<ul>
+<li>Create a second branch, open README.md and add a line at the bottom: <code>Status: in progress</code>.</li>
+<li>Git add and commit it from the second branch.</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="module-2-version-control-with-git.html#cb14-1" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/update-status</span>
+<span id="cb14-2"><a href="module-2-version-control-with-git.html#cb14-2" tabindex="-1"></a><span class="co"># edit README.md — add the Status line: in progress</span></span>
+<span id="cb14-3"><a href="module-2-version-control-with-git.html#cb14-3" tabindex="-1"></a><span class="fu">git</span> add README.md <span class="kw">&amp;&amp;</span> <span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;update status to in progress&quot;</span></span></code></pre></div>
+<ul>
+<li>Go back to <code>main</code>, open README.md,and edit the same line to: <code>Status: draft</code>.</li>
+<li>Git add and commit it from the <code>main</code> branch</li>
+<li>Merge the second branch back into <code>main</code>:</li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="module-2-version-control-with-git.html#cb15-1" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb15-2"><a href="module-2-version-control-with-git.html#cb15-2" tabindex="-1"></a><span class="co"># edit README.md — add the Status line: draft</span></span>
+<span id="cb15-3"><a href="module-2-version-control-with-git.html#cb15-3" tabindex="-1"></a><span class="fu">git</span> add README.md <span class="kw">&amp;&amp;</span> <span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;update status to draft&quot;</span></span>
+<span id="cb15-4"><a href="module-2-version-control-with-git.html#cb15-4" tabindex="-1"></a><span class="fu">git</span> merge feature/update-status</span></code></pre></div>
+<ul>
+<li><p>Git will report a conflict. Open <code>README.md</code> and look for the conflict markers. Here is what they mean:</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Status: draft
+=======
+Status: in progress
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/update-status</code></pre>
+<ul>
+<li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> — marks the start of <strong>your current branch’s version</strong> (the branch you are merging <em>into</em>, i.e. <code>main</code>)</li>
+<li><code>=======</code> — the dividing line between the two conflicting versions</li>
+<li><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/update-status</code> — marks the end of the <strong>incoming branch’s version</strong> (the branch being merged <em>in</em>)</li>
+</ul></li>
+<li><p>Delete the markers and all lines you don’t want, leaving only the text you choose (or a combination of both). Then:</p></li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="module-2-version-control-with-git.html#cb17-1" tabindex="-1"></a><span class="fu">git</span> add README.md</span>
+<span id="cb17-2"><a href="module-2-version-control-with-git.html#cb17-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;resolve merge conflict in README&quot;</span></span>
+<span id="cb17-3"><a href="module-2-version-control-with-git.html#cb17-3" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
+<ul>
+<li><strong>Discuss</strong>: what practices reduce the chance of conflicts in a shared research repository?</li>
+</ul></li>
+</ol>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em>Small, focused commits on a single topic; clear branch naming (e.g. <code>feature/</code>, <code>fix/</code>); pull from <code>main</code> frequently before starting new work; one person per file or section at a time; agree on a shared project structure upfront; communicate early when two people need to edit the same file</em></p>
+</div>
+</div>
+<ol start="10" style="list-style-type: decimal">
+<li><strong>Push a branch and open a Pull Request on GitHub</strong>
+<ul>
+<li>Create a new branch and add a brief <code>CONTRIBUTING.md</code> file (one or two sentences is fine):</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="module-2-version-control-with-git.html#cb18-1" tabindex="-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> feature/contributing-guide</span>
+<span id="cb18-2"><a href="module-2-version-control-with-git.html#cb18-2" tabindex="-1"></a><span class="co"># create CONTRIBUTING.md</span></span>
+<span id="cb18-3"><a href="module-2-version-control-with-git.html#cb18-3" tabindex="-1"></a><span class="fu">git</span> add CONTRIBUTING.md <span class="kw">&amp;&amp;</span> <span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;add contributing guide&quot;</span></span>
+<span id="cb18-4"><a href="module-2-version-control-with-git.html#cb18-4" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin feature/contributing-guide</span></code></pre></div>
+<ul>
+<li>On GitHub, open a Pull Request from <code>feature/contributing-guide</code> → <code>main</code></li>
+<li>Write a short PR description explaining what the file adds and why</li>
+<li>Merge the PR on GitHub, then update your local <code>main</code>:</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="module-2-version-control-with-git.html#cb19-1" tabindex="-1"></a><span class="fu">git</span> checkout main</span>
+<span id="cb19-2"><a href="module-2-version-control-with-git.html#cb19-2" tabindex="-1"></a><span class="fu">git</span> pull</span></code></pre></div>
+<ul>
+<li><strong>Discuss</strong>: why are pull requests important, and what role do branch protection rules play?</li>
+</ul></li>
+</ol>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em>A PR creates a formal checkpoint before code reaches <code>main</code> — it is visible, reviewable, and auditable. Without branch protection, anyone with write access can push directly to <code>main</code>, bypassing review entirely. Branch protection rules enforce the PR workflow: they block direct pushes, require a minimum number of approvals, and can mandate passing CI checks. Together these ensure that <code>main</code> only ever contains reviewed, tested code — which is especially important in health research where a bad commit could corrupt a shared analysis or leak sensitive data. PRs also serve as a record of what changed, why, and who approved it.</em></p>
+</div>
+</div>
+<p><strong>Checkpoint:</strong></p>
+<ul>
+<li>At least three branches created at your local</li>
+<li>One resolved merge conflict in its history</li>
+<li>At least one Pull Request merged via GitHub.</li>
+<li>All are visible in git log –oneline –graph.</li>
+</ul>
+<hr />
+</div>
+<div id="track-c-advanced-30-min-total-includes-track-a-and-b-requires-a-partner" class="section level4 hasAnchor">
+<h4>Track C Advanced (30 min total, includes Track A and B, requires a partner)<a href="module-2-version-control-with-git.html#track-c-advanced-30-min-total-includes-track-a-and-b-requires-a-partner" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em>Appropriate for: experienced Git users comfortable with branches, remotes, and pull requests</em></p>
+</div>
+</div>
+<div class="callout-yellow">
+<span class="callout-icon"><i class="fas fa-bell" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Important</p>
+</div>
+<p><strong>Roles</strong></p>
+<ul>
+<li>🏠 <strong>Owner</strong> — hosts the repository and holds merge rights.</li>
+<li>🔧 <strong>Contributor</strong> — forks and submits work via pull requests.</li>
+<li>🤝 <strong>Both</strong> — steps both partners perform together.</li>
+</ul>
+</div>
+</div>
+<ol start="11" style="list-style-type: decimal">
+<li><strong>Fork, clone, and configure branch protection (5 min)</strong>
+<ul>
+<li><p>🏠 <strong>Owner</strong>: on GitHub, go to <strong>Settings → Branches → Add branch ruleset</strong> (or “Add rule”) for <code>main</code>:</p>
+<ul>
+<li><strong>Ruleset name</strong>: give it any name (e.g. <code>pr-merging</code>)</li>
+<li><strong>Enforcement status</strong>: set it as <code>Active</code></li>
+<li><strong>Bypass list</strong>: leave this empty — do not add yourself or any role. The point of this exercise is that the rule applies to everyone, including the Owner; bypasses defeat the purpose</li>
+<li><strong>Target branches</strong>: click <em>Add target → Include by pattern</em> and type <code>main</code> — this scopes the rule to the <code>main</code> branch only; without a target the ruleset has no effect</li>
+<li><strong>Branch rules</strong>: enable <em>Require a pull request before merging</em> (minimum 1 approval)</li>
+<li><strong>Save changes</strong>: direct pushes to <code>main</code> are now blocked for everyone, including the Owner</li>
+</ul></li>
+<li><p>🏠 <strong>Owner</strong>: add the Contributor as a collaborator so they can approve pull requests:</p>
+<ul>
+<li>Go to <strong>Settings → Collaborators</strong> (you may be prompted to confirm your password)</li>
+<li>Click <strong>“Add people”</strong>, search for the Contributor’s GitHub username, and click <strong>“Add [username] to this repository”</strong></li>
+<li>The Contributor receives an invitation email (and a notification on GitHub) — they must <strong>accept the invitation</strong> before they can approve PRs</li>
+</ul></li>
+<li><p>🔧 <strong>Contributor</strong>: fork the Owner’s repository on GitHub:</p>
+<ul>
+<li>Navigate to the Owner’s repository page on GitHub.com</li>
+<li>Click the <strong>Fork</strong> button (top-right of the page)</li>
+<li>On the “Create a new fork” page, leave the defaults and click <strong>Create fork</strong> — GitHub creates a copy under your own account</li>
+</ul>
+<p>Then from your terminal, clone your fork and add the Owner’s repo as an <code>upstream</code> remote:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="module-2-version-control-with-git.html#cb20-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/YOUR-USERNAME/repo-name.git</span>
+<span id="cb20-2"><a href="module-2-version-control-with-git.html#cb20-2" tabindex="-1"></a><span class="bu">cd</span> repo-name</span>
+<span id="cb20-3"><a href="module-2-version-control-with-git.html#cb20-3" tabindex="-1"></a><span class="fu">git</span> remote add upstream https://github.com/OWNER-USERNAME/repo-name.git  <span class="co"># track the original repo alongside your fork</span></span>
+<span id="cb20-4"><a href="module-2-version-control-with-git.html#cb20-4" tabindex="-1"></a><span class="fu">git</span> fetch upstream   <span class="co"># download updates from the original repo without merging</span></span></code></pre></div></li>
+<li><p><strong>Discuss</strong>: what is the difference between <code>git fetch</code> and <code>git pull</code>, and when would you use each?</p></li>
+</ul></li>
+</ol>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em><code>git fetch</code> downloads remote changes but does not touch your working files — you inspect them first with <code>git log</code> or <code>git diff origin/main</code>; <code>git pull</code> is <code>git fetch</code> + <code>git merge</code> in one step, which is convenient but can create unexpected merge commits; in a shared or protected repo workflow, <code>git fetch</code> then rebase is preferred over <code>git pull</code> because it keeps history linear and avoids accidental merges into your working branch</em></p>
+</div>
+</div>
+<div class="callout-blue">
+<span class="callout-icon"><i class="fas fa-circle-info" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Note</p>
+</div>
+<p><strong>GitHub may prompt for your passkey or password</strong> before saving security-sensitive settings. This is a normal GitHub verification step; authenticate when prompted and continue.</p>
+</div>
+</div>
+<ol start="12" style="list-style-type: decimal">
+<li><strong>Trigger and resolve a deliberate merge conflict (5 min)</strong>
+<ul>
+<li><p>🤝 <strong>Both</strong> (independently): create a branch off <code>main</code> and edit the <strong>same line</strong> of <code>README.md</code> in different ways:</p>
+<ul>
+<li>🏠 Owner: <code>git switch -c owner-edit</code></li>
+<li>🔧 Contributor: <code>git switch -c contributor-edit</code></li>
+</ul></li>
+<li><p>🏠 <strong>Owner</strong>: git add, commit and push the change, open a PR on Github → <code>main</code></p></li>
+<li><p>🏠 <strong>Owner</strong>: merge the PR immediately after the Contributor’s approval</p></li>
+<li><p>🔧 <strong>Contributor</strong>: git add, commit and push <code>contributor-edit</code> to their fork and open a PR on Github against Owner’s <code>main</code> — GitHub now reports a merge conflict</p></li>
+<li><p>🔧 <strong>Contributor</strong>: resolve the conflict locally using <strong>rebase</strong> (preferred over merge for a clean linear history):</p></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="module-2-version-control-with-git.html#cb21-1" tabindex="-1"></a><span class="fu">git</span> fetch upstream                               <span class="co"># get the latest changes from the original repo</span></span>
+<span id="cb21-2"><a href="module-2-version-control-with-git.html#cb21-2" tabindex="-1"></a><span class="fu">git</span> rebase upstream/main                         <span class="co"># replay your commits on top of the updated main</span></span>
+<span id="cb21-3"><a href="module-2-version-control-with-git.html#cb21-3" tabindex="-1"></a><span class="co"># Open README.md, locate and resolve the conflict markers (&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;), </span></span>
+<span id="cb21-4"><a href="module-2-version-control-with-git.html#cb21-4" tabindex="-1"></a><span class="co"># Save and close the editor (in vim: `Esc` → `:wq`; in nano: `Ctrl+X → Y → Enter`), then:</span></span>
+<span id="cb21-5"><a href="module-2-version-control-with-git.html#cb21-5" tabindex="-1"></a><span class="fu">git</span> add README.md          <span class="co"># mark the conflict as resolved — do NOT run git commit here</span></span>
+<span id="cb21-6"><a href="module-2-version-control-with-git.html#cb21-6" tabindex="-1"></a><span class="fu">git</span> rebase <span class="at">--continue</span>      <span class="co"># rebase resumes and re-applies the commit automatically</span></span>
+<span id="cb21-7"><a href="module-2-version-control-with-git.html#cb21-7" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--force-with-lease</span> origin contributor-edit  <span class="co"># force-push safely: fails if the remote moved unexpectedly</span></span></code></pre></div>
+<ul>
+<li><p>🤝 <strong>Both</strong>: confirm the PR on GitHub now shows “No conflicts with the base branch”</p></li>
+<li><p><strong>Discuss</strong>: when should you use <code>git rebase</code> to resolve a conflict instead of <code>git merge</code>?</p></li>
+</ul></li>
+</ol>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><strong>What is <code>git rebase</code>, and when to use it?</strong> Instead of creating a merge commit, rebase <em>replays</em> your commits on top of the target branch, producing a linear history with no extra merge commit, which is easier to read and review. A common convention: rebase your feature branch onto <code>main</code> before opening a PR; use merge (or squash-merge) when closing the PR on GitHub. <strong>Never rebase a branch others are actively working on</strong> — it rewrites commit SHAs and causes conflicts for everyone else.</p>
+</div>
+</div>
+<div class="callout-yellow">
+<span class="callout-icon"><i class="fas fa-bell" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Important</p>
+</div>
+<p><strong>Self-approval is blocked for everyone.</strong> Because the bypass list is empty (set in step 11), branch protection applies equally to the Owner and the Contributor</p>
+<ul>
+<li>The 🔧 <strong>Contributor</strong> must approve the Owner’s PR</li>
+<li>The 🏠 <strong>Owner</strong> must approve the Contributor’s PR.</li>
+<li>Click <strong>“Add your review” → “Approve” → “Submit review”</strong> on the PR page.</li>
+</ul>
+</div>
+</div>
+<div class="callout-red">
+<span class="callout-icon"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Caution</p>
+</div>
+<p><strong>Two rebase-specific rules to follow:</strong></p>
+<ul>
+<li><strong>Do not run <code>git commit</code></strong> after <code>git add</code>. <code>git rebase --continue</code> handles the commit automatically. Running <code>git commit</code> here creates a duplicate or empty commit.</li>
+<li><strong>Use <code>--force-with-lease</code>, not <code>--force</code></strong> — after a rebase, commits get new SHAs so a plain <code>git push</code> is rejected. <code>--force-with-lease</code> lets the push through but fails safely if the remote branch moved since your last <code>git fetch</code>, protecting against overwriting someone else’s work.</li>
+</ul>
+</div>
+</div>
+<ol start="13" style="list-style-type: decimal">
+<li><strong>Clean up history with interactive rebase (5 min, optional)</strong>
+<ul>
+<li><p>Suppose <code>contributor-edit</code> contains several messy WIP commits. Squash them into one clean commit before requesting review.</p>
+<p><strong>Step 1 — Check what you have:</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="module-2-version-control-with-git.html#cb22-1" tabindex="-1"></a><span class="fu">git</span> log <span class="at">--oneline</span> upstream/main..HEAD</span></code></pre></div>
+<p>Example output (three commits you want to collapse into one):</p>
+<pre><code>a3f1c2e fix typo in README
+9d0b4a1 wip: more edits
+7e2d3f8 add draft analysis section</code></pre>
+<p><strong>Step 2 — Start the interactive rebase:</strong></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="module-2-version-control-with-git.html#cb24-1" tabindex="-1"></a><span class="fu">git</span> rebase <span class="at">-i</span> upstream/main</span></code></pre></div>
+<p>Git opens a text editor listing your commits <strong>oldest first</strong>, with commands on the left:</p>
+<pre><code>pick 7e2d3f8 add draft analysis section
+pick 9d0b4a1 wip: more edits
+pick a3f1c2e fix typo in README
+
+# Commands:
+# p, pick   = use commit as-is
+# s, squash = fold this commit into the one above it
+# r, reword = use commit, but edit the message
+# d, drop   = discard the commit entirely</code></pre>
+<p><strong>Step 3 — Mark commits to squash:</strong>
+Keep the first commit as <code>pick</code>; change the rest to <code>squash</code> (or just <code>s</code>):</p>
+<pre><code>pick 7e2d3f8 add draft analysis section
+squash 9d0b4a1 wip: more edits
+squash a3f1c2e fix typo in README</code></pre>
+<p>Save and close the editor (in vim: <code>Esc</code> → <code>:wq</code>; in nano: <code>Ctrl+X → Y → Enter</code>).</p>
+<p><strong>Step 4 — Write the combined commit message:</strong>
+After you save and close the pick/squash editor, Git automatically opens a second editor showing all three original messages. Delete the WIP lines and write one clear, descriptive message:</p>
+<pre><code>Add draft analysis section to README
+
+Describes the planned analysis approach and data sources.
+References the methods.md file added in Track B.</code></pre>
+<p>Save and close — the three commits are now one.</p></li>
+<li><p><strong>Step 5 — Force-push the cleaned branch:</strong></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="module-2-version-control-with-git.html#cb28-1" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--force-with-lease</span> origin contributor-edit</span></code></pre></div></li>
+<li><p><strong>Discuss</strong>: why is a squashed, readable history valuable before merging into <code>main</code>?</p></li>
+</ul></li>
+</ol>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em>A single clean commit is much easier to review than a chain of WIP saves; <code>git log</code> stays readable for future contributors; reverting an entire feature is simpler when it is one commit; signals professionalism; serves as lasting documentation of intent</em></p>
+</div>
+</div>
+<ol start="14" style="list-style-type: decimal">
+<li><p><strong>Add a GitHub Actions CI workflow (5 min, optional)</strong></p>
+<ul>
+<li><p>🔧 <strong>Contributor</strong>: create a dedicated branch for the CI file and create <code>.github/workflows/ci.yml</code> there:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="module-2-version-control-with-git.html#cb29-1" tabindex="-1"></a><span class="fu">git</span> switch main <span class="kw">&amp;&amp;</span> <span class="fu">git</span> pull upstream main</span>
+<span id="cb29-2"><a href="module-2-version-control-with-git.html#cb29-2" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> add-ci</span>
+<span id="cb29-3"><a href="module-2-version-control-with-git.html#cb29-3" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github/workflows</span></code></pre></div>
+<p>Create <code>.github/workflows/ci.yml</code> with:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb30-1"><a href="module-2-version-control-with-git.html#cb30-1" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> CI</span></span>
+<span id="cb30-2"><a href="module-2-version-control-with-git.html#cb30-2" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb30-3"><a href="module-2-version-control-with-git.html#cb30-3" tabindex="-1"></a><span class="at">  </span><span class="fu">pull_request</span><span class="kw">:</span></span>
+<span id="cb30-4"><a href="module-2-version-control-with-git.html#cb30-4" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">main</span><span class="kw">]</span></span>
+<span id="cb30-5"><a href="module-2-version-control-with-git.html#cb30-5" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="cb30-6"><a href="module-2-version-control-with-git.html#cb30-6" tabindex="-1"></a><span class="at">  </span><span class="fu">validate</span><span class="kw">:</span></span>
+<span id="cb30-7"><a href="module-2-version-control-with-git.html#cb30-7" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="cb30-8"><a href="module-2-version-control-with-git.html#cb30-8" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb30-9"><a href="module-2-version-control-with-git.html#cb30-9" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<span id="cb30-10"><a href="module-2-version-control-with-git.html#cb30-10" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Check for TODO comments</span></span>
+<span id="cb30-11"><a href="module-2-version-control-with-git.html#cb30-11" tabindex="-1"></a><span class="at">        </span><span class="fu">run</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;! grep -rn &#39;TODO&#39; --include=&#39;*.md&#39; .&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="module-2-version-control-with-git.html#cb31-1" tabindex="-1"></a><span class="fu">git</span> add .github/workflows/ci.yml</span>
+<span id="cb31-2"><a href="module-2-version-control-with-git.html#cb31-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;add CI workflow to check for TODO comments&quot;</span></span>
+<span id="cb31-3"><a href="module-2-version-control-with-git.html#cb31-3" tabindex="-1"></a><span class="fu">git</span> push <span class="at">-u</span> origin add-ci</span></code></pre></div></li>
+<li><p>🔧 <strong>Contributor</strong>: open a PR from <code>add-ci</code> → Owner’s <code>main</code> with the description: <em>“Adds a CI workflow that fails if any .md file contains a TODO comment”</em></p></li>
+<li><p>🏠 <strong>Owner</strong>: approve and <strong>merge</strong> this PR</p></li>
+<li><p>🤝 <strong>Both</strong>: open a <strong>new test PR</strong> — Contributor pushes any small change on a new branch and opens a PR against Owner’s <code>main</code></p>
+<ul>
+<li>This is the first PR where <code>ci.yml</code> exists on <code>main</code>; GitHub will trigger the <code>CI</code> workflow automatically</li>
+<li>Watch the <strong>Actions</strong> tab on the Owner’s repository — the run appears within seconds of the PR being opened</li>
+</ul></li>
+<li><p>🏠 <strong>Owner</strong>: once that run completes, go to <strong>Settings → Branches</strong>, edit the ruleset, enable <em>Require status checks to pass</em>, and search for <code>validate</code> — it will now appear in the autocomplete list</p></li>
+<li><p>🤝 <strong>Both</strong>: on the open test PR, deliberately add <code>TODO</code> to a <code>.md</code> file and push — watch the check fail; remove it and re-push to see it go green</p></li>
+<li><p><strong>Discuss</strong>: how does automated CI enforce quality standards for collaborative research code?</p></li>
+</ul></li>
+</ol>
+<div class="callout-green">
+<span class="callout-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Tip</p>
+</div>
+<p><em>Catches errors automatically before any human reviews the PR; enforces the same standards for every contributor; reduces reviewer burden to logic and design rather than style; creates an auditable record of every check; gives the team confidence that merging won’t break the project</em></p>
+</div>
+</div>
+<div class="callout-yellow">
+<span class="callout-icon"><i class="fas fa-bell" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Important</p>
+</div>
+<p><strong>Additional scope required for workflow files:</strong> Pushing files under <code>.github/workflows/</code> requires the <code>workflow</code> scope, which <code>gh auth login</code> does not request by default. If you get a <code>refusing to allow a OAuth App to create or update workflow</code> error when pushing, run:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="module-2-version-control-with-git.html#cb32-1" tabindex="-1"></a><span class="ex">gh</span> auth refresh <span class="at">-s</span> workflow</span></code></pre></div>
+<p>This opens a browser prompt to re-authorise the GitHub CLI with the additional scope. Once complete, retry your <code>git push</code>.</p>
+</div>
+</div>
+<ol start="15" style="list-style-type: decimal">
+<li><strong>CODEOWNERS, code review, and merge (5 min, optional)</strong>
+<ul>
+<li><p>🏠 <strong>Owner</strong>: on a new branch (e.g. <code>add-codeowners</code>), create <code>.github/CODEOWNERS</code> and open a PR to merge <code>add-codeowners</code> → <code>main</code> on GitHub:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="module-2-version-control-with-git.html#cb33-1" tabindex="-1"></a><span class="fu">git</span> switch <span class="at">-c</span> add-codeowners</span>
+<span id="cb33-2"><a href="module-2-version-control-with-git.html#cb33-2" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> .github              <span class="co"># create the .github folder if it does not exist</span></span>
+<span id="cb33-3"><a href="module-2-version-control-with-git.html#cb33-3" tabindex="-1"></a><span class="fu">touch</span> .github/CODEOWNERS     <span class="co"># create .github/CODEOWNERS with the below content</span></span></code></pre></div>
+<div class="callout-yellow">
+<span class="callout-icon"><i class="fas fa-bell" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Important</p>
+</div>
+<p>Replace <code>@owner-username</code> and <code>@contributor-username</code> below with real GitHub usernames before committing. Leaving the placeholder values as-is will prevent GitHub from assigning reviewers correctly.</p>
+</div>
+</div>
+<pre><code># Automatically request reviews from designated owners when these paths change
+/analysis/   @owner-username
+/docs/       @contributor-username</code></pre>
+<pre><code>git add .github/CODEOWNERS
+git commit -m &quot;add CODEOWNERS to assign reviewers by path&quot;
+git push -u origin add-codeowners</code></pre></li>
+<li><p>🔧 <strong>Contributor</strong>: review the Owner’s PR using GitHub’s inline suggestion feature:</p>
+<ol style="list-style-type: decimal">
+<li><p>On the PR page, click the <strong>“Files changed”</strong> tab</p></li>
+<li><p>Hover over the line you want to suggest a change on — a blue <strong>“+”</strong> icon appears on the left margin; click it</p></li>
+<li><p>A comment box opens. Click the <strong>“Add a suggestion”</strong> button (the icon that looks like a document with a <code>±</code> symbol, in the comment toolbar) — this copies the current line into a fenced code block pre-filled with the original text:</p>
+<pre><code>```suggestion
+/analysis/   @owner-username
+```</code></pre></li>
+<li><p>Edit the text inside the suggestion block to what you propose, for example adding a wildcard or a second path:</p>
+<pre><code>```suggestion
+/analysis/   @owner-username
+*.R          @owner-username
+```</code></pre></li>
+<li><p>Add a short comment above the suggestion explaining why (e.g. <em>“Suggest also covering R scripts directly under the root”</em>)</p></li>
+<li><p>Click <strong>“Start a review”</strong> (not “Add single comment”) — this queues the suggestion as part of a formal review rather than posting it immediately</p></li>
+<li><p>When done adding suggestions and comments, click the green <strong>“Submit review”</strong> button (top-right of the Files changed tab) — a panel appears with three options:</p>
+<ul>
+<li><strong>Comment</strong> — post feedback without a verdict (use when you have questions but aren’t ready to approve or block)</li>
+<li><strong>Approve</strong> — signal the PR is ready to merge (required here to satisfy the branch protection rule)</li>
+<li><strong>Request changes</strong> — block the merge until the author addresses your comments</li>
+</ul>
+<p>Select <strong>“Request changes”</strong>, optionally add a summary comment, then click <strong>“Submit review”</strong></p></li>
+</ol></li>
+<li><p>🏠 <strong>Owner</strong>: on the PR page, click <strong>“Commit suggestion”</strong> to accept the Contributor’s change directly from the GitHub UI — no local checkout needed; then re-request a review from the Contributor:</p>
+<ul>
+<li>Go to the <strong>“Reviewers”</strong> section in the right sidebar of the PR</li>
+<li>Click the <strong>↺ re-request review</strong> icon (circular arrow) next to the Contributor’s name — this notifies the Contributor that the suggestion has been committed and their fresh approval is needed</li>
+</ul></li>
+<li><p>🔧 <strong>Contributor</strong>: check the PR’s <strong>“Files changed”</strong> tab to confirm the committed suggestion looks correct, then submit the formal approval: <strong>“Finish your review” → “Approve” → “Submit review”</strong></p></li>
+<li><p>🏠 <strong>Owner</strong>: once CI passes and the Contributor’s approval is recorded, merge using <strong>“Squash and merge”</strong> to land a single clean commit on <code>main</code></p></li>
+<li><p>🏠 <strong>Owner</strong>: sync local repo:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="module-2-version-control-with-git.html#cb38-1" tabindex="-1"></a><span class="fu">git</span> switch main</span>
+<span id="cb38-2"><a href="module-2-version-control-with-git.html#cb38-2" tabindex="-1"></a><span class="fu">git</span> pull</span></code></pre></div></li>
+<li><p>🔧 <strong>Contributor</strong>: sync from the Owner’s repo:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="module-2-version-control-with-git.html#cb39-1" tabindex="-1"></a><span class="fu">git</span> switch main</span>
+<span id="cb39-2"><a href="module-2-version-control-with-git.html#cb39-2" tabindex="-1"></a><span class="fu">git</span> pull upstream main</span></code></pre></div></li>
+<li><p>🤝 <strong>Both</strong>: verify that CODEOWNERS is working — open a new PR that changes a file under <code>/analysis/</code> or <code>/docs/</code> (or create one of those folders with a placeholder file) and observe that GitHub <strong>automatically requests a review</strong> from the designated owner in the Reviewers sidebar; no one has to remember to add the reviewer manually</p></li>
+</ul></li>
+</ol>
+<div class="callout-yellow">
+<span class="callout-icon"><i class="fas fa-bell" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Important</p>
+</div>
+<p><strong>Branch protection and re-requesting review:</strong> The Owner cannot approve their own PR — the Contributor’s approval is required to activate the merge button. After the Owner commits the Contributor’s inline suggestion, GitHub dismisses the previous “Request changes” review state. The Owner must click the <strong>↺ re-request review</strong> icon next to the Contributor’s name to notify them to re-examine and approve the updated code.</p>
+</div>
+</div>
+<div class="callout-blue">
+<span class="callout-icon"><i class="fas fa-circle-info" aria-hidden="true"></i></span>
+<div class="callout-content">
+<div class="callout-title-static">
+<p>Note</p>
+</div>
+<p><strong>How CODEOWNERS works:</strong> Once <code>.github/CODEOWNERS</code> is on <code>main</code>, GitHub automatically adds the listed reviewers whenever a PR touches a matching path — no manual tagging needed. By default this is a suggestion only; to make it mandatory, go to <strong>Settings → Branches → edit the ruleset → expand “Require a pull request before merging” → tick “Require review from Code Owners”</strong>.</p>
+</div>
+</div>
+<p><strong>Checkpoint:</strong></p>
+<ul>
+<li>The repository has a branch-protected main</li>
+<li>A passing CI check on the merged PR</li>
+<li>A single squashed commit from the contributor</li>
+<li>A CODEOWNERS file in .github/</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="wrap-up-and-key-takeaways" class="section level3 hasAnchor">
+<h3>Wrap-up and Key Takeaways<a href="module-2-version-control-with-git.html#wrap-up-and-key-takeaways" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><strong>Version control is part of good research practice</strong>, not just a developer tool. It addresses reproducibility, attribution, and recovery.</li>
+<li><strong>The core workflow is simple:</strong> <code>add → commit → push</code>. Everything else builds on this.</li>
+<li><strong>Commit messages are documentation.</strong> Write them for your future self and your collaborators.</li>
+<li><strong>Never commit sensitive data.</strong> PHI, credentials, and large raw data files do not belong in a Git repository.</li>
+<li><strong>Start now, even imperfectly.</strong> A repository with messy commit messages is infinitely better than a folder of <code>_v**_FINAL_v**</code> files.</li>
+<li><strong>Quick reflection prompt:</strong> name one project you’re working on right now where you could start using version control this week.</li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="reference" class="section level2 hasAnchor">
+<h2>Reference<a href="module-2-version-control-with-git.html#reference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Resource</th>
+<th>Highlight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://swcarpentry.github.io/git-novice/">Software Carpentry: Version Control with Git</a></td>
+<td>Complete self-paced course; covers everything in this module in depth</td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.github.com/en/get-started/start-your-journey/hello-world">GitHub Docs: Hello World</a></td>
+<td>GitHub-specific workflows, 10-minute guide</td>
+</tr>
+<tr class="odd">
+<td><a href="https://skills.github.com/">GitHub Skills</a></td>
+<td>Interactive, browser-based practice for PRs, branches, GitHub Actions</td>
+</tr>
+<tr class="even">
+<td><a href="https://ohshitgit.com/">Oh Shit, Git!</a></td>
+<td>Plain-language fixes for common Git mistakes</td>
+</tr>
+<tr class="odd">
+<td><a href="https://book.the-turing-way.org/reproducible-research/vcs">The Turing Way: Version Control</a></td>
+<td>Research-focused perspective on version control best practices</td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content">Zenodo + GitHub integration</a></td>
+<td>How to get a citable DOI for your code/data repository</td>
+</tr>
+<tr class="odd">
+<td><a href="https://code.visualstudio.com/docs/sourcecontrol/overview">VS Code Git documentation</a></td>
+<td>GUI-based Git in VS Code</td>
+</tr>
+<tr class="even">
+<td><a href="https://happygitwithr.com/">RStudio Version Control guide</a></td>
+<td>“Happy Git with R” — the definitive R/RStudio + Git resource</td>
+</tr>
+</tbody>
+</table>
+<hr />
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="module-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="module-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/bioinformaticsdotca/RDM_To-2605/blob/main/020-module-2.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
