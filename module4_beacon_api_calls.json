@@ -1,0 +1,260 @@
+[
+  {
+    "v": 12,
+    "name": "ICHANGE Beacon",
+    "folders": [],
+    "requests": [
+      {
+        "v": "17",
+        "name": "/info",
+        "method": "GET",
+        "endpoint": "https://ichange.bento.sd4h.ca/api/beacon/info",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      },
+      {
+        "v": "17",
+        "name": "/filtering_terms",
+        "method": "GET",
+        "endpoint": "https://ichange.bento.sd4h.ca/api/beacon/filtering_terms",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      },
+      {
+        "v": "17",
+        "name": "/individuals: ICHANGE HIST1H3B + DIPG",
+        "method": "POST",
+        "endpoint": "https://ichange.bento.sd4h.ca/api/beacon/individuals",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n    \"meta\": {\n        \"apiVersion\": \"2.0.0\"\n    },\n    \"query\": {\n        \"requestParameters\": {\n            \"g_variant\": {\n                \"start\": [\n                    \"26031817\"\n                ],\n                \"end\": [\n                    \"26032288\"\n                ],\n                \"referenceName\": \"6\",\n                \"assemblyId\": \"GRCH37\"\n            }\n        },\n        \"filters\": [\n            {\n                \"id\": \"disease\",\n                \"operator\": \"=\",\n                \"value\": \"Diffuse intrinsic pontine glioma – dipg\"\n            }\n        ]\n    }\n}"
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      }
+    ],
+    "auth": {
+      "authType": "none",
+      "authActive": true
+    },
+    "headers": [],
+    "variables": [],
+    "description": "",
+    "preRequestScript": "",
+    "testScript": ""
+  },
+  {
+    "v": 12,
+    "name": "Progenetix Beacon",
+    "folders": [],
+    "requests": [
+      {
+        "v": "17",
+        "name": "/info",
+        "method": "GET",
+        "endpoint": "https://progenetix.org/beacon/info",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      },
+      {
+        "v": "17",
+        "name": "/filtering_terms",
+        "method": "GET",
+        "endpoint": "https://progenetix.org/beacon/filtering_terms",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      },
+      {
+        "v": "17",
+        "name": "/individuals: Glioblastoma + CDKN2A deletion",
+        "method": "POST",
+        "endpoint": "https://progenetix.org/beacon/individuals",
+        "params": [],
+        "headers": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "active": true,
+            "description": ""
+          }
+        ],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"query\": {\n    \"requestParameters\": {\n      \"referenceName\": \"9\",\n      \"start\": [\n        21500000\n      ],\n      \"end\": [\n        21975098\n      ],\n      \"variantType\": \"DEL\"\n    },\n    \"filters\": [\n      {\n        \"id\": \"NCIT:C3058\"\n      }\n    ]\n  },\n  \"meta\": {\n    \"apiVersion\": \"v2.0\"\n  }\n}\n"
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      }
+    ],
+    "auth": {
+      "authType": "none",
+      "authActive": true
+    },
+    "headers": [],
+    "variables": [],
+    "description": "",
+    "preRequestScript": "",
+    "testScript": ""
+  },
+  {
+    "v": 12,
+    "name": "GDI Beacon",
+    "folders": [],
+    "requests": [
+      {
+        "v": "17",
+        "name": "/individuals: GDI TP53 + WGS + Congenital myopathy",
+        "method": "POST",
+        "endpoint": "https://gdi.bento.sd4h.ca/api/beacon/individuals",
+        "params": [],
+        "headers": [],
+        "preRequestScript": "",
+        "testScript": "",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"meta\": { \"apiVersion\": \"2.0.0\" },\n  \"query\": {\n    \"requestParameters\": {\n      \"g_variant\": {\n  \"referenceName\": \"chr17\",\n  \"assemblyId\": \"GRCH37\",\n  \"geneId\": \"TP53\"\n}\n    },\n    \"filters\": [\n      { \"id\": \"experiment_type\", \"operator\": \"=\", \"value\": \"WGS\" },\n      { \"id\": \"diseases\", \"operator\": \"=\", \"value\": \"Congenital myopathy\" }\n    ]\n  }\n}"
+        },
+        "requestVariables": [],
+        "responses": {},
+        "description": null
+      }
+    ],
+    "auth": {
+      "authType": "none",
+      "authActive": true
+    },
+    "headers": [],
+    "variables": [],
+    "description": "",
+    "preRequestScript": "",
+    "testScript": ""
+  },
+  {
+    "v": 12,
+    "name": "RENATA",
+    "folders": [],
+    "requests": [
+      {
+        "v": "17",
+        "endpoint": "https://renata.bento.sd4h.ca/api/beacon/info",
+        "name": "/info",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        },
+        "requestVariables": [],
+        "responses": {}
+      },
+      {
+        "v": "17",
+        "endpoint": "https://renata.bento.sd4h.ca/api/beacon/individuals",
+        "name": "/individuals",
+        "params": [],
+        "headers": [],
+        "method": "POST",
+        "auth": {
+          "authType": "inherit",
+          "authActive": true
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"meta\": { \"apiVersion\": \"2.0.0\" },\n  \"query\": {\n    \"requestParameters\": {\n      \"g_variant\": {\n        \"referenceName\": \"chr17\",\n        \"start\": [ 7661778 ],\n        \"end\": [ 7687546 ],\n        \"assemblyId\": \"GRCH37\"\n      }\n    }\n  }\n}"
+        },
+        "requestVariables": [],
+        "responses": {}
+      }
+    ],
+    "headers": [],
+    "auth": {
+      "authType": "none",
+      "authActive": true
+    },
+    "variables": [],
+    "description": "",
+    "preRequestScript": "",
+    "testScript": ""
+  }
+]
