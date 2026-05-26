@@ -1,0 +1,7 @@
+{
+    "$schema":"./schema.json",
+    "firstName" : 1,
+    "age":"JoeExample",
+    "honorific":"Lord Paramount",
+    "diagnosis" : []
+}
