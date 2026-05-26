@@ -28,6 +28,8 @@ Mitchell Shiell serves as Product Manager and Outreach Lead for the Genome Infor
 
 #### Linda Xiang
 
+<img src="./img/faculty/LindaXiang.jpg" width="200" alt="Photo of Linda Xiang">
+
 >Data Scientist II <br>
 Ontario Institute for Cancer Research <br>
 Toronto, Ontario, Canada
