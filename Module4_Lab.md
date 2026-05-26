@@ -11,7 +11,7 @@ In this lab, we will:
 
 - [ ] Hoppscotch browser extension installed:
   - Chrome: open the Chrome Web Store and search **"Hoppscotch Browser Extension"**, then click **Add to Chrome**
-  - Firefox: open Firefox Add-ons (addons.mozilla.org) and search **"Hoppscotch Browser Extension"**, then click **Add to Firefox**
+  - Firefox: open Firefox Add-ons (addons.mozilla.org) and search **"Hoppscotch"**, then click **Add to Firefox**
   - After installing, pin the extension and make sure it is **enabled**
 - [ ] Hoppscotch interceptor set to the browser extension:
   1. Open https://hoppscotch.io
@@ -47,7 +47,7 @@ Notice the heterogeneity: the nodes cover different domains (rare disease, a COV
 
 In the **Metadata** panel, make sure the **"show all filters"** toggle is **OFF**. With it off, the only filter fields offered are **Age** and **Sex**.
 
-1. Click **Add Filter**, choose **Sex**, set the value to **FEMALE**.
+1. As a search criterion, choose **Sex**, set the value to **FEMALE**.
 2. Click **Search Network**.
 
 **Observations:**
@@ -177,7 +177,7 @@ Both are valid Beacon v2. A Beacon advertises exactly which fields/CURIEs it und
    ```
 3. The region on chromosome 9 (`chr9:21,500,000–21,975,098`, GRCh38) overlaps **CDKN2A**, a well-known tumour-suppressor gene that has been associated with glioblastoma in the cancer-genomics literature. Combining this region with the `DEL` (deletion) variant type and the clinical filter `NCIT:C3058` (the **Glioblastoma** CURIE you just confirmed in `/filtering_terms`) is an example of how a Beacon v2 query can mix genomic and clinical constraints in a single request. The clinical filter only resolves because the server advertised support for `NCIT:C3058` in its filtering terms.
 
-> **Where to look:** The match count is *not* in the long list of returned records. Scroll to the top of the response and find the **`responseSummary`** block; the number of individuals matching the query is the `numTotalResults` field there (some Beacons also echo it as `resultsCount`).
+> **Where to look:** The match count is *not* in the long list of returned records. Scroll through the response and find the **`responseSummary`** block; the number of individuals matching the query is the `numTotalResults` field there (some Beacons also echo it as `resultsCount`).
 
 **Observations:**
 - `resultsCount` / `numTotalResults`: ____
