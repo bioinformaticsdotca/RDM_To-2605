@@ -1186,7 +1186,7 @@ Let's create a few folders to track our results
 ```bash         
 mkdir schema_validation
 mkdir icd10_validation
-mkdir validation_results
+mkdir validation_result
 ```
 
 Check all folders are empty:
@@ -1194,7 +1194,7 @@ Check all folders are empty:
 ```bash         
 ls schema_validation
 ls icd10_validation
-ls validation_results
+ls validation_result
 ```
 
 We know we can validate our schema, for example using:
