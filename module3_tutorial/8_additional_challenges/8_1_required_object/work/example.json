@@ -1,0 +1,14 @@
+{
+    "$schema":"./schema.json",
+    "firstName": "Marguerite",
+    "lastName": "Tremblay",
+    "age": 34,
+    "icd10": "J45.5",
+    "honorific": "Mrs",
+    "country": "Canada",
+    "province/territory/state": "Quebec",
+    "occupation":{
+        "name" : "Bioinformatician",
+        "field" : ["Chemistry","Biology","Programming"]
+    }
+  }
