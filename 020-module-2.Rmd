@@ -116,7 +116,8 @@ By the end of this module, participants will be able to:
   - Pull requests
 
 ### Lecture Slides
-The lecture slide deck can be [found here](https://docs.google.com/presentation/d/14uIRZa8Ye4iJsJQ0Fbd2Wgdi7CBV8Hqf/edit?usp=drive_link&ouid=113327781667376325096&rtpof=true&sd=true)
+
+<iframe src="https://docs.google.com/presentation/d/14uIRZa8Ye4iJsJQ0Fbd2Wgdi7CBV8Hqf/preview" width="640" height="480" allow="autoplay"></iframe>
 
 ---
 

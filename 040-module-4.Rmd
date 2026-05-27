@@ -4,7 +4,8 @@
 **Total Time: 60 min | Lecture: 20 min | Lab: 40 min**
 
 ## Lecture
-[Slides](https://docs.google.com/presentation/d/13CDntt_atlc9xo8jo8dHur8vELEOut8y45jJqmFyzk8/)
+
+<iframe src="https://docs.google.com/presentation/d/13CDntt_atlc9xo8jo8dHur8vELEOut8y45jJqmFyzk8/preview" width="640" height="480" allow="autoplay"></iframe>
 
 ## Lab
 [Module4_Lab.md](Module4_Lab.md)

@@ -6,7 +6,7 @@ editor_options: markdown: wrap: 72 ---
 
 ## Lecture
 
-<iframe src="https://docs.google.com/presentation/d/1LQkPNPvY0Xd3kM8A1Pic5T2ZQWv8R1cH2tAAh0SkcOo/preview" width="640" height="480" allow="autoplay"></iframe>
+<iframe src="https://docs.google.com/presentation/d/16sckbq3DLDylEqY2wIukc_Gfwh9JZHd_/preview" width="640" height="480" allow="autoplay"></iframe>
 
 ## Lab
 
