@@ -22,6 +22,12 @@ All code provided assumes you are working from a directory `module3_tutorial`
 
 Due to time constraints not all sections of the tutorial will be showcased. Participants are encouraged to explore and check out the sections on their own time.
 
+To get start clone the git repo:
+
+```
+git clone https://github.com/bioinformaticsdotca/RDM_To-2605.git
+```
+
 ### Sections covered:
 
 - 3.  Introducing Json
@@ -62,6 +68,7 @@ The following items are needed to fully benefit from the tutorial.
   - [ ] [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
   - [ ] [JSON](https://marketplace.visualstudio.com/items?itemName=Meezilla.json)
 - [ ] Git (covered in previous tutorials)
+  - pull the following repo : `git clone https://github.com/bioinformaticsdotca/RDM_To-2605.git`
 - [ ] jq
   - `sudo apt-get install jq`
 - [ ] check-jsonschema
