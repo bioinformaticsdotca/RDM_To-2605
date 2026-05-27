@@ -8,3 +8,4 @@
 
 ## Lab
 [Module4_Lab.md](Module4_Lab.md)
+[Lab on GitHub](https://github.com/bioinformaticsdotca/RDM_To-2605/blob/main/Module4_Lab.md)
