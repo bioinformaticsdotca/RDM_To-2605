@@ -100,6 +100,8 @@ By the end of this module, participants will be able to:
 
 ## Lecture (20 min)
 
+<iframe width="640" height="360" src="https://www.youtube.com/embed/S0kw9OB2Tf0?si=W9bYdt7YL_Rbec48" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ### Lecture Agenda
 - Intro to Version Control
   - Common Concerns

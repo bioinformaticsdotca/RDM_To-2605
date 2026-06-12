@@ -24,10 +24,6 @@ Welcome to the 2026 Reproducible Research: Essentials for Managing Your Data Can
 
 [You can find your pre-work here.](https://forms.gle/PAi62wQgs2UYizHY7)
 
-## Class Photo
-
-Coming soon! 
-
 ## Schedule
 
 ```{r schedule-loader, echo=FALSE, message=FALSE, warning=FALSE}

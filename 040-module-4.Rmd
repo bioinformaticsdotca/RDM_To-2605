@@ -1,9 +1,11 @@
-# Module 4 Lab: Discovering Data with GA4GH Standards
+# Module 4: Facilitating Discovery of your Datasets using Open Source Platforms and Standards
 **CBHC 2026 Workshop | Research Data Management | Instructor: David Bujold**
 
 **Total Time: 60 min | Lecture: 20 min | Lab: 40 min**
 
 ## Lecture
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/iImwAgq062g?si=BRB2ZE1VxWzv5BOT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <iframe src="https://docs.google.com/presentation/d/13CDntt_atlc9xo8jo8dHur8vELEOut8y45jJqmFyzk8/preview" width="640" height="480" allow="autoplay"></iframe>
 
